@@ -1,0 +1,279 @@
+:root {
+  /* Narcissistic Navy */
+  --navy-bg: #292c3d;
+  --navy: #1c1e29;
+
+  /* Grays */
+  --gray: #a5a5a5;
+  --martini: #f2f2f0;
+
+  /* Charcoal */
+  --charcoal-graphics: #808080;
+  --charcoal-text: #595959;
+  --charcoal: #2b2b2b;
+  --charcoal-line: #212121;
+  --charcoal-background: #2f303a;
+
+  /* Putty */
+  --putty-lighter-bg: #f4f6f8;
+  --putty-light-bg: #f0f2f5;
+  --putty-bg: #e0e5eb;
+  --putty-decorative: #d1d9e0;
+  --putty: #a2b1c1;
+  --putty-graphics: #758ca3;
+  --putty-text: #52657a;
+
+  /* Go-Go Green */
+  --green-light-bg: #e7fdf8;
+  --green: #10cc9e;
+  --green-graphics: #0da57f;
+  --green-text: #0a8566;
+
+  /* MakeOut Mint */
+  --mint-light-bg: #edf7f4;
+  --mint-bg: #e2f3ee;
+  --mint-decorative: #d1ebe3;
+  --mint: #b2ded1;
+
+  /* Cherry Red */
+  --red-light-bg: #fce8e8;
+  --red-bg: #fbdede;
+  --red-decorative: #f5a3a3;
+  --red: #e72323;
+
+  --r-heading-font: National;
+  --r-heading-text-transform: none;
+  --r-background-color: var(--putty-light-bg);
+  --r-link-color: var(--red);
+  --r-heading-color: var(--navy);
+}
+
+/* Control Arrows */
+
+aside.controls::before {
+  content: attr(data-name);
+  color: var(--putty-text);
+  font: 900 2rem/1 "Source Sans Pro";
+  white-space: nowrap;
+  position: absolute;
+  right: 7rem;
+  top: -3rem;
+  pointer-events: none;
+}
+
+.reveal .controls button .controls-arrow {
+  color: var(--putty-text);
+}
+
+.reveal .controls button:hover .controls-arrow {
+  color: currentColor;
+}
+
+/* Title */
+
+h1 {
+  --r-heading-line-height: 1;
+  text-align: left;
+  margin: 0;
+}
+
+.reveal h2 {
+  margin: 0;
+}
+
+h1 span {
+  display: block;
+}
+
+/* Layout */
+
+section .grid {
+  --cols: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  position: relative;
+}
+
+section .grid .grid-title {
+  grid-column: span var(--cols);
+}
+
+/* Scale */
+
+section .scale {
+  --scale: 0;
+  width: calc(100% + calc(var(--scale) * 1%));
+  margin-left: calc(var(--scale) * -0.5%);
+  position: relative;
+}
+
+iframe {
+  margin: 0;
+}
+
+/* Code Snippets */
+
+p code {
+  background: #444;
+  font-size: 0.7em;
+  padding: 0.1em 0.5em;
+  border-radius: 8px;
+  color: #10cc9e;
+}
+
+.reveal pre code {
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.has-light-background p code {
+  background-color: #eeeeee;
+  color: #0a8566;
+}
+
+code.hljs {
+  background: var(--navy-bg);
+}
+
+span.hljs-attribute {
+  color: #10cc9e;
+}
+
+span.hljs-selector-class {
+  color: #b2ded1;
+}
+
+span.hljs-selector-tag {
+  color: #f5a3a3;
+}
+
+span.hljs-keyword {
+  color: #f5a3a3;
+}
+
+li strong {
+  color: #f5a3a3;
+}
+
+/* Code Snippets */
+
+.figma-frame {
+  --bg: var(--navy-bg);
+  --c: var(--putty-text);
+  padding: 3rem;
+  background: var(--bg);
+  border: 1px solid var(--c);
+  position: relative;
+  margin: auto;
+  display: inline-block;
+}
+
+.figma-frame::before {
+  content: attr(data-name);
+  display: block;
+  padding: 1rem 0;
+  color: var(--c);
+  font: 400 0.65rem/1 "Source Sans Pro";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+}
+
+.shadow {
+  box-shadow: 0 0 24px hsl(0deg 0% 0% / 15%);
+}
+
+/* Timeline */
+
+.fragment-timeline figure {
+  position: absolute;
+  left: 0;
+  height: 18vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transform-origin: 0 0;
+}
+
+.fragment-timeline img {
+  object-fit: contain;
+  margin: 0;
+}
+
+.reveal
+  .slides
+  section
+  .fragment-timeline
+  .fragment.visible:not(.current-fragment) {
+  filter: blur(2px) brightness(0.35);
+}
+
+.reveal .slides section .fragment-timeline .fragment.visible:nth-of-type(2) {
+  transform: scale(1.2) translateX(10rem) translateY(0vw);
+}
+
+.reveal .slides section .fragment-timeline .fragment.visible:nth-of-type(3) {
+  transform: scale(1.3) translateX(15rem) translateY(0vw);
+}
+
+.reveal .slides section .fragment-timeline .fragment.visible:nth-of-type(4) {
+  transform: scale(1.4) translateX(20rem) translateY(0vw);
+}
+
+.reveal .slides section .fragment-timeline figcaption {
+  font-family: "National";
+  font-weight: 900;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Table of Contents */
+
+.table-contents {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1;
+  grid-gap: 0.5rem 0;
+  transition: all 1s ease-out 0s;
+}
+
+.table-contents .title {
+  --r-heading-line-height: 1;
+  --r-heading-margin: 0;
+  color: var(--red);
+  padding: 0 6rem 1rem 0;
+}
+
+.reveal .slides section .table-contents .fragment.visible,
+.reveal .slides section .table-contents .fragment.visible.current-fragment {
+  color: white;
+}
+
+.reveal .slides section .table-contents .fragment.visible:not(.current-fragment) {
+  color: white;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+
+.reveal .slide-background.present video {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+}
+
+.reveal .slide-background.present video.fade-out {
+  opacity: 0.1;
+}
+
+[data-name="Look & Feel"] .fragment:first-child {
+  transform: scale(1.5);
+  transform-origin: -50% 50%;
+}
+
+[data-name="Look & Feel"] .fragment.visible:not(.current-fragment):first-child {
+  transform: scale(1);
+  transform-origin: 0% 50%;
+}

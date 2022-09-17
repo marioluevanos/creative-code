@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Aiming for Pixel Perfect UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dist/fonts.css" />
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" />
+    <link rel="stylesheet" href="presentation.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-background-color="var(--navy)"
+          data-background-image="assets/cover.png"
+          data-background-position="0 0"
+        >
+          <header class="figma-frame" data-name="TechTalk #4">
+            <h1>
+              <span>Aiming for</span>
+              <span>Pixel Perfect</span>
+              <span>UI</span>
+            </h1>
+          </header>
+          <aside class="notes">
+            <strong>Definition of Pixel Perfect</strong><br />
+            Depends on the context:
+            <ul>
+              <li>
+                Scaling the design either up or down, where the design is crisp
+                and clear.
+              </li>
+              <li>Implementing pixel perfect HTML & CSS</li>
+              <li>Uniform UI & UX across browsers</li>
+            </ul>
+            <strong
+              >The question is: Is pixel-perfect realistic? How has it
+              changed?</strong
+            >
+          </aside>
+        </section>
+
+        <section>
+          <div class="grid scale" style="--scale: 20">
+            <figure>
+              <img src="assets/ui-design.png" class="shadow" />
+              <figcaption>
+                Design
+                <img
+                  src="assets/figma.svg"
+                  style="margin: 0.5rem auto 0; display: block"
+                />
+              </figcaption>
+            </figure>
+            <figure>
+              <img src="assets/ui-html-css.png" class="shadow" />
+              <figcaption>
+                HTML & CSS
+                <img
+                  src="assets/chrome.svg"
+                  style="margin: 0.5rem auto 0; display: block"
+                />
+              </figcaption>
+            </figure>
+          </div>
+          <aside class="notes">
+            <strong>Do you notice any differences?</strong> Here are some of
+            them:<br />
+            <ul>
+              <li>The hero height</li>
+              <li>Vertical alignment</li>
+              <li>The number of cards per row</li>
+            </ul>
+            These can difference can compound and over time it's "death by a
+            thousand cuts."<br />
+            But is it reality imperfect, what did we miss and how can we deliver
+            with more precision?
+          </aside>
+        </section>
+
+        <section data-background-color="var(--putty)">
+          <div class="scale" style="--scale: 1.5">
+            <p style="font-weight: 300">
+              🥩 &nbsp; when stakeholders give feedback &nbsp; 🥩
+            </p>
+            <img
+              src="assets/meme-1.jpeg"
+              style="
+                display: block;
+                margin: auto;
+                border: 10px solid white;
+                box-shadow: 0 10px 60px rgba(0, 0, 0, 0.1);
+              "
+            />
+          </div>
+        </section>
+
+        <section data-background-color="var(--red)">
+          <div
+            class="table-contents figma-frame"
+            data-name="Agenda"
+            style="--bg: hsl(0, 80%, 45%); --c: hsl(0, 80%, 75%)"
+          >
+            <h3 class="title fragment">Web Interfaces</h3>
+            <h3 class="title fragment">Look & Feel</h3>
+            <h3 class="title fragment">&lt;Components/&gt;</h3>
+            <h3 class="title fragment">
+              Tips for Developers <br />& Designers
+            </h3>
+          </div>
+          <aside class="notes">
+            The Agenda for this talk.<br />
+            - Web Interfaces<br />
+            - Look & Feel<br />
+            - Byte Component<br />&nbsp;&nbsp;&nbsp;&nbsp;Reviewing the Byte
+            component<br />
+            <ul style="margin: 0">
+              <li>variations</li>
+              <li>context</li>
+            </ul>
+            - Tips for Developers & Designers.
+          </aside>
+        </section>
+
+        <section
+          data-background-color="var(--navy)"
+          data-name="Web Interfaces"
+          data-background-video="assets/time-portal.mp4"
+          data-background-size="cover"
+          data-background-video-loop="true"
+          data-background-opacity="1"
+        >
+          <div class="grid scale fragment-timeline" style="--cols: 4">
+            <figure class="fragment">
+              <img src="assets/timeline-begin.png" />
+              <figcaption>1996&ndash;97</figcaption>
+            </figure>
+            <figure class="fragment">
+              <img src="assets/timeline-web2.0.png" />
+              <figcaption>1999</figcaption>
+            </figure>
+            <figure class="fragment">
+              <video
+                style="clip-path: inset(0 0 9% 0); max-width: 28 rem"
+                preload
+                loop="loop"
+                muted
+                playsinline
+                width="100%"
+                height="100%"
+              >
+                <source src="assets/timeline-iphone.mp4" type="video/mp4" />
+              </video>
+              <figcaption>2007</figcaption>
+            </figure>
+            <figure class="fragment">
+              <img src="assets/timeline-today.gif" />
+              <figcaption>Today</figcaption>
+            </figure>
+          </div>
+          <aside class="notes">
+            We're going to take a look how we got here and teleport back.
+            <ul>
+              <li>
+                <strong>The birth of table based layouts appear</strong>
+                The year when web site designers and authors realised the layout
+                opportunities offered by tables.
+                <br />DHTML (HTML CSS, JS), IE 4.0, Dreamweaver 1, table based
+                layouts.
+              </li>
+              <li>
+                <strong>The term Web 2.0 is coined by</strong> <br />Darcy
+                DiNucci published an article entitled "Fragmented Future" in the
+                Print magazine. Which meant a focus on usability, interface, and
+                readability. Around this time, resolutions were between 800x600
+                and 1024x768. A desktop design was enough.
+              </li>
+              <li>
+                <strong>iPhone 1</strong><br />Steve Jobs introduced the first
+                iPhone smartphone model. The phone included the Safari web
+                browser, allowing users to surf the web at ease. This was IMO,
+                the event that pivoted towards the direction we are in.
+              </li>
+              <li>
+                <strong>Today</strong><br />Responsive web has many more
+                concerns like
+                <ul>
+                  <li>
+                    Device type (desktop, laptop, tablet, phone, watch...)
+                  </li>
+                  <li>Screen size / window size</li>
+                  <li>Screen pixel density</li>
+                  <li>Screen technology (OLED, LCD, CRT, E-ink)</li>
+                  <li>User zoom level / default font size</li>
+                  <li>
+                    Performance (device hardware, server load, network
+                    speeds...)
+                  </li>
+                  <li>Device color correction (eg. Night Mode)</li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+        </section>
+
+        <!-- <section data-name="Look & Feel">
+          <div class="grid scale" style="--scale: 20">
+            <figure class="fragment">
+              <img src="assets/look-feel-byte.png" />
+            </figure>
+            <figure class="fragment">
+              <img src="assets/look-feel-og.png" />
+            </figure>
+          </div>
+          <aside class="notes">
+            <strong>Before diving into examples: Let's define "Look & Feel".</strong><br>
+            - 1. A mockup of SmileDirectClub as Byte.<br>
+            - 2. SmileDirectClub<br><br>
+            <strong>Look</strong> is defined by how the UI appears, scannable, readable, with a branding treatment to visually identify<br>
+            <strong>Feel</strong> means how it functions, usefulness, the interactivity, how it responds.<br><br>
+          </aside>
+        </section> -->
+
+        <!-- <section data-name="Look & Feel">
+          Hopefully one more Look & Feel example
+        </section> -->
+
+        <section data-name="Components" data-background-color="white">
+          <section>
+            <figure>
+              <img src="assets/byte-components.png" />
+            </figure>
+            <aside class="notes">
+              Describe details of Component Library
+              <ul>
+                <li>thin and light borders</li>
+                <li>open and closed states</li>
+                <li>input fields</li>
+                <li>day night play badges</li>
+              </ul>
+            </aside>
+          </section>
+
+          <section
+            data-background-iframe="frames/order-summary.html?v=broken"
+            data-index="os-broken"
+          >
+            <aside class="notes">
+              <p>These inconsistencies can differ depending on:</p>
+              <ul>
+                <li>The design</li>
+                <li>Project timeline</li>
+                <li>The developer’s design and CSS skills</li>
+                <li>Good attention to detai</li>
+              </ul>
+              <br /><br />
+              Lets look at Ways to correct small inconsistencies in the designs.
+              It saves time for both developers and designers to agree on how to
+              read the mistakes of the designs.
+            </aside>
+          </section>
+        </section>
+
+        <section data-name="Developer Tips" data-background-color="var(--navy)">
+          <section
+            data-background-position="0 0"
+            data-background-iframe="frames/conic-gradient.html"
+          >
+            <h2
+              class="figma-frame"
+              data-name="TechTalk #4"
+              style="text-align: left"
+            >
+              &lt;Developer Tips/&gt;
+            </h2>
+          </section>
+          <section
+            data-background-video="assets/attention-to-detail.mp4"
+            data-background-video-loop
+            data-background-video-muted
+          >
+            <aside class="notes">
+              Train Your Eye To Attention For Detail
+              <ul>
+                <li>
+                  Look for patterns that are deliberate, where a developer can
+                  take note of where resuable code blocks are a possibility.
+                </li>
+                <li>
+                  Account variations in size. What happens to this component when
+                  a user is on the largest display? Or the smallest?
+                </li>
+                <li>
+                  When reading the white space between elements, expect numbers
+                  that are derrived from the base font size which we know to be
+                  16px or 1em in all browsers and is the base for most design
+                  patterns.
+                </li>
+                <li>
+                  Check if state is applicable, like in buttons and inputs, and
+                  apply it for optimized user experience.
+                </li>
+                <li>
+                  On the HTML Buttons and Inputs, making sure the font is set or
+                  inherited.
+                </li>
+                <li>
+                  Holistically, we want to check for the overlay look and feel,
+                  of a brand or product. Does this match the look and feel? And
+                  aiming for a positive user experience.
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section style="text-align: left">
+            <h2>Responsive CSS units</h2>
+            <iframe
+              style="
+                border-radius: 1rem;
+                max-width: none;
+                margin: 0.5rem 0 0 0;
+                width: 100%;
+                min-height: 370px;
+              "
+              src="/frames/responsive-units.html"
+            ></iframe>
+            <pre style="width: 100%">
+              <code data-trim data-noescape class="language-css">
+              .heading-h1 {
+                font-size: clamp(48px, 5vw, 72px);
+              }
+              </code>
+            </pre>
+            <aside class="notes">
+              <ul>
+                <li>
+                  <strong>em</strong> (2em means 2 times the size of the current
+                  font)
+                </li>
+                <li><strong>rem</strong> relative to root</li>
+                <li>
+                  <strong>vw:</strong> the percentage of the browser’s width
+                </li>
+                <li>
+                  <strong>vh:</strong> the percentage of the browser’s height
+                </li>
+                <li>
+                  <strong>vmin:</strong> the minimum percentage of browser’s
+                  height or width, the smallest value of both
+                </li>
+                <li>
+                  <strong>vmax:</strong> the maximum percentage of browser’s
+                  height or width, the smallest value of both
+                </li>
+                <li><strong>%</strong>: Relative to the parent element</li>
+                <li>
+                  <strong>ex</strong>: Relative to the x-height of the current
+                  font
+                </li>
+                <li><strong>ch</strong>: Relative to the width of zero</li>
+              </ul>
+              <p><strong>Absolute units</strong></p>
+              <ul>
+                <li>px - Pixels</li>
+                <li>pt - Point - points (1pt = 1/72 of 1in)</li>
+                <li>pc - Picas - equivalent to 12 points</li>
+                <li>in - Inch - inches (1in = 96px = 2.54cm)</li>
+                <li>cm - Centimeter</li>
+                <li>mm - Millimeter</li>
+              </ul>
+            </aside>
+          </section>
+          <section style="text-align: left">
+            <h2>Spacing</h2>
+            <iframe
+              style="
+                border-radius: 1rem;
+                max-width: none;
+                margin: 0;
+                width: 100%;
+                min-height: 670px;
+              "
+              src="/frames/spacing.html"
+            ></iframe>
+            <aside class="notes">
+              <p>
+                Spacing increments are based on an 8px grid, but we do allow for
+                4px or 2x smaller increments when needed, most likely in inner
+                grids (that is the spacing and padding inside a component).
+              </p>
+              <p>
+                For stacking elements and modules refer to stacking or slotted
+                components. Spacing can vary per stylistic-design needs, so you
+                can use a 2px increment to get the right vertical spacing in
+                your components.
+              </p>
+              <p>
+                Component width is defined either by contest or by grid
+                alignment (see Grids for reference)Here is a list of different
+                spacing, some are tokenized: they have names such as “s”, “xl”;
+                others are defined as a multiple of 16px which is our base em
+                size.
+              </p>
+            </aside>
+          </section>
+          <section>
+            <h2>CSS Modern Queries</h2>
+            <pre style="width: 100%">
+              <code data-trim data-noescape class="language-css">
+              .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              }
+              </code>
+            </pre>
+            <pre style="width: 100%">
+              <code data-trim data-noescape class="language-css">
+                &lt;section class="grid"&gt;
+                  &lt;div&gt;&lt;/div&gt;
+                  &lt;div&gt;&lt;/div&gt;
+                  &lt;div&gt;&lt;/div&gt;
+                  &lt;div&gt;&lt;/div&gt;
+                &lt;/section&gt;
+              </code>
+            </pre>
+            
+            <iframe
+              style="width: 100%; min-height: 300px"
+              src="/frames/css-grid.html"
+            ></iframe>
+          </section>
+
+          <section
+            data-background-video="assets/extensions.mp4"
+            data-background-video-loop
+            data-background-video-muted
+          >
+          <aside class="notes">
+            <h2>Use browsers tools & extensions</h2>
+          </aside>
+          </section>
+        </section>
+
+        <section
+          data-name="Designer Tips"
+          data-background-color="var(--putty-light-bg)"
+        >
+          <section>
+            <h2>Designer Tips</h2>
+          </section>
+          <section>
+            <img src="assets/consistent.png">
+            <aside class="notes">
+              Keep Spacing And Sizes Consistent.
+            </aside>
+          </section>
+          <section>
+            <img src="assets/design-states.png"/>
+            <aside class="notes">
+              Work On The States Of A Component.<br>
+              And now coming into fruition,
+              light mode. Do my users use my app at night?
+            </aside>
+          </section>
+          <section>
+            <img src="assets/real-content.png"/>
+            <aside class="notes">
+              Use Real Content As Often As Possible If You Can
+            </aside>
+          </section>
+          <section>
+            <img src="assets/communicate.png">
+            <aside class="notes">
+              Communicate As Early As Possible
+            </aside>
+          </section>
+        </section>
+
+        <section
+          data-background-iframe="frames/order-summary.html"
+          data-index="os-fixed"
+          data-background-color="white"
+        >
+          <aside class="notes">
+            <p>Deciding If A Coded Result Is Perfect Or Not</p>
+          </aside>
+        </section>
+
+
+        <section data-background-image="assets/one-more-thing.gif">
+          <aside class="notes">
+            <h2>Introduce Tokenization</h2>
+          </aside>
+        </section>
+
+        <section data-name="Demo" data-background-color="var(--white)">
+          <h4>Tokens</h4>
+          <a href="https://www.style-dictionary-play.dev/" target="_blank">Playground</a>
+          <pre style="width: 100%">
+            <code data-trim data-noescape class="language-json">
+              {
+                "size": {
+                  "padding": {
+                    "tiny"     : { "value": "0.25" },
+                    "small"    : { "value": "0.5" },
+                    "medium"   : { "value": "1" },
+                    "large"    : { "value": "1.5" },
+                    "xl"       : { "value": "2" },
+                    "xxl"      : { "value": "3" },
+                    "base"     : { "value": "{size.padding.medium.value}" }
+                  }
+                }
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section data-name="El Fin">
+          <img src="assets/meme-2.jpeg" />
+          <aside class="notes">Thanks!</aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="presentation.js"></script>
+  </body>
+</html>

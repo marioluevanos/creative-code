@@ -1,0 +1,131 @@
+:root {
+  /* Narcissistic Navy */
+  --navy-bg: #292c3d;
+  --navy: #1c1e29;
+
+  /* Grays */
+  --gray: #a5a5a5;
+  --martini: #f2f2f0;
+
+  /* Charcoal */
+  --charcoal-graphics: #808080;
+  --charcoal-text: #595959;
+  --charcoal: #2b2b2b;
+  --charcoal-line: #212121;
+  --charcoal-background: #2f303a;
+
+  /* Putty */
+  --putty-lighter-bg: #f4f6f8;
+  --putty-light-bg: #f0f2f5;
+  --putty-bg: #e0e5eb;
+  --putty-decorative: #d1d9e0;
+  --putty: #a2b1c1;
+  --putty-graphics: #758ca3;
+  --putty-text: #52657a;
+
+  /* Go-Go Green */
+  --green-light-bg: #e7fdf8;
+  --green: #10cc9e;
+  --green-graphics: #0da57f;
+  --green-text: #0a8566;
+
+  /* MakeOut Mint */
+  --mint-light-bg: #edf7f4;
+  --mint-bg: #e2f3ee;
+  --mint-decorative: #d1ebe3;
+  --mint: #b2ded1;
+
+  /* Cherry Red */
+  --red-light-bg: #fce8e8;
+  --red-bg: #fbdede;
+  --red-decorative: #f5a3a3;
+  --red: #e72323;
+}
+
+@font-face {
+  font-family: 'National';
+  src: url('//cdn.shopify.com/s/files/1/0065/0942/8788/t/97/assets/National-Semibold.woff2?v=180518922024485461191662051397') format('woff2');
+  font-weight: 700;
+  font-display: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'National';
+  src: url('//cdn.shopify.com/s/files/1/0065/0942/8788/t/97/assets/National-Black.woff2?v=124772976675450584191662051394') format('woff2');
+  font-weight: 900;
+  font-display: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'National';
+  src:    url('//cdn.shopify.com/s/files/1/0065/0942/8788/t/97/assets/National-Regular.woff2?v=47476460019576470731662051396') format('woff2'),
+          url('//cdn.shopify.com/s/files/1/0065/0942/8788/t/97/assets/National-Regular.woff?v=81147142307666799341662051396') format('woff');
+  font-weight: 400;
+  font-display: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'National';
+  src: url('//cdn.shopify.com/s/files/1/0065/0942/8788/t/97/assets/National-BlackItalic.woff2?v=17135354541223522071662051395') format('woff2');
+  font-weight: 900;
+  font-display: auto;
+  font-style: italic;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Source Sans Pro';
+}
+
+blockquote {
+  font-family: National;
+  font-style: italic;
+  font-size: 3rem;
+}
+
+.button {
+  font: 700 15px/1 "Source Sans Pro";
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  color: var(--navy);
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--navy);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  min-width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button .icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  position: relative;
+}
+
+.button .icon svg {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  inset: 0;
+}
+
+.button.fixed {
+  position: fixed;
+  bottom: 2rem;
+}
+
+.button.toggled {
+  opacity: 0.3;
+}
