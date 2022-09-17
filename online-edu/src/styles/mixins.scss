@@ -1,0 +1,16 @@
+@mixin truncate_text($maxLine) {
+  display: -webkit-box;
+  -webkit-line-clamp: $maxLine;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin hide-scrollbars() {
+  // Hide scrollbars
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+  }
+}

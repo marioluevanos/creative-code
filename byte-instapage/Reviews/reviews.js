@@ -1,0 +1,1142 @@
+(function () {
+  document.addEventListener("DOMContentLoaded", init);
+  const id = "reviews";
+
+  function init() {
+    const [head] = document.getElementsByTagName("head");
+    [
+      {
+        url: "https://cdn.shopify.com/s/files/1/0075/0505/1719/files/fonts.css?v=1662656892",
+        id: "byte-fonts",
+      },
+      {
+        url: "https://cdn.shopify.com/s/files/1/0075/0505/1719/files/global.css?v=1663029604",
+        id: "byte-global",
+      },
+    ].forEach(linkStylesheet.bind(head));
+
+    insertComponent.call(head);
+    loadReviews();
+  }
+
+  async function loadReviews() {
+    const target = document.querySelector(`[data-component="${id}"]`);
+    if (!target) return;
+
+    const jsonData = await getData();
+    const reviewsJSON = jsonData.reduce((all, e) => {
+      all[e.Filter]= e.JSON;
+      return all;
+    }, {})
+    
+    window.theme = {};
+    window.theme.reviewsJSON = reviewsJSON;
+    window.theme.reviewsExcludedSources = target.dataset.exclude;
+    window.theme.reviewsMinimumReviews = target.dataset.minReviews;
+    window.theme.reviewsDisplayTotal = target.dataset.displayTotal;
+    window.theme.metricsAPI = "default";
+    window.theme.reviewMetrics = target.dataset.metricsUrl;
+    console.log(target.dataset.metricsUrl);
+
+    new Reviews({
+      container: document.querySelector("[data-review-cards-container]"),
+    });
+
+    function getBackupData() {
+      return {
+        all: "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/all081522.json?v=1660599630",
+        speed:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/speed_0822.json?v=1659632691",
+        "customer service":
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/customerservice081522.json?v=1660599992",
+        comfort:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/comfort_0822.json?v=1659632690",
+        convenience:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/convenience_0822.json?v=1659632690",
+        hyperbyte:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/hyperbyte081522.json?v=1660599992",
+        affordability:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/affordability_e89e8d22-d885-471a-a1ee-7e0099d43d74.json?v=1654265398",
+        whitening:
+          "https://cdn.shopify.com/s/files/1/0065/0942/8788/files/whitening081522.json?v=1660599992",
+      };
+    }
+
+    async function getServerData() {
+      try {
+        const response = await fetch(
+          "https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=reviews"
+        );
+        if (response.ok) {
+          return await response.json();
+        }
+        return Promise.resolve([]);
+      } catch (error) {
+        return Promise.reject([]);
+      }
+    }
+
+    async function getData() {
+      const data = await getServerData();
+      if (Array.isArray(data)) {
+        return data;
+      }
+
+      console.warn(
+        "There is a problem fetching sever data for <CompareTable/>",
+        data
+      );
+      return getBackupData();
+    }
+  }
+
+  function insertComponent() {
+    const targets = document.querySelectorAll(`[data-component="${id}"]`);
+    targets.forEach((t) => {
+      t.insertAdjacentHTML("afterbegin", html());
+      if (!document.getElementById(`${id}-css`)) {
+        this.insertAdjacentHTML("beforeend", css());
+      }
+    });
+  }
+
+  function linkStylesheet(css) {
+    const stylesheet = document.getElementById(css.id);
+    if (!stylesheet) {
+      this.insertAdjacentHTML(
+        "beforeend",
+        `<link id="${css.id}" rel="stylesheet" type="text/css" href="${css.url}"/>`
+      );
+    }
+  }
+
+  function css() {
+    return `
+		<style id='${id}-css'>
+		  *{box-sizing:border-box}.reviews-new{position:relative;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:block !important;padding:3rem 0}.reviews-new.gray{display:block !important;background:#f6f7f9}.reviews-new .reviews-intro{text-align:center}.reviews-new .reviews-intro .reviews-title{margin:0;padding:2.5rem 0 1rem}@media(min-width: 769px){.reviews-new .reviews-intro .reviews-title{padding-bottom:2rem}}.reviews-new .reviews-intro .reviews-subtitle{font-size:24px;display:none;font-family:"National",helvetica,arial,sans-serif;margin:-8px 0 8px}@media(min-width: 769px){.reviews-new .reviews-intro .reviews-subtitle{display:block}}.reviews-new .reviews-intro .review-stars{-ms-flex-pack:center;justify-content:center}.reviews-new .reviews-intro #review-average{margin:1em auto 0;font-size:16px;position:relative;display:inline-block}@media(min-width: 769px){.reviews-new .reviews-intro #review-average{font-size:24px;margin:.5rem auto 0}}.reviews-new .reviews-intro #review-average sup{vertical-align:super}.reviews-new .reviews-intro .review-disclamer{margin:1em auto 0;color:#2b2b2b;font-size:12px}@media(min-width: 769px){.reviews-new .reviews-intro .review-disclamer{margin:0;font-size:16px}}.review-filter-tags{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:start;justify-content:flex-start;-ms-flex-direction:column;flex-direction:column;padding:1.5em 0}.reviews-new .review-tags{padding:16px 0;margin:0;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;display:none}@media(min-width: 769px){.reviews-new .review-tags{padding:0;display:-ms-flexbox;display:flex}}.reviews-new .review-tags.active{display:-ms-flexbox;display:flex}.reviews-new .review-tags .review-tag{margin:4px 2px}@media(min-width: 769px){.reviews-new .review-tags .review-tag{margin:4px}}#filter-review-btn{background:#fff;border:1px solid #1c1e29;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-align:center;align-items:center}@media(min-width: 769px){#filter-review-btn{display:none}}#filter-review-btn svg{width:16px;height:16px;margin-left:4px;transition:all .2s;pointer-events:none}@media(hover: hover){#filter-review-btn:hover{background:#1c1e29;color:#fff}#filter-review-btn:hover svg{-webkit-transform:scaleY(1);transform:scaleY(1);fill:#fff}}#filter-review-btn.active svg{-webkit-transform:scaleY(-1);transform:scaleY(-1)}.review-cards-container{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.reviews-new .review-card{--width: 100%;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:justify;justify-content:space-between;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;min-height:290px;background-color:#fff;border-radius:10px;border-style:solid;border-width:1px;text-align:left;border-color:#d1d9e0;padding:1em 1.5em;margin:0 0 .5em 0;width:100%}@media(min-width: 769px){.reviews-new .review-card{--width: 50%;width:calc(var(--width) - 1.5em);margin:.5em .75em}}@media(min-width: 1024px){.reviews-new .review-card{--width: 33.33%}}.reviews-new .review-card .card-stars{padding-bottom:10px}.reviews-new .review-card .card-header{margin-bottom:8px}.reviews-new .review-card .customer-review-text{display:inline}.reviews-new .review-card .customer-review-text em{color:#a5a5a5}.reviews-new .review-card .review-source::before{content:"Source: "}.reviews-new .review-card .review-source a:hover{text-decoration:none}.reviews-new .review-card .reviews-read-more{display:-ms-inline-flexbox;display:inline-flex;-ms-flex-align:center;align-items:center}.reviews-new .review-card .reviews-read-more>*{pointer-events:none}.reviews-new .review-card .reviews-read-more .see-more-chevron{width:16px;height:16px}.reviews-new .review-card .reviews-read-more.is-expanded{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.reviews-new .review-card .reviews-read-more.is-expanded .see-more-chevron{-webkit-transform:scaleX(-1);transform:scaleX(-1)}.reviews-new .review-card .hide{display:none}.reviews-new .review-card .review-site-info{font-size:14px;margin:8px 0;display:-ms-flexbox;display:flex;color:#2b2b2b}.reviews-new .review-card .review-site-info a{color:#2b2b2b}.reviews-new .review-card .review-site-info .review-site-info-space{margin:0 5px}.reviews-new .review-card .review-disclamer{display:block;margin:8px 0 12px;font-size:12px;line-height:18px;color:#2b2b2b}.reviews-new .review-card .review-customer-info{margin:0;display:grid;grid-template-columns:40px auto;position:relative}.reviews-new .review-card .customer-name{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:distribute;justify-content:space-around;margin-left:8px;color:#1c1e29;font-size:18px;font-weight:bold;text-transform:capitalize}.reviews-new .review-card .reviews-customer-icon{--size: 40px;border-radius:var(--size);font-size:24px;font-weight:600;background:#a2b1c1;color:#fff;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;min-width:var(--size);width:var(--size);height:var(--size);border-radius:var(--size);text-transform:uppercase;position:relative}.reviews-new .review-card .reviews-customer-icon img{width:100%;height:100%;position:absolute;-o-object-fit:cover;object-fit:cover;z-index:1}.reviews-new.gray .review-card{border-color:rgba(0,0,0,0)}.review-card.is-loading{pointer-events:none}.review-card.is-loading svg.review-star path.star.off{fill:#e8ebef}.review-card.is-loading .customer-review-text,.review-card.is-loading .review-site-info span,.review-card.is-loading .review-site-info span a,.review-card.is-loading .review-disclamer,.review-card.is-loading .customer-name{color:rgba(0,0,0,0);border-radius:2px;background-color:rgba(0,0,0,0);background-image:linear-gradient(90deg, #f1f3f5 40%, #f7f8f9, #f1f3f5 60%, #f1f3f5 100%);background-size:400% 100%;background-position:100% 0%;-webkit-animation:loading 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;animation:loading 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite}.review-card.is-loading .reviews-read-more{display:none}.review-card.is-loading .reviews-customer-icon{color:rgba(0,0,0,0);background:#f1f3f5}@-webkit-keyframes loading{0%{background-position:100% 0%}100%{background-position:0% 0%}}@keyframes loading{0%{background-position:100% 0%}100%{background-position:0% 0%}}.reviews-cta{padding:.5em 0 3em;display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center}@media(min-width: 769px){.reviews-cta{display:none}}.reviews-see-more{width:100%;max-width:250px}.reviews-new .pagination{--size: 24px;display:none;-ms-flex-pack:center;justify-content:center;padding:16px 0 30px}@media(min-width: 769px){.reviews-new .pagination{display:-ms-flexbox;display:flex;grid-gap:0 8px}}.reviews-new .pagination button{font:700 15px/1 "SourceSansPro",helvetica,arial,sans-serif;padding:0;background:none;border:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.reviews-new .pagination button *{pointer-events:none}.reviews-new .pagination .page-number{width:var(--size);height:var(--size);line-height:var(--size);-ms-flex-pack:center;justify-content:center}.reviews-new .pagination .prev:hover,.reviews-new .pagination .next:hover{color:#e72323}.reviews-new .pagination .prev{margin-right:24px}.reviews-new .pagination .next{margin-left:24px}.reviews-new .pagination .next svg{-webkit-transform:scaleX(-1);transform:scaleX(-1)}.reviews-new .pagination .prev,.reviews-new .pagination .next,.reviews-new .pagination .page-number{height:var(--size);cursor:pointer;padding:0;display:-ms-flexbox;display:flex;font-size:15px;font-weight:700;-ms-flex-align:center;align-items:center;position:relative;z-index:1}.reviews-new .pagination .prev::before,.reviews-new .pagination .next::before,.reviews-new .pagination .page-number::before{content:"";position:absolute;width:var(--size);height:var(--size);background-color:#e72323;border-radius:var(--size);z-index:-1;opacity:0}.reviews-new .pagination .prev.active,.reviews-new .pagination .next.active,.reviews-new .pagination .page-number.active{color:#fff}.reviews-new .pagination .prev.active::before,.reviews-new .pagination .next.active::before,.reviews-new .pagination .page-number.active::before{opacity:1}.reviews-new .pagination .prev.disabled,.reviews-new .pagination .next.disabled,.reviews-new .pagination .page-number.disabled{opacity:.15;pointer-events:none}.reviews-new .pagination .page-number:hover{color:#fff}.reviews-new .pagination .page-number:hover:before{opacity:1}.reviews-new .pagination .page-number:active:before{background:#1c1e29}.reviews-new .pagination.inactive{opacity:0;pointer-events:none;visibility:hidden}.reviews-new .footnote{max-width:800px;padding-bottom:50px;text-align:center;display:block;margin:0 auto}@-webkit-keyframes star-animation{0%{fill:#b9c5d1;stroke:#b9c5d1;stroke-width:2;-webkit-transform:scale(1) rotate(-72deg);transform:scale(1) rotate(-72deg);opacity:1}50%{-webkit-transform:scale(1.25);transform:scale(1.25)}65%{-webkit-transform:scale(0.5);transform:scale(0.5)}80%{stroke:#e72323;-webkit-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}100%{fill:#e72323;stroke:#e72323;-webkit-transform:scale(1) rotate(0deg);transform:scale(1) rotate(0deg)}}@keyframes star-animation{0%{fill:#b9c5d1;stroke:#b9c5d1;stroke-width:2;-webkit-transform:scale(1) rotate(-72deg);transform:scale(1) rotate(-72deg);opacity:1}50%{-webkit-transform:scale(1.25);transform:scale(1.25)}65%{-webkit-transform:scale(0.5);transform:scale(0.5)}80%{stroke:#e72323;-webkit-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}100%{fill:#e72323;stroke:#e72323;-webkit-transform:scale(1) rotate(0deg);transform:scale(1) rotate(0deg)}}@-webkit-keyframes circle-animation{0%{-webkit-transform:scale(0);transform:scale(0);opacity:0}30%{-webkit-transform:scale(1.25);transform:scale(1.25);opacity:.3}60%{-webkit-transform:scale(1.75);transform:scale(1.75);opacity:.3}100%{-webkit-transform:scale(3);transform:scale(3);opacity:0}}@keyframes circle-animation{0%{-webkit-transform:scale(0);transform:scale(0);opacity:0}30%{-webkit-transform:scale(1.25);transform:scale(1.25);opacity:.3}60%{-webkit-transform:scale(1.75);transform:scale(1.75);opacity:.3}100%{-webkit-transform:scale(3);transform:scale(3);opacity:0}}.review-stars{--size: 18px;margin:.25em auto .5em;position:relative;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;grid-gap:0 calc(var(--size)/2)}svg.review-star{width:var(--size);height:var(--size);display:block;overflow:visible}svg.review-star path.star{stroke:rgba(0,0,0,0);stroke-width:0}svg.review-star path.star.on{fill:#e72323;opacity:0}svg.review-star path.star.off{fill:#d0d8e0}svg.review-star circle{-webkit-transform:scale(2);transform:scale(2);-webkit-transform-origin:center;transform-origin:center;opacity:0}svg.review-star *{-webkit-transform-origin:center;transform-origin:center}.loading-skeleton .review-star{fill:#b9c5d1}svg.review-star.animate-star .star.on{-webkit-animation:.6s star-animation ease-out;animation:.6s star-animation ease-out;-webkit-animation-delay:var(--delay, 0s);animation-delay:var(--delay, 0s);fill:#e72323;stroke:none;-webkit-transform:rotate(0deg) scale(1);transform:rotate(0deg) scale(1);opacity:1}svg.review-star.animate-star .star.on+circle{stroke:none;fill:#f9c4c4;-webkit-animation:circle-animation .6s cubic-bezier(0.47, 0, 0.745, 0.715) .25s;animation:circle-animation .6s cubic-bezier(0.47, 0, 0.745, 0.715) .25s}svg.review-star.filled .star.on{opacity:1;transition:none}
+		<style>
+		`;
+  }
+
+  function html() {
+    return `
+			<section class="reviews-new ">
+				<div class="container">
+					<div class="reviews-intro" data-reviews-intro="">
+						<h2 class="reviews-title h3">Smiling Reviews</h2>
+						
+						<p id="review-average" data-review-average="">
+							<b class="average">4.7</b> rating out of <span class="total">3793</span> reviews<sup>**</sup>
+						</p>
+						<p class="review-disclamer">Reviews include ones where known purchasers were given a free product in exchange for their honest opinion.</p>
+					</div>
+			
+					<div class="review-filter-tags">
+						<button id="filter-review-btn" data-review-filter-btn="" class="tab review-tag">
+							Filter Reviews
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+								<path d="M12,5l1,1l-5,5L3,6l1-1l4,4L12,5z"></path>
+							</svg>
+						</button>
+						<div class="review-tags product--tags" data-review-tags=""></div>
+					</div>
+			
+					<div class="review-cards-container" data-review-cards-container="" data-mobile_per_page="3" data-desktop_per_page="6"></div>
+			
+					<div class="reviews-cta">
+						<button class="reviews-see-more button black-outline next" data-reviews-more-btn="">See More Reviews</button>
+					</div>
+			
+					<div class="pagination" data-reviews-pagination=""></div>
+					<small class="footnote">
+						<sup>**</sup>Overall rating is based on aggregate reviews from <a href="https://www.google.com/maps?cid=15390092772615099997" target="_blank" rel="noopener">Google</a>, <a href="https://www.trustpilot.com/review/byteme.com" target="_blank" rel="noopener">TrustPilot</a>, <a href="https://www.bbb.org/us/ca/los-angeles/profile/dental-services/byte-1216-1077441" target="_blank" rel="noopener">BBB</a>, <a href="https://www.consumeraffairs.com/health/byte.html" target="_blank" rel="noopener">ConsumerAffairs</a>, <a href="https://bestcompany.com/invisible-braces/company/byte" target="_blank" rel="noopener">BestCompany</a>, and <a href="https://www.resellerratings.com/store/Byte" target="_blank" rel="noopener">ResellerRatings</a>. Reviews displayed on this page are limited to approximately the 150 most recent. We may have a commercial advertising relationship with one or more of these sites. For more information and to see more reviews, visit the hyperlinks above.</small>
+				</div>
+			</section>
+		`;
+  }
+
+  /** COMPONENT */
+
+  class ReviewStars {
+    /**
+     * Create a group of SVG stars.
+     * @param {Number} totalStars
+     * @param {Number} averageRating
+     * @param {Boolean} filled
+     * @param {String} insertTo.position - "beforebegin" | "afterbegin" | "beforeend" | "afterend"
+     * @param {HTMLElement} insertTo.element
+     */
+    constructor({
+      totalStars = 5,
+      averageRating = 3.5,
+      filled = true,
+      size = 16,
+      stagger = 0.01,
+      insertTo,
+    } = {}) {
+      this.stagger = stagger;
+      this.filled = filled;
+      this.totalStars = totalStars;
+      this.averageRating = averageRating;
+      this.size = size;
+      this.el = this.createStars();
+      if (insertTo) {
+        this.append(insertTo);
+      }
+    }
+
+    /**
+     *  Append the start to a DOM location.
+     */
+    append({ element, position }) {
+      if (element && position) {
+        element.insertAdjacentElement(position, this.el);
+      } else {
+        console.warn(
+          `RatingStars did not append to the DOM. Check element or position.`
+        );
+      }
+    }
+
+    /**
+     * Split the ratings at the decimal point.
+     * Example: 4.25 returns ['4', '25']
+     * @returns {number[]} - A two dimensional array.
+     */
+    get ratingsSplit() {
+      const [integer, percent] = this.averageRating.toFixed(2).split(".");
+      return [Number(integer || 0), Number(percent || 0)];
+    }
+
+    /**
+     * Create stars.
+     * @returns {string[]}
+     */
+    createStars() {
+      const stars = document.createElement("div");
+      const [nthChild, percent] = this.ratingsSplit;
+
+      // Create an array of stars. HTML string template.
+      for (let idx = 0; idx < this.totalStars; idx++) {
+        // Crop the star with CSS clip-path.
+        const cropStar = `clip-path: inset(0 ${100 - Number(percent)}% 0 0)`;
+
+        // Identify the star to crop
+        const isNthStar = nthChild === idx;
+
+        // Apply crop style or empty string
+        const styles = isNthStar ? cropStar : "";
+
+        // Identify where the last rated star is located by index.
+        const isAfterNth = !Boolean(nthChild < idx);
+
+        stars.innerHTML += this.oneStarHTML(styles, isAfterNth);
+      }
+
+      stars.classList.add("review-stars");
+      stars.style.setProperty("--size", `${this.size}px`);
+
+      return stars;
+    }
+
+    /**
+     * SVG star icon.
+     * @param {String} styles
+     * @param {Boolean} isAfterNth - To toggle the start "on" or "off" based on the average rating.
+     * @returns {String}
+     */
+    oneStarHTML(styles, isAfterNth) {
+      /**
+       * Place 2 stars, stacked on each other, same path for both.
+       * "on" - The stars are filled.
+       * "off" - The stars are empty.
+       */
+      const starPath =
+        "M8,0.4c0.3,0,0.5,0.2,0.7,0.4L10.7,5l4.6,0.7c0.3,0,0.5,0.2,0.6,0.5c0.1,0.3,0,0.6-0.2,0.7l-3.4,3.3l0.8,4.6 c0,0.3-0.1,0.5-0.3,0.7c-0.2,0.2-0.5,0.2-0.8,0.1L8,13.4l-4.2,2.2c-0.2,0.1-0.5,0.1-0.8-0.1c-0.2-0.2-0.3-0.4-0.3-0.7l0.8-4.6 L0.2,6.9C0,6.7,0,6.4,0,6.1c0.1-0.3,0.3-0.5,0.6-0.5L5.3,5l2.1-4.2C7.5,0.5,7.7,0.4,8,0.4z";
+      return `
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="review-star ${this.filled ? "filled" : ""}"
+					data-review-star
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+				>
+					<path
+						class="star off"
+						d="${starPath}"
+					/>
+					<path
+						class="star ${isAfterNth ? "on" : "off"}"
+						style="${styles}"
+						d="${starPath}"
+					/>
+					<circle
+						cx="8"
+						cy="8"
+						r="7.5"
+					/>
+				</svg>
+			`;
+    }
+
+    /**
+     * Animate the stars in.
+     * @returns {Promise<Number>}
+     */
+    async animate() {
+      if (this.filled) {
+        return Promise.resolve(0);
+      }
+
+      let duration = 0;
+      const stars = Array.from(this.el.children);
+
+      return new Promise((resolve) => {
+        stars.forEach((star, idx) => {
+          // Stagger the stars with a delay
+          const delay = this.el.children.length * idx * this.stagger * 1000;
+          setTimeout(() => star.classList.add("animate-star"), delay);
+
+          // Let the last delay be the duration.
+          duration = delay;
+        });
+
+        // When complete, resolve a callback.
+        setTimeout(() => resolve(duration), duration);
+      });
+    }
+
+    /**
+     * Function for debugging.
+     * @returns {Promise<Number>}
+     */
+    async restart() {
+      Array.from(this.el.children).forEach((star, idx) =>
+        star.classList.remove("animate-star")
+      );
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          this.animate().then((d) => resolve(d));
+        }, 0);
+      });
+    }
+  }
+
+  class ReviewCard {
+    constructor(reviews) {
+      this.reviews = reviews;
+    }
+
+    create(data) {
+      const reviewCard = document.createElement("div");
+
+      if (data.loading) reviewCard.classList.add("is-loading");
+      reviewCard.classList.add("review-card");
+      reviewCard.innerHTML = this.template(data);
+
+      this.addEvents(reviewCard);
+
+      return reviewCard;
+    }
+
+    addEvents(card) {
+      const button = card.querySelector("[data-see-more-btn]");
+      if (button) button.addEventListener("click", this.onSeeMore);
+    }
+
+    onSeeMore(event) {
+      const reviewText = event.target.previousElementSibling;
+      const seeMoreBtn = event.currentTarget;
+      const currentContent = reviewText.innerHTML;
+      const newContent = reviewText.dataset.text;
+      const btnText = seeMoreBtn.firstElementChild;
+      const isSeeMore = btnText.innerText === "SEE MORE";
+
+      reviewText.innerHTML = newContent;
+      reviewText.dataset.text = currentContent;
+      btnText.innerHTML = isSeeMore ? "SEE LESS" : "SEE MORE";
+      seeMoreBtn.classList.toggle("is-expanded");
+    }
+
+    template(data) {
+      const payload = data.loading ? this.reviews.api.fallbackData() : data;
+      const reviewStars = new ReviewStars({
+        averageRating: data.loading ? 0 : parseFloat(Number(data.rating)),
+        filled: true,
+        size: 18,
+      });
+
+      return `
+				<div class="card-header">
+					<div style="width: fit-content">${reviewStars.el.outerHTML}</div>
+					${reviewContent.call(this)}
+				</div>
+				<div class="card-footer">
+					${reviewSources.call(this)}
+					${reviewDisclaimer.call(this)}
+					${reviewAuthor.call(this)}
+				</div>
+			`;
+
+      function reviewAuthor() {
+        const firstInitial = payload.author.charAt(0).toUpperCase();
+        const icon = !payload.avatar
+          ? firstInitial
+          : `<img src="${payload.avatar}" alt="${payload.author}" />`;
+
+        return `
+					<figure class="review-customer-info">
+						<span class="reviews-customer-icon">${icon}</span>
+						<figcaption class="customer-name">${payload.author}</figcaption>
+					</figure>
+				`;
+      }
+
+      function reviewDisclaimer() {
+        return !payload.tags.includes("incentivized")
+          ? ""
+          : `
+						<small class="review-disclamer">
+							This reviewer was provided a free product in exchange for their honest opinion.
+						</small>
+					`;
+      }
+
+      function reviewSources() {
+        return `
+					<div class="review-site-info">
+						<span class="review-source">
+							<a href="${payload.url}" target="_blank" rel="noopener">${payload.source}</a>
+						</span>
+						<span class="review-site-info-space"> | </span>
+						<span>${payload.date}</span>
+					</div>
+				`;
+      }
+
+      function reviewContent() {
+        const review = !payload.review ? null : payload.review;
+        const maxChar = 165;
+        const summary = !review
+          ? "<em>No comment left on review site.</em>"
+          : review.length > maxChar
+          ? review.substring(0, maxChar) + "..."
+          : review;
+        const buttonHTML = `
+					<button class="button-text reviews-read-more" data-see-more-btn>
+						<span>See More</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 16 16"
+							class="see-more-chevron"
+							fill="currentColor"
+						>
+							<path d="M5,4l1-1l5,5l-5,5l-1-1l4-4L5,4z"/>
+						</svg>
+					</button>
+				`;
+
+        const button = !review || summary.length < maxChar ? "" : buttonHTML;
+
+        return `
+					<p
+						class="customer-review-text"
+						data-text="${review}"
+					>
+						${summary}
+					</p>
+					${button}
+				`;
+      }
+    }
+  }
+
+  class ReviewTags {
+    constructor(reviews) {
+      this.reviews = reviews;
+      this.el = {};
+      this.el.container = document.querySelector("[data-review-tags]");
+      this.el.filterBtn = document.querySelector("[data-review-filter-btn]");
+      this.selectedClass = "selected";
+      this.selectedIndex = 0;
+      this.tags = [
+        "All",
+        "Speed",
+        "Customer Service",
+        "Comfort",
+        "Convenience",
+        "HyperByte",
+        "Affordability",
+        "Whitening",
+      ];
+
+      if (this.el.container && this.el.filterBtn) {
+        this.createTags();
+        this.el.filterBtn.addEventListener(
+          "click",
+          this.onFilterClick.bind(this)
+        );
+      }
+    }
+
+    get selectedTag() {
+      return this.tags[this.selectedIndex].toLowerCase();
+    }
+
+    createTags() {
+      this.tags.map((tagName, idx) => {
+        const button = document.createElement("button");
+        const tag = tagName.toLowerCase();
+        button.classList.add("review-tag", "tab");
+        button.setAttribute("data-tag", tag);
+        button.setAttribute("data-index", idx);
+        button.addEventListener("click", this.onTagClick.bind(this));
+        button.innerHTML = tagName;
+
+        if (this.selectedTag === tag) {
+          button.classList.add(this.selectedClass);
+        }
+
+        this.el.container.appendChild(button);
+      });
+    }
+
+    onTagClick(event) {
+      const prevIndex = this.selectedIndex;
+      this.updateSelectedIndex(event.target.dataset.index);
+      this.updateSelectedClass(prevIndex);
+
+      // The page should be reset to 1 when changing a tag
+      this.reviews.pagination.setPage(1);
+      this.reviews.pagination.create();
+      this.reviews.getByTag(this.selectedTag);
+    }
+
+    onFilterClick(event) {
+      event.target.classList.toggle("active");
+      this.el.container.classList.toggle("active");
+    }
+
+    updateSelectedIndex(index = 0) {
+      this.selectedIndex = Number(index || 0);
+    }
+
+    updateSelectedClass(prevIndex = 0) {
+      const tags = Array.from(this.el.container.children);
+      tags[prevIndex].classList.remove(this.selectedClass);
+      tags[this.selectedIndex].classList.add(this.selectedClass);
+    }
+  }
+
+  class ReviewPagination {
+    constructor(reviews) {
+      this.reviews = reviews;
+      this.currentPage = 1;
+      this.selectedTag = "all";
+      this.pagersToShow = [];
+      this.maxPagers = 9;
+      this.startingPager = 1;
+      this.amountOfPagersPerSideOfActivePager = 4;
+      this.el = {};
+      this.el.intro = document.querySelector("[data-reviews-intro]");
+      this.el.container = document.querySelector("[data-reviews-pagination]");
+      this.el.mobileBtn = document.querySelector("[data-reviews-more-btn]");
+      this.el.pagers = [];
+
+      this.setPage(this.currentPage);
+      if (this.el.mobileBtn) {
+        this.el.mobileBtn.addEventListener(
+          "click",
+          this.onMobileClick.bind(this)
+        );
+      }
+    }
+
+    /**
+     * Used to find out how many numbers of pagination to render.
+     * @returns {Number}
+     */
+    get totalPages() {
+      return Object.keys(this.reviews.api.cached[this.selectedTag]).length;
+    }
+
+    clear() {
+      this.el.container.innerHTML = "";
+      this.el.pagers = [];
+      this.el.container.classList.remove("inactive");
+    }
+
+    /**
+     * Create the pagination by checking the length of the data source.
+     * @param {String} selectedTag
+     */
+    create(selectedTag = this.selectedTag) {
+      // Needs to be set before creating pagers.
+      this.setTag(selectedTag);
+      this.clear();
+
+      if (this.totalPages + 1 < this.startingPager + this.maxPagers) {
+        this.startingPager = this.totalPages + 1 - this.maxPagers;
+      }
+
+      if (this.startingPager < 1 || this.currentPage === 1) {
+        this.startingPager = 1;
+      }
+
+      this.pagersToShow = Array.from(
+        {
+          length: Math.min(this.totalPages, this.maxPagers),
+        },
+        (_, index) => index + this.startingPager
+      );
+
+      // Pagers [1, 2, 3...]
+      this.pagersToShow.forEach((pager) => {
+        const button = document.createElement("button");
+
+        if (pager === this.currentPage) button.classList.add("active");
+        button.classList.add("page-number", `page-${pager}`);
+        button.setAttribute("data-page-number", `${pager}`);
+        button.addEventListener("click", this.onPageClick.bind(this));
+        button.innerHTML = pager;
+
+        this.el.container.appendChild(button);
+        this.el.pagers.push(button);
+      });
+
+      // Previous and Next buttons
+      ["prev", "next"].forEach((pager) => {
+        const button = document.createElement("button");
+        const icon = svgArrow();
+        const isPrev = pager === "prev";
+
+        if (isPrev) {
+          const isAtStart = this.currentPage === 1;
+          button.innerHTML = `${icon} Prev`;
+          button.classList.toggle("disabled", isAtStart);
+          this.el.container.insertAdjacentElement("afterbegin", button);
+        } else {
+          const isAtEnd = this.currentPage === this.totalPages;
+          button.innerHTML = `Next ${icon}`;
+          button.classList.toggle("disabled", isAtEnd);
+          this.el.container.insertAdjacentElement("beforeend", button);
+        }
+
+        button.addEventListener("click", this.onPrevNextClick.bind(this));
+        button.classList.add(pager, "button-text");
+      });
+
+      if (this.totalPages === 1) {
+        this.el.container.classList.add("inactive");
+        this.el.mobileBtn.style.display = "none";
+      } else {
+        this.el.mobileBtn.style.display = "block";
+      }
+    }
+
+    /**
+     * When the user clicks on a page number.
+     * @param {MouseEvent} event
+     */
+    onPageClick(event) {
+      const pageNumber =
+        parseInt(event.target.getAttribute("data-page-number")) || 0;
+      this.setPage(pageNumber);
+      this.update();
+    }
+
+    /**
+     * When the user clicks next or previous.
+     * @param {MouseEvent} event
+     */
+    onPrevNextClick(event) {
+      const isPrev = event.target.classList.contains("prev");
+      const isNext = event.target.classList.contains("next");
+
+      // determine previous page
+      if (this.currentPage > 1 && isPrev) {
+        this.setPage(this.currentPage - 1);
+      }
+
+      // determine next page
+      if (this.currentPage < this.totalPages && isNext) {
+        this.setPage(this.currentPage + 1);
+      }
+
+      this.update();
+    }
+
+    /**
+     * Update data content.
+     */
+    update() {
+      this.toggleActiveClass();
+      this.scrollToTop();
+      this.reviews.getByTag(this.selectedTag);
+
+      //reached the last of the pagers
+      if (this.currentPage == this.pagersToShow[this.pagersToShow.length - 1]) {
+        this.startingPager =
+          this.pagersToShow[0] + this.amountOfPagersPerSideOfActivePager;
+        this.create();
+      }
+      //reached the first pager
+      else if (this.currentPage === this.startingPager) {
+        this.startingPager =
+          this.pagersToShow[0] - this.amountOfPagersPerSideOfActivePager;
+        this.create();
+      }
+    }
+
+    /**
+     * Set the current page number.
+     * @param {Number} page
+     */
+    setPage(page = 1) {
+      this.currentPage = page;
+    }
+
+    /**
+     * To determine the length of the pagination pagers.
+     * @param {String} tag
+     */
+    setTag(tag) {
+      this.selectedTag = tag;
+    }
+
+    /**
+     * Remove active class from all pagination and
+     * set next page class selector and add active class.
+     */
+    toggleActiveClass() {
+      this.el.pagers.forEach((el) => el.classList.remove("active"));
+      this.el.pagers
+        .find((pager) => pager.classList.contains(`page-${this.currentPage}`))
+        .classList.add("active");
+    }
+
+    /**
+     * Take user back to top
+     */
+    scrollToTop() {
+      if (this.el.intro) {
+        this.el.intro.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    }
+
+    onMobileClick(event) {
+      this.onPrevNextClick(event);
+    }
+  }
+
+  function svgArrow() {
+    return `
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+				<path
+					d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z"
+					fill="currentColor"
+				/>
+			</svg>
+		`;
+  }
+
+  function createTimeFormatter() {
+    return {
+      ago(date) {
+        if (!date) return "time unknown";
+
+        let duration = (new Date(date.replace(/-/g, "/")) - new Date()) / 1000;
+        for (let i = 0; i <= this.divisions.length; i++) {
+          const division = this.divisions[i];
+          if (Math.abs(duration) < division.amount) {
+            const timeAgo = this.formatter.format(
+              Math.round(duration),
+              division.name
+            );
+            return timeAgo;
+          }
+          duration /= division.amount;
+        }
+      },
+      formatter: new Intl.RelativeTimeFormat(undefined, {
+        numeric: "auto",
+      }),
+      divisions: [
+        { amount: 60, name: "seconds" },
+        { amount: 60, name: "minutes" },
+        { amount: 24, name: "hours" },
+        { amount: 7, name: "days" },
+        { amount: 4.34524, name: "weeks" },
+        { amount: 12, name: "months" },
+        { amount: Number.POSITIVE_INFINITY, name: "years" },
+      ],
+    };
+  }
+
+  const time = createTimeFormatter();
+
+  class ReviewsAPI {
+    constructor(reviews) {
+      this.reviews = reviews;
+      this.cached = {};
+      this.tags = window.theme.reviewsJSON;
+    }
+
+    /**
+     * See https://developer.reviewtrackers.com
+     * Get a collection of reviews.
+     */
+    async getReviews({ page, per_page, tag = "all" } = { page: 1 }) {
+      if (!this.cached[tag]) this.cached[tag] = {};
+
+      if (this.cached[tag][page]) {
+        return this.cached[tag][page];
+      }
+
+      try {
+        const url = this.tags[tag];
+        const response = await fetch(url);
+        const data = await response.json();
+        const payload = !data ? [] : this.transformData(data);
+        this.cached[tag] = this.partitionPages(payload, per_page);
+
+        return this.cached[tag][page];
+      } catch (error) {
+        this.onError(error);
+      }
+    }
+
+    /**
+     * This happens when the browser is resized. The pages are re-partitioned based on the "per_page" variable.
+     */
+    rePartition(per_page) {
+      const { selectedTag = "all" } = this.reviews.pagination;
+      const pages = this.cached[selectedTag];
+
+      if (pages) {
+        this.cached[selectedTag] = this.partitionPages(
+          flattenData(pages),
+          per_page
+        );
+      }
+
+      /**
+       * Take the partitioned object, and flatten into an array.
+       */
+      function flattenData(pages) {
+        return Object.values(pages).reduce((data, page) => {
+          page.forEach((review) => data.push(review));
+          return data;
+        }, []);
+      }
+    }
+
+    /**
+     * Create a review object.
+     */
+    extractData(data) {
+      const maxChar = 200;
+
+      return !data
+        ? null
+        : {
+            rating: data.Rating,
+            review: data.Review,
+            summary:
+              data.length > maxChar ? data.substring(0, maxChar) + "..." : data,
+            url: data.URL,
+            source: data.Source,
+            date: time.ago(data.Published),
+            author: setAuthorName(data.Author),
+            avatar: data.metadata && data.metadata.google_author_url,
+            tags: !data.Tags ? [] : data.Tags.split(", "),
+          };
+
+      /**
+       * Set a generic author name if a customer's name includes "guest" or "customer"
+       */
+      function setAuthorName(author = "") {
+        const normalizedAuthor = author.toLowerCase();
+        const replaceList = ["guest", "customer", "anonymous"];
+        const noRealName = replaceList.includes(normalizedAuthor.toLowerCase());
+
+        return noRealName ? "Guest Reviewer" : author;
+      }
+    }
+
+    fallbackData() {
+      const fallback = `
+				Fallback content lotem ipsum dolor sit,
+				adipisicing eli nesciunt autem,
+				autem nulla consectetur content.
+			`;
+
+      return {
+        rating: 0.0,
+        review: fallback,
+        summary: fallback,
+        url: "#",
+        source: "glassdoor",
+        date: new Date().toISOString(),
+        author: "Fallback Content",
+        avatar: null,
+        tags: ["incentivized"],
+      };
+    }
+
+    /**
+     * Split data into groups of nine.
+     * @param {Array} data
+     * @returns {Object}
+     */
+    partitionPages(data = [], per_page) {
+      const pages = {};
+      let page = 0;
+      for (let idx in data) {
+        const everyNth = idx % parseInt(per_page) === 0;
+
+        if (everyNth) {
+          page += 1;
+          const start = parseInt(idx);
+          const end = parseInt(idx) + parseInt(per_page);
+          pages[page] = data.slice(start, end);
+        }
+      }
+
+      return pages;
+    }
+
+    transformData(data = []) {
+      return Object.values(
+        data.reduce((all, review) => {
+          const key =
+            review["Review ID"] ||
+            (review.Author && review.Author.split(" ")[0]) ||
+            "";
+          const hasRating = checkRating(review.Rating);
+          const allowedSource = excludeSources(review.Source);
+          const isUniqueContent = checkContent(all, review.Review);
+          const qualityAssured = allowedSource && hasRating && isUniqueContent;
+
+          // Check for quality of the review and if it doesn't exist.
+          if (qualityAssured && !all[key]) {
+            all[key] = this.extractData(review);
+          }
+
+          return all;
+        }, {})
+      );
+
+      /**
+       * Sometimes the author may go by a different name, but the content will be the same as another review.
+       * Use a Set to make a unique list of content, then check for its existence.
+       * @param {Object} all
+       * @param {String | null} review
+       * @returns {Boolean}
+       */
+      function checkContent(all, review) {
+        const uniqueContent = new Set(Object.values(all).map((r) => r.review));
+        if (uniqueContent.has(review)) {
+          return false;
+        }
+        return true;
+      }
+
+      /**
+       * Exclude reviews from specified sources.
+       * @param {String} sourceName
+       * @returns {Boolean}
+       */
+      function excludeSources(sourceName) {
+        const sourcesToExclude = ["glassdoor", "indeed", "facebook"];
+        return !sourcesToExclude.includes(sourceName.toLowerCase());
+      }
+
+      /**
+       *
+       * @param {Number | null} rating
+       * @returns {Boolean}
+       */
+      function checkRating(rating) {
+        return typeof rating === "number";
+      }
+    }
+
+    /**
+     * Hide the module if an error occurs.
+     */
+    onError(error) {
+      const parentElement = this.reviews.el.container.closest(".reviews-new");
+      if (parentElement) {
+        parentElement.style.display = "none";
+      }
+
+      console.error("No data received for Reviews module", error);
+    }
+  }
+
+  function toCommaSeparatedNumber(text) {
+    return text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  async function reviewsAverage() {
+    const API_URL = window?.theme?.reviewMetrics;
+    const reviewAverage = document.querySelector("[data-review-average]");
+    const reviewsAvgText = reviewAverage.querySelector(".average");
+    const reviewsAvgTotals = reviewAverage.querySelector(".total");
+
+    // Only display certain sources
+    // ex: ["Glassdoor", "Facebook", "Indeed", "Feedback"]
+    const excludedSources = window.theme.reviewsExcludedSources.split(",");
+
+    // Only display sources with enough reviews
+    // ex: 1000
+    const minimumReviews = window.theme.reviewsMinimumReviews;
+
+    let totalReviewsTally = 0;
+    let averageRatingTally = 0;
+    let sources = await getDataFromServer();
+
+    if (sources) {
+      for (const site of sources) {
+        totalReviewsTally += parseInt(site.total_reviews);
+        averageRatingTally += parseFloat(site.avg_rating);
+      }
+
+      let finalAverage = +(averageRatingTally / sources.length).toFixed(2);
+
+      reviewsAvgText.innerHTML = finalAverage;
+      reviewsAvgTotals.innerHTML = toCommaSeparatedNumber(totalReviewsTally);
+
+      if (reviewAverage) {
+        new ReviewStars({
+          size: 24,
+          averageRating: finalAverage,
+          insertTo: {
+            element: reviewAverage,
+            position: "beforebegin",
+          },
+        });
+      }
+    }
+
+    async function getDataFromServer() {
+      try {
+        const response = await fetch(API_URL).catch(console.error);
+        const { sources } = await response.json();
+        const filteredSources = sources.filter(
+          ({ source_name, total_reviews }) =>
+            !excludedSources.includes(source_name) &&
+            total_reviews > minimumReviews
+        );
+
+        console.log({excludedSources}, sources)
+
+        return filteredSources;
+      } catch (error) {
+        reviewAverage.style.display = "none";
+        return [];
+      }
+    }
+  }
+
+  class Reviews {
+    constructor({ container } = { container: document.body }) {
+      this.el = {};
+      this.el.container = container;
+
+      // Assign each module and pass the class reference
+      this.cards = new ReviewCard(this);
+      this.tags = new ReviewTags(this);
+      this.pagination = new ReviewPagination(this);
+      this.api = new ReviewsAPI(this);
+      this.per_page = 4;
+
+      // Initialize
+      if (this.el.container) {
+        reviewsAverage();
+        // When the browser is less than the query, re-initialize the reviews
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        mediaQuery.addEventListener("change", this.init.bind(this));
+
+        this.init(mediaQuery);
+      }
+    }
+
+    /**
+     * Initialize the UI
+     * @param {Boolean} matches
+     */
+    init({ matches }) {
+      this.assignPerPage(matches);
+      this.getByTag(this.pagination.selectedTag || "all");
+    }
+
+    /**
+     * Check the amount of reviews to display
+     */
+    assignPerPage(matchesMobile) {
+      const { dataset } = this.el.container;
+      if (matchesMobile) {
+        this.per_page = parseInt(dataset.mobile_per_page) || 4;
+      } else {
+        this.per_page = parseInt(dataset.desktop_per_page) || 9;
+      }
+
+      this.api.rePartition(this.per_page);
+    }
+
+    render(data = []) {
+      this.clear();
+
+      data.forEach((review) => {
+        const card = this.cards.create(review);
+        this.el.container.appendChild(card);
+      });
+    }
+
+    /**
+     * Append loading indicator. If the ReviewCards method "create"
+     * finds the "loading" propety, then it will display
+     * the fallback content for the skeleton view
+     */
+    setSkeletonView() {
+      this.clear();
+
+      Array.from({ length: this.per_page }, () => ({ loading: true })).forEach(
+        (placeholder) => {
+          const loadingUI = this.cards.create(placeholder);
+          this.el.container.appendChild(loadingUI);
+        }
+      );
+    }
+
+    /**
+     * Empty the container
+     */
+    clear() {
+      this.el.container.innerHTML = "";
+    }
+
+    /**
+     * Get all reviews.
+     */
+    async getByTag(tag = "all") {
+      this.setSkeletonView();
+
+      await this.api
+        .getReviews({
+          tag,
+          page: this.pagination.currentPage || 1,
+          per_page: this.per_page,
+        })
+        .then(this.render.bind(this))
+        .then(() => this.pagination.create(tag))
+        .catch(console.error);
+    }
+  }
+})();

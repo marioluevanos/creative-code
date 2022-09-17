@@ -1,0 +1,112 @@
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$font-family: "Albert Sans";
+
+@import "mixins";
+@import "nav";
+@import "category";
+@import "categories";
+@import "subject";
+
+:root {
+  --nav-h: 80px;
+  --gutter: 1.5rem;
+  --max-w: 420px;
+
+  --color-bg: hsl(36, 10%, 90%);
+  --color-bg-tint: hsl(45, 5%, 85%);
+  --color-bg-dark: hsl(45, 5%, 75%);
+  --color-primary: hsl(12, 92%, 62%);
+  --color-secondary: hsl(10, 63% 61%);
+  --color-text: hsl(228, 6%, 25%);
+  --color-text-light: hsl(228, 6%, 56%);
+  --color-border: var(--color-bg-tint);
+
+  @media (min-width: 768px) {
+    --gutter: 3vw;
+    --size: 64px;
+    --nav-h: 6vw;
+    --max-w: none;
+  }
+
+  @media (min-width: 1024px) {
+    --size: 100px;
+  }
+}
+
+html {
+  background: var(--color-primary);
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  place-content: start;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  --base-font: clamp(14px, 1vw, 18px);
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: auto;
+  position: relative;
+  font-family: $font-family;
+  padding-top: var(--nav-h);
+  width: 100vw;
+  font: 400 var(--base-font) / 1 $font-family;
+  box-shadow: 0 8px 64px rgba(black, 0.15), 0 8px 128px rgba(black, 0.3);
+
+  &::before {
+    // content: '';
+    // position: absolute;
+    // background: url("./online-edu.jpg") 50% 0/100% auto no-repeat;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 100000000000000;
+  }
+
+  @media (min-width: 768px) {
+  }
+}
+
+button {
+  padding: 0.5rem 1.75rem;
+  border: none;
+  border-radius: 100px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    background: var(--color-primary);
+  }
+}
+
+button.text {
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  padding: 0;
+}
+
+.root {
+  padding: 4vw 0;
+  position: relative;
+  display: flex;
+}
+
+h2 {
+  font: 700 clamp(72px, 5.5vw, 120px) / 1 $font-family;
+  margin: 0 0 2vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

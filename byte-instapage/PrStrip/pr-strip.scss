@@ -1,0 +1,98 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.pr-strip {
+  padding: var(--v-space) 0;
+  background: $white;
+  position: relative;
+  .pr-intro {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  .pr-title {
+    margin-bottom: 0;
+    color: $navy40;
+  }
+  .pr-logos {
+    max-width: 575px;
+    display: flex;
+    margin: 36px auto;
+    justify-content: space-between;
+    align-items: center;
+    @include media(3-up) {
+      margin: 56px auto;
+    }
+
+    button {
+      opacity: .2;
+      display: flex;
+      margin: 0 9px;
+      justify-content: center;
+      transition: .3s opacity;
+      border: 0px;
+      background: none;
+      cursor: pointer;
+
+      &.active {
+        opacity: 1;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &[data-logo="hms"] {
+        width: 132px;
+      }
+      &[data-logo="forbes"] {
+        width: 98px;
+      }
+      &[data-logo="instyle"] {
+        margin-top: 3px;
+      }
+      &[data-logo="entrepreneur"] {
+        width: 120px;
+      }
+
+      img {
+        width: 100%;
+        height: 1.5rem;
+        object-fit: contain;
+        display: block;
+      }
+    }
+  }
+  .pr-quotes {
+    margin: 0 auto;
+    position: relative;
+    min-height: var(--min-h);
+    transition: min-height 0.3s ease-out;
+  }
+  .pr-quote {
+    max-width: var(--ui-max-width-medium);
+    text-align: center;
+    margin: 0 auto;
+    opacity: 0;
+    font-size: var(--font-x-large);
+    overflow: visible;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: $night;
+    transition: all 0.15s ease-in 0s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    user-select: none;
+    pointer-events: none;
+    &.active {
+      opacity: 1;
+      transition: all 0.6s ease-out 0.15s;
+      user-select: initial;
+      pointer-events: all;
+    }
+  }
+}

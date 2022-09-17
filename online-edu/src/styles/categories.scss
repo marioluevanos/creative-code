@@ -1,0 +1,31 @@
+@import "mixins";
+
+.categories {
+  --length: 5;
+  --category-w: 11;
+  --category-h: 37;
+  --active-w: 37.5;
+  --gap: 1.5;
+  --total-w: calc(var(--category-w) * calc(var(--length) - 1) + var(--active-w) + calc(var(--gap) * calc(var(--length) - 1)));
+  --br: 1rem;
+
+  width: calc(var(--slider-w) * 1vw);
+  position: relative;
+  overflow: scroll hidden;
+  justify-self: flex-end;
+  @include hide-scrollbars();
+}
+
+.wrapper {
+  width: calc(var(--total-w) * 1vw);
+  height: calc(var(--category-h) * 1vw);
+  white-space: nowrap;
+  overflow: scroll hidden;
+  border-radius: 0 var(--br) var(--br) 0;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  flex-direction: row-reverse;
+  grid-gap: 0 calc(var(--gap) * 1vw);
+  flex-wrap: nowrap;
+  @include hide-scrollbars();
+}

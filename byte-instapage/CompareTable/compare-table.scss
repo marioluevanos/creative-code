@@ -1,0 +1,396 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+* {
+  box-sizing: border-box;
+}
+
+.compare-table-v2 {
+  padding: 1rem 10px;
+  position: relative;
+  z-index: 1;
+  @include media(3-up) {
+    padding: 3rem 10px;
+  }
+
+  .h4 {
+    text-align: center;
+    margin-bottom: 16px;
+    @include media(3-up) {
+      margin: 2rem auto;
+    }
+  }
+}
+
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+.compare-table-row {
+  --radius: 4px;
+  --margin: 10px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto var(--margin);
+  padding-left: 0;
+  padding-right: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  transition: opacity 0.3s $ease-out-sine;
+}
+
+/*
+One Row
+-------------------------------- */
+
+.compare-table-row {
+  .cell-row {
+    --col-w: 80px;
+    --col-w-double: calc(var(--col-w) * 2);
+    display: grid;
+    border: 1.5px solid $putty-decorative;
+    min-height: 52px;
+    border-radius: var(--radius);
+    background: $white;
+    grid-template-columns: 1fr var(--col-w) var(--col-w);
+    transition: background 0.3s $ease-out-sine;
+    
+    @include media(3-up) {
+      min-height: 58px;
+      --col-w: 144px;
+    }
+  }
+}
+
+/*
+One Cell
+-------------------------------- */
+
+.compare-table-v2 .compare-table-row .cell {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  position: relative;
+  box-sizing: border-box;
+  border-color: initial;
+  padding: initial;
+}
+
+/*
+Table Header
+-------------------------------- */
+
+.compare-table-row.is-header {
+  margin-bottom: 0;
+
+  .cell-row {
+    border: none;
+    background: transparent;
+    min-height: 64px;
+
+    @include media(3-up) {
+      min-height: 80px;
+    }
+  }
+
+  .cell.perk {
+    @include media(3-up) {
+      padding-left: 0;
+    }
+  }
+
+  .cell {
+    align-items: flex-end;
+    padding-bottom: 12px;
+
+    @include media(3-up) {
+      padding-bottom: 16px;
+    }
+  }
+
+  // The Perks
+  .text-xlarge {
+    margin: 0;
+  }
+
+  .text-large {
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+/*
+Byte Logo
+-------------------------------- */
+
+.compare-table-row .logo {
+  width: 100%;
+  height: 100%;
+  max-height: 32px;
+  max-width: 52px;
+  position: relative;
+  display: block;
+
+  svg {
+    width: 100%;
+  }
+
+  @include media(3-up) {
+    max-width: 64px;
+  }
+}
+
+/*
+Perk Column
+-------------------------------- */
+
+.compare-table-row .cell.perk {
+  --padding: 16px;
+  font-weight: 600;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+
+  @include media(3-up) {
+    --padding: 24px;
+  }
+
+  >* {
+    justify-content: flex-start;
+    line-height: 1.15;
+  }
+}
+
+.compare-table-row {
+  .cell.perk .icon {
+    margin: 0 8px 0 0;
+    color: $putty-text;
+    display: flex;
+  
+    svg {
+      width: 12px;
+      height: 12px;
+      transition: all 0.15s;
+    }
+  }
+
+  .icon .minus {
+    display: none;
+  }
+
+  &:not(.is-header) .cell.perk p {
+    font-weight: 600;
+    transition: opacity 0.3s $ease-out-sine;
+
+    @include media(3-down) {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+
+  @media (hover:hover) {
+    &.has-description .cell-row:hover p {
+      opacity: 0.66;
+    }
+  }
+
+  .cell.perk p.text-xlarge {
+    font-weight: 700;
+  }
+
+  &.is-active {
+    .icon .plus {
+      display: none;
+    }
+    .icon .minus {
+      display: block;
+    }
+  }
+}
+
+/*
+Icon inside of cell
+-------------------------------- */
+
+.compare-table-row .cell-icon {
+  justify-content: center;
+}
+
+.compare-table-row .icon {
+  --size: 20px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+
+  svg {
+    --icon: 12px;
+    stroke-width: 2;
+    width: var(--icon);
+    height: var(--icon);
+  }
+}
+
+.compare-table-row .icon-check {
+  background: $green-graphics;
+  color: $white;
+}
+
+.compare-table-row .icon-x {
+  background: $gray;
+  color: $white;
+}
+
+/*
+Highlighted Column
+-------------------------------- */
+
+.compare-table-row {
+  .cell.highlight {
+    width: 100%;
+    z-index: 1;
+  }
+  .cell.highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1.5px;
+    width: calc(100% - 3px);
+    height: calc(100% + calc(var(--margin) + 3px));
+    background: $putty-light-bg;
+    border-left: 1.5px solid $putty-decorative;
+    border-right: 1.5px solid $putty-decorative;
+    transition:
+      height 0.3s $ease-in-out-sine,
+      top 0.3s $ease-in-out-sine;
+    z-index: 0;
+  }
+
+  &.is-active .cell.highlight::before {
+    top: -1.5px;
+  }
+
+  &.is-active:not(:last-of-type) .cell.highlight::before {
+    top: -2px;
+    height: calc(100% - -2px);
+  }
+
+  &.is-active + &.is-active:not(:last-of-type) .cell.highlight::before {
+    top: 0;
+    height: 100%;
+  }
+
+  &.is-active + &.is-active:last-of-type .highlight::before {
+    top: 0;
+  }
+}
+
+.compare-table-row.is-header,
+.compare-table-row.is-active,
+.compare-table-row:only-child {
+  .highlight::before {
+    top: 0;
+    height: calc(100% + 0px);
+    transition: height 0.3s $ease-out-sine;
+  }
+}
+
+// The Table Header background
+.compare-table-row.is-header .highlight::before {
+  height: calc(100% + 1.5px);
+  border-top: 1.5px solid $putty-decorative;
+  border-radius: 8px 8px 0 0;
+  left: -3px;
+}
+
+.compare-table-row:last-child:not(:only-child) .cell.highlight {
+  &::before {
+    height: calc(100% + calc(var(--margin) + 4px));
+    border-radius: 0 0 var(--radius) var(--radius);
+    border-bottom: 1.5px solid $putty-decorative;
+  }
+}
+
+/*
+Content (Slide Down)
+-------------------------------- */
+
+.compare-table-row.has-description {
+  .cell-row {
+    cursor: pointer;
+  }
+}
+
+.compare-table-row {
+  .description {
+    text-align: left;
+    border-radius: 0 0 12px 12px;
+    border: 1.5px solid $mint;
+    background: $mint-bg;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: absolute;
+    visibility: hidden;
+    padding: 24px;
+    z-index: -1;
+    transition:
+      height 0.3s $ease-in-out-sine,
+      padding-top 0.3s $ease-in-out-sine,
+      padding-bottom 0.3s $ease-in-out-sine;
+  }
+
+  // When its been initialized via JS
+  .description.show {
+    box-sizing: content-box;
+    position: relative;
+    visibility: visible;
+    margin-top: -3px; // 1.5px border-width * 2
+    height: var(--description-h, auto); // CSS variabled assigned with JS
+    transform: translate3d(0, -3px, 0);
+  }
+
+  &.is-collapsed .description {
+    padding: 0 24px;
+  }
+
+  .description > p {
+    margin: 0;
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+    transition:
+      opacity 0.15s $ease-in-out-sine 0s,
+      transform 0.15s $ease-in-out-sine 0s;
+  }
+
+  &.is-active .description > p {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    transition:
+      opacity 0.15s $ease-out-sine 0.15s,
+      transform 0.15s $ease-out-sine 0.15s;
+  }
+}
+
+/*
+Active State
+-------------------------------- */
+
+.compare-table-row.is-active {
+  .cell-row {
+    position: relative;
+    z-index: 1;
+  }
+
+
+  &:only-child .highlight::before {
+    top: 0;
+    height: 100%;
+  }
+}
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <script defer src="/src/index.ts" type="module"></script>
+    <style>
+      [draglord].draglord {
+        --child-w: 8;
+        --child-w-active: 28;
+        --total: 11;
+        height: 460px;
+        /* max-width: 760px; */
+        width: calc(
+          calc(calc(var(--child-w) * 1rem) * 2) +
+            calc(var(--child-w-active) * 1rem) + calc(2 * 1rem)
+        );
+        min-width: 0;
+        margin: 0 auto 120px;
+        background: lime;
+        overflow: hidden;
+      }
+      [draglord-handle].draglord-handle {
+        width: calc(
+          calc(calc(var(--child-w) * 1rem) * var(--total)) +
+            calc(var(--child-w-active) * 1rem) + calc(var(--total) * 1rem)
+        );
+        height: inherit;
+        background: #cc0000;
+        display: flex;
+        grid-gap: 0 1rem;
+      }
+
+      .active [draglord-handle].draglord-handle {
+        background: blue;
+      }
+
+      .ass {
+        width: calc(var(--child-w) * 1rem);
+        display: grid;
+        place-content: center;
+        font: bold 2em/1 National;
+        color: white;
+        height: inherit;
+        background-color: green;
+      }
+      .ass:nth-child(5) {
+        width: calc(var(--child-w-active) * 1rem);
+        background-color: darkblue;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="#"> EDU <span>online</span> </a>
+      <a href="#" class="active">Home</a>
+      <a href="#">Pricing</a>
+      <a href="#">For Business</a>
+      <a href="#">Search</a>
+      <div class="cta">
+        <button class="default">Log in</button>
+        <button class="text">Sign up</button>
+      </div>
+    </nav>
+  </body>
+</html>

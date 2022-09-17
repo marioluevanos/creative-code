@@ -1,0 +1,61 @@
+.subject {
+  --slider-w: 62;
+
+  width: 100vw;
+  display: grid;
+  grid-template-columns: calc(var(--slider-w) * 1vw) 38vw;
+  overflow: hidden;
+}
+
+.subject .text {
+  padding: 3vw 4vw 3vw 3vw;
+}
+
+.subject .text .desc {
+  margin: 1vw 0;
+  line-height: 1.5;
+  max-width: 460px;
+}
+
+.subject .text .cta {
+  font-weight: 700;
+  text-decoration: underline;
+  color: var(--color-text);
+  margin: 1vw 0;
+  display: inline-block;
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.subject .avatars {
+  --size: 3vw;
+  --f: -0.35;
+  margin: 2.5vw 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &:hover {
+    --f: 0.05;
+  }
+
+  img,
+  span {
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    object-fit: contain;
+    border-radius: var(--size);
+    transform: translateX(calc(var(--size) * calc(var(--i) * var(--f))));
+    transition: all 0.3s $ease-in-out-circ;
+  }
+
+  span {
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+}

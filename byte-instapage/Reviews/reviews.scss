@@ -1,0 +1,635 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+$transition: all 0.2s;
+
+* {
+  box-sizing: border-box;
+}
+
+.reviews-new {
+  position: relative;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: block!important;
+  padding: 3rem 0;
+  &.gray {
+    display: block!important;
+    background: $putty10;
+  }
+}
+
+.reviews-new .reviews-intro {
+  text-align: center;
+
+  .reviews-title {
+    margin: 0;
+    padding: 2.5rem 0 1rem;
+    @include media(3-up) {
+      padding-bottom: 2rem;
+    }
+  }
+
+  .reviews-subtitle {
+    font-size: 24px;
+    display: none;
+    font-family: $font-heading;
+    margin: -8px 0 8px;
+    @include media(3-up) {
+      display: block;
+    }
+  }
+
+  .review-stars {
+    justify-content: center;
+  }
+
+  #review-average {
+    margin: 1em auto 0;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    
+    @include media(3-up) {
+      font-size: 24px;
+      margin: 0.5rem auto 0;
+    }
+    sup {
+      vertical-align: super;
+    }
+  }
+
+  .review-disclamer {
+    margin: 1em auto 0;
+    color: $charcoal;
+    font-size: 12px;
+    @include media(3-up) {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+/*
+Reviews Tags
+----------------------------------- */
+
+.review-filter-tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 1.5em 0;
+}
+
+.reviews-new .review-tags {
+  padding: 16px 0;
+  margin: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  @include media(3-up) {
+    padding: 0;
+    display: flex;
+  }
+
+  &.active {
+    display: flex;
+  }
+
+  .review-tag {
+    margin: 4px 2px;
+    @include media(3-up) {
+      margin: 4px;
+    }
+  }
+}
+
+//different background color for filter reviews button
+#filter-review-btn {
+  background: $white;
+  border: 1px solid $navy;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include media(3-up) {
+    display: none;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+    transition: $transition;
+    pointer-events: none;
+  }
+
+  @media(hover:hover) {
+    &:hover {
+      background: $navy;
+      color: $white;
+      svg {
+        transform: scaleY(1);
+        fill: $white;
+      }
+    }
+  }
+
+  &.active svg {
+    transform: scaleY(-1);
+  }
+}
+
+/*
+Reviews Container
+----------------------------------- */
+
+.review-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*
+Review Card
+----------------------------------- */
+
+.reviews-new .review-card {
+  --width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+  min-height: 290px;
+  background-color: white;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  text-align: left;
+  border-color: $putty-decorative;
+  padding: 1em 1.5em;
+  margin: 0 0 0.5em 0;
+  width: 100%;
+
+  @include media(3-up) {
+    --width: 50%;
+    width: calc(var(--width) - 1.5em);
+    margin: 0.5em 0.75em;
+  }
+
+  @include media(4-up) {
+    --width: 33.33%;
+  }
+
+  .card-stars {
+    padding-bottom: 10px;
+  }
+
+  .card-header {
+    margin-bottom: 8px;
+  }
+
+  .customer-review-text {
+    display: inline;
+
+    em {
+      color: $spacegray;
+    }
+  }
+
+  .review-source {
+    &::before {
+      content: 'Source: ';
+    }
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .reviews-read-more {
+    display: inline-flex;
+    align-items: center;
+
+    > * {
+      pointer-events: none;
+    }
+
+    .see-more-chevron {
+      width: 16px;
+      height: 16px;
+    }
+
+    &.is-expanded {
+      flex-direction: row-reverse;
+      .see-more-chevron {
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .review-site-info {
+    font-size: 14px;
+    margin: 8px 0;
+    display: flex;
+    color: $charcoal;
+
+    a {
+      color: $charcoal;
+    }
+
+    .review-site-info-space {
+      margin: 0 5px;
+    }
+  }
+
+  .review-disclamer {
+    display: block; 
+    margin: 8px 0 12px;
+    font-size: 12px;
+    line-height: 18px;
+    color: $charcoal;
+  }
+
+  .review-customer-info {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 40px auto;
+    position: relative;
+  }
+
+  .customer-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 8px;
+    color: $navy;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .reviews-customer-icon {
+    --size: 40px;
+    border-radius: var(--size);
+    font-size: 24px;
+    font-weight: 600;
+    background: $putty;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--size);
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--size);
+    text-transform: uppercase;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      object-fit: cover;
+      z-index: 1;
+    }
+  }
+}
+
+.reviews-new.gray .review-card {
+  border-color: transparent;
+}
+
+$color1: lighten($putty25, 3%);
+$color2: lighten($putty25, 5%);
+
+@mixin loading() {
+  color: transparent;
+  border-radius: 2px;
+  background-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    $color1 40%,
+    $color2,
+    $color1 60%,
+    $color1 100%
+  );
+  background-size: 400% 100%;
+  background-position: 100% 0%;
+  animation: loading 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+}
+
+.review-card.is-loading {
+  pointer-events: none;
+  svg.review-star path.star.off {
+    fill: $putty25;
+  }
+
+  .customer-review-text,
+  .review-site-info span,
+  .review-site-info span a,
+  .review-disclamer,
+  .customer-name {
+    @include loading();
+  }
+
+  .reviews-read-more {
+    display: none;
+  }
+
+  .reviews-customer-icon {
+    color: transparent;
+    background: $color1;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/*
+Reviews CTA (Mobile)
+----------------------------------- */
+
+.reviews-cta {
+  padding: 0.5em 0 3em;
+  display: flex;
+  justify-content: center;
+
+  @include media(3-up) {
+    display: none;
+  }
+}
+
+.reviews-see-more {
+  width: 100%;
+  max-width: 250px;
+}
+
+/*
+Reviews Pagination
+----------------------------------- */
+
+.reviews-new .pagination {
+  --size: 24px;
+  display: none;
+  justify-content: center;
+  padding: 16px 0 30px;
+
+  // only show on larger screens
+  @include media(3-up) {
+    display: flex;
+    grid-gap: 0 8px;
+  }
+
+  button {
+    font: 700 15px/1 $font-body;
+    padding: 0;
+    background: none;
+    border: none;
+    user-select: none;
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  .page-number {
+    width: var(--size);
+    height: var(--size);
+    line-height: var(--size);
+    justify-content: center;
+  }
+
+  .prev,
+  .next {
+    &:hover {
+      color: $byte;
+    }
+  }
+
+  .prev {
+    margin-right: 24px;
+  }
+
+  .next {
+    margin-left: 24px;
+    svg {
+      transform: scaleX(-1);
+    }
+  }
+
+  .prev,
+  .next,
+  .page-number {
+    height: var(--size);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    font-size: 15px;
+    font-weight: 700;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      background-color: $byte;
+      border-radius: var(--size);
+      z-index: -1;
+      opacity: 0;
+    }
+
+    &.active {
+      color: $white;
+    }
+
+    &.active::before {
+      opacity: 1;
+    }
+
+    &.disabled {
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  }
+
+  .page-number:hover {
+    color: $white;
+    &:before {
+      opacity: 1;
+    }
+  }
+  .page-number:active {
+    &:before {
+      background: $navy;
+    }
+  }
+
+  &.inactive {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+.reviews-new .footnote {
+  max-width: 800px;
+  padding-bottom: 50px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+
+@mixin star-enter() {
+  $ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: 0.6s star-animation ease-out;
+  animation-delay: var(--delay, 0s);
+  fill: $byte;
+  stroke: none;
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+@mixin star-before-enter() {
+  fill: transparent;
+  transition: all 0.15s ease-in;
+}
+
+@keyframes star-animation {
+  0% {
+    fill: $putty75;
+    stroke: $putty75;
+    stroke-width: 2;
+    transform: scale(1) rotate(-72deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  65% {
+    transform: scale(0.5);
+  }
+  80% {
+    stroke: $byte;
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    fill: $byte;
+    stroke: $byte;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes circle-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1.25);
+    opacity: 0.3;
+  }
+  60% {
+    transform: scale(1.75);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.review-stars {
+  --size: 18px;
+  margin: 0.25em auto 0.5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 0 calc(var(--size) / 2);
+}
+
+/*
+  --------------------------------
+  One Star SVG
+*/
+svg.review-star {
+  width: var(--size);
+  height: var(--size);
+  display: block;
+  overflow: visible;
+
+  // Each star is a <path/>
+  path.star {
+    stroke: transparent;
+    stroke-width: 0;
+  }
+
+  // Default State
+  path.star.on {
+    fill: $byte;
+    opacity: 0;
+  }
+
+  // Default State
+  path.star.off {
+    fill: $putty50;
+  }
+
+  // Default State
+  circle {
+    transform: scale(2);
+    transform-origin: center;
+    opacity: 0;
+  }
+  * {
+    transform-origin: center;
+  }
+}
+
+/*
+  --------------------------------
+  Loading Skeleton State
+*/
+.loading-skeleton .review-star {
+  fill: $putty75;
+}
+
+/*
+  --------------------------------
+  Animation On - SVG element
+*/
+svg.review-star.animate-star {
+  .star.on {
+    @include star-enter();
+    + circle {
+      stroke: none;
+      fill: lighten($byte, 35%);
+      animation: circle-animation 0.6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.25s;
+    }
+  }
+}
+
+/*
+  --------------------------------
+  Static, does not animate.
+*/
+svg.review-star.filled {
+  .star.on {
+    opacity: 1;
+    transition: none;
+  }
+}

@@ -1,0 +1,200 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+body {
+	margin: 0;
+}
+
+.pricing-real-people {
+	background: $putty-bg;
+	padding: 64px 0;
+	@include media(3-up) {
+		padding: 4rem 0;
+	}
+	.pricing__header {
+		margin: 0;
+		padding: 0 47px;
+		text-align: center;
+	}
+	& > p {
+		font-size: 16px;
+		line-height: 24px;
+		font-weight: 400;
+		margin: 1.5rem 0 4rem;
+		padding: 0 47px;
+	}
+	.splide {
+			visibility: visible;
+	}
+	.splide__track {
+		overflow: visible;
+	}
+	.splide__pagination {
+		padding: 0;
+		margin-top: 24px;
+	}
+	@include media(2-up) {
+		& > p {
+			text-align: center;
+		}
+	}
+	@include media(3-up) {
+		padding: 80px 0;
+	}
+}
+
+.pricing-real-people .splide__list.hypothetical-card-container {
+	height: auto;
+	
+	@include media(2-up) {
+		margin: 3rem auto;
+	}
+	@include media(6-up) {
+		display: flex !important;
+    justify-content: center;
+	}
+
+	&:not([style]) {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.pricing-real-people .hypothetical-card {
+	cursor: pointer;
+	text-align: left;
+	min-width: 280px;
+	height: 483px;
+	border-radius: 16px;
+	padding: 25px;
+	background: white;
+	transition: all 0.2s ease;
+	position: relative;
+	margin-right: 16px;
+	@include media(2-up) {
+		transform: scale(0.95);
+		margin: 0 8px;
+		&.is-active {
+			transform-origin: center;
+			transform: scale(1.15);
+			margin: 0 30px !important;
+		}
+	}
+	* {
+		pointer-events: none;
+	}
+	strong em {
+		font-family: $font-heading;
+		font-size: 28px;
+		line-height: 1;
+		font-weight: 900;
+		margin: 0;
+	}
+	.demographic {
+		color: $putty-text;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 18px;
+		margin: 0 0 26px;
+	}
+	hr {
+		border: 1px solid $putty-bg;
+	}
+	ul {
+		padding: 0;
+	}
+	li {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+	}
+	li p {
+		margin: 8px 0;
+	}
+	p {
+		font-size: 14px;
+		line-height: 20px;
+		font-weight: 400;
+		svg {
+			display: inline;
+			position: relative;
+			top: 2px;
+			margin-right: 2px;
+		}
+		&.subtotal {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 24px;
+			font-size: 18px;
+			line-height: 26px;
+		}
+	}
+	&-footer {
+		text-align: right;
+		position: absolute;
+		bottom: 25px;
+		right: 25px;
+	}
+	.uppercase {
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 13px;
+		line-height: 16px;
+		letter-spacing: 1px;
+		color: $putty-text;
+		margin: 0;
+	}
+	.big-text {
+		font-family: $font-heading;
+		font-size: 30px;
+		line-height: 1;
+		font-weight: 900;
+		line-height: 38px;
+	}
+	.disclaimer {
+		font-size: 12px;
+		line-height: 18px;
+		font-weight: 400;
+		margin: 0;
+		.title {
+			font-weight: 700;
+		}
+	}
+}
+// Carousel Bullets
+// ---------------------------
+.pricing-real-people {
+	.splide__pagination,
+	.page-controls {
+		margin-top: 2em;
+		position: relative;
+		text-align: center;
+		display: block;
+        bottom: 0;
+        @include media(2-up) {
+            margin-top: 5em;
+        }
+		@include media(6-up) {
+			display: none;
+		}
+
+		.splide__pagination__page,
+		.page-control {
+			display: inline-block;
+			padding: 0;
+			margin: 0 6px;
+			border: none;
+			background: transparent;
+			border: 1px solid $putty-graphics;
+			border-radius: 9px;
+			width: 9px;
+			height: 9px;
+
+			&.is-active {
+				background: $putty-graphics;
+				border-color: $putty-graphics;
+				transform: none;
+			}
+		}
+	}
+}

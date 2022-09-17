@@ -1,0 +1,19 @@
+[draglord] {
+  position: relative;
+  min-width: 100%;
+  min-height: 2rem;
+  background: gray;
+}
+
+[draglord].disabled {
+  pointer-events: none;
+}
+
+[draglord-handle] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  min-height: inherit;
+  background: black;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="#">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+        >
+          <rect x="4" y="4" width="25" height="25" fill="var(--color-primary)"></rect>
+          <rect x="35" y="4" width="25" height="25" fill="white"></rect>
+          <rect x="4" y="35" width="25" height="25" fill="white"></rect>
+          <rect x="35" y="35" width="25" height="25" fill="var(--color-secondary)"></rect>
+        </svg>
+        <span>Cube Co</span>
+      </a>
+      <a href="#">Product</a>
+      <a href="#">Appplication</a>
+      <a href="#">Technologies</a>
+      <a href="#">About</a>
+    </nav>
+
+    <section>
+      <div>
+        <h1>How To Make More Cube By Doing Less</h1>
+        <p>
+          We're building <strong>problem solving</strong> magic so everyone
+          can be happy and gain <strong>more CUBE.</strong>
+        </p>
+        <button>Get Started</button>
+        <a
+          id="credit"
+          target="_blank"
+          href="https://thumbs.gfycat.com/UntriedDownrightAdmiralbutterfly-mobile.mp4"
+          >Inspired by this design</a
+        >
+      </div>
+      <div data-cube></div>
+    </section>
+
+    <form data-form style="display: none">
+      <fieldset>
+        <legend>Animation</legend>
+        <label for="frame" data-label="Frame">0</label>
+        <input step="1" type="range" min="0" max="5" id="frame" value="0" />
+        <label
+          for="animation"
+          data-text='["Running", "Paused"]'
+          data-label="Paused"
+        >
+          <input id="animation" type="checkbox" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Debug</legend>
+        <label for="debug" data-text='["On", "Off"]' data-label="Off">
+          <input id="debug" type="checkbox" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Spin</legend>
+        <label for="spin" data-text='["Auto", "Manual"]' data-label="Auto">
+          <input id="spin" type="checkbox" />
+        </label>
+      </fieldset>
+
+      <fieldset data-optional>
+        <legend>Rotation</legend>
+
+        <label for="rotx" data-label="deg X">-35</label>
+        <input step="5" type="range" min="-180" max="180" id="rotx" />
+
+        <label for="roty" data-label="deg Y">35</label>
+        <input step="5" type="range" min="-180" max="180" id="roty" />
+
+        <label for="rot" data-label="deg Z">0</label>
+        <input step="5" type="range" min="-180" max="180" id="rotz" value="0" />
+      </fieldset>
+
+      <fieldset data-optional>
+        <legend>Translate</legend>
+
+        <label for="transx" data-label="px X">0</label>
+        <input
+          step="5"
+          type="range"
+          min="-600"
+          max="600"
+          id="transx"
+          value="0"
+        />
+
+        <label for="transy" data-label="px Y">0</label>
+        <input
+          step="5"
+          type="range"
+          min="-600"
+          max="600"
+          id="transy"
+          value="0"
+        />
+
+        <label for="transz" data-label="px Z">0</label>
+        <input
+          step="5"
+          type="range"
+          min="-600"
+          max="600"
+          id="transz"
+          value="0"
+        />
+      </fieldset>
+    </form>
+    <script src="/src/index.ts" type="module"></script>
+  </body>
+</html>

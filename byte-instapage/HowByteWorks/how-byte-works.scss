@@ -1,0 +1,80 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+
+#how-byte-works {
+  padding: 3rem 0;
+  text-align:center;
+  
+  @include media (3-up) {
+    padding: 3rem 0;
+  }
+
+  .numbered-section {
+    max-width:1200px;
+  }
+  
+  .responsive-image__wrapper {
+    margin: 0 auto;
+    &[data-image-id="temp_doc"] {
+      @include media (3-up) {
+        margin-top: -17px;
+      }
+    }
+    &[data-image-id="hyperbyte_icon"] {
+      position: relative;
+      right: -3px;
+      // @include media (3-up) {
+      //   margin-top: -10px;
+      // }
+    }
+  }
+
+  .row {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    @include media (4-up) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    > div {
+      margin-top: 30px;
+      @include media (4-up) {
+        margin-top: 0px;
+      }
+    }
+  }
+
+  h2 {
+    padding-bottom: 0px;
+    @include media (4-up) {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .svg-holder {
+    max-width: 250px;
+  }
+
+  h3 {
+    font-family: $font-body;
+    font-size:22px;
+    line-height:1;
+    margin-bottom: 10px;
+    
+    span {
+      display: inline;
+      color: $byte;
+    }
+  }
+  p {
+    padding: 0 15px;
+    margin: auto;
+    max-width: 420px;
+  }
+  .illustration {
+    max-width: 128px;;
+  }
+}
