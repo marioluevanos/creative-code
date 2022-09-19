@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: black;
+}
+
+.logos {
+  position: absolute;
+  width: 200px;
+  height: auto;
+}
+
+.logos div {
+  width: inherit;
+  height: inherit;
+  aspect-ratio: 1/1;
+  position: absolute;
+  transform: scale(2);
+  border-radius: 100vw 0 100vw 100vw;
+  background: hsl(205, 85%, 40%);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: black;
+    border-radius: 100%;
+    transform: scale(0.4);
+  }
+}
+
+// @for $i from 1 through 10 {
+//   .logos div:nth-child(#{$i}) {
+//     $h: 205;
+//     $l: 40% - ($i * 4);
+//     $s: 85% + ($i * 10);
+//     background-color: hsl($h, $s, $l);
+//     animation: rotate-#{$i} 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.1s * $i both reverse infinite;
+//     animation-play-state: paused;
+//     z-index: 10 - $i;
+//   }
+// }
+
+// @for $i from 1 through 10 {
+//   @keyframes rotate-#{$i} {
+//     75%, 100% {
+//       transform: scale(#{$i * 0.2}) rotate(#{360}deg);
+//     }
+//   }
+// }
+
+// body:hover .logos div {
+//   animation-play-state: running;
+// }

@@ -82,7 +82,7 @@
         focus: "center",
         start: isSmallDisplay ? 0 : 2,
         fixedWidth: 300,
-        type: isSmallDisplay ? "slide" : "loop",
+        type: 'slide',
         slideFocus: true,
       };
 
