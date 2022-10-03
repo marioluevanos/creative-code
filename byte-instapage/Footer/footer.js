@@ -35,15 +35,12 @@
 	}
 
 	async function insertComponent() {
-		const data = await getData();
-		console.log(data)
-		const targets = document.querySelectorAll(`[data-component="${id}"]`);
-		targets.forEach((t) => {
-			t.insertAdjacentHTML('afterbegin', html(data));
-			if (!document.getElementById(`${id}-css`)) {
-				this.insertAdjacentHTML('beforeend', css());
-			}
-		});
+		const target = document.querySelector(`[data-component="${id}"]`);
+		const data = await getData(target.dataset.table);
+		target.insertAdjacentHTML('afterbegin', html(data));
+		if (!document.getElementById(`${id}-css`)) {
+			this.insertAdjacentHTML('beforeend', css());
+		}
 	}
 
 	function linkStylesheet(css) {
@@ -129,6 +126,7 @@
 		footer .footer-legal--links a {
 			font-weight: 700;
 			font-size: 16px;
+			color: white !important;
 		}
 		@media (min-width: 480px) {
 			footer .footer-legal--links a {
@@ -180,7 +178,7 @@
 		}
 		footer .footer-legal .small.asterisk sup {
 			left: 0;
-			top: 3px;
+			top: 0.5rem;
 			position: absolute;
 			vertical-align: baseline;
 			margin-right: 0.25rem;
@@ -347,7 +345,7 @@
 			text-decoration: none;
 			margin: 0 0 15px;
 			position: relative;
-			color: white;
+			color: white !important;
 			font-size: 15px;
 			line-height: 30px;
 		}
@@ -999,10 +997,10 @@
     ];
   }
 
-  async function getServerData() {
+  async function getServerData(tableId) {
     try {
       const response = await fetch(
-        "https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=footer"
+        `https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=${tableId}`
       );
       if (response.ok) {
         return await response.json();
@@ -1013,8 +1011,8 @@
     }
   }
 
-  async function getData() {
-    const data = await getServerData();
+  async function getData(tableId) {
+    const data = await getServerData(tableId);
     if (Array.isArray(data)) {
       return data;
     }
