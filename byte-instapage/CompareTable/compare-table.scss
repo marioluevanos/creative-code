@@ -53,6 +53,7 @@ One Row
     border-radius: var(--radius);
     background: $white;
     grid-template-columns: 1fr var(--col-w) var(--col-w);
+    text-align: left;
     transition: background 0.3s $ease-out-sine;
     
     @include media(3-up) {

@@ -10,7 +10,7 @@
 				id: 'byte-fonts',
 			},
 			{
-				url: 'https://cdn.shopify.com/s/files/1/0075/0505/1719/files/global.css?v=1662677681',
+				url: 'https://cdn.shopify.com/s/files/1/0075/0505/1719/files/global.css?v=1663374011',
 				id: 'byte-global',
 			},
 		].forEach(linkStylesheet.bind(head));
@@ -34,10 +34,12 @@
 		);
 	}
 
-	function insertComponent() {
+	async function insertComponent() {
+		const data = await getData();
+		console.log(data)
 		const targets = document.querySelectorAll(`[data-component="${id}"]`);
 		targets.forEach((t) => {
-			t.insertAdjacentHTML('afterbegin', html());
+			t.insertAdjacentHTML('afterbegin', html(data));
 			if (!document.getElementById(`${id}-css`)) {
 				this.insertAdjacentHTML('beforeend', css());
 			}
@@ -178,7 +180,7 @@
 		}
 		footer .footer-legal .small.asterisk sup {
 			left: 0;
-			top: 0.5rem;
+			top: 3px;
 			position: absolute;
 			vertical-align: baseline;
 			margin-right: 0.25rem;
@@ -373,11 +375,14 @@
 		footer .organized-list p {
 			margin: 0;
 		}
+		footer p:empty {
+			display: none;
+		}
 		<style>
 		`;
 	}
 
-	function html() {
+	function html(data) {
 		return `
 			<footer>
 				<div class="footer-links">
@@ -975,6 +980,10 @@
 									device functionally equivalent to HyperByte with clear aligners may
 									accelerate tooth movement. Individual results may vary.
 								</p>
+								${data.map((note, i) => {
+									console.log(note)
+									return note && note.Footnote && note.Footnote.length > 0 ? `<p class="small asterisk"><sup>${i + 5}</sup>${note.Footnote}</p>` : ''
+								}).join('')}
 							</div>
 						</div>
 					</div>
@@ -984,4 +993,36 @@
 	}
 
 	/** COMPONENT */
+	function getBackupData() {
+    return [
+      {},
+    ];
+  }
+
+  async function getServerData() {
+    try {
+      const response = await fetch(
+        "https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=footer"
+      );
+      if (response.ok) {
+        return await response.json();
+      }
+      return Promise.resolve([]);
+    } catch (error) {
+      return Promise.reject([]);
+    }
+  }
+
+  async function getData() {
+    const data = await getServerData();
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    console.warn(
+      "There is a problem fetching sever data for <CompareTable/>",
+      data
+    );
+    return getBackupData();
+  }
 })();
