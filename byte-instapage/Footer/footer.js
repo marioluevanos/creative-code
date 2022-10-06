@@ -194,6 +194,9 @@
 			color: white;
 			margin-top: 16px;
 		}
+		footer .footer-legal .small.asterisk a {
+			text-decoration: underline;
+		}
 		@media (min-width: 769px) {
 			footer .footer-legal .approved-partner {
 				text-align: left;
@@ -953,34 +956,9 @@
 									<span>|</span>
 									<a href="https://byte.com/pages/terms-of-use" class="footerlink2">Terms of Use</a>
 								</div>
-								<p class="small rights-reserved">©2022 Byte. All rights reserved.</p>
-								<p class="small asterisk">
-									<sup>1</sup> Based on initial treatment plans for all-day aligners
-									purchased in last 12 months excluding any touch ups. Individual
-									results may vary.
-								</p>
-								<p class="small asterisk">
-									<sup>2</sup> Based on initial treatment plans for Byte at Night
-									aligners purchased in last 12 months excluding any touch ups.
-									Individual results may vary.
-								</p>
-								<p class="small asterisk">
-									<sup>3</sup> Lifetime Guarantee based on post treatment compliance.
-									See
-									<a aria-label="Go to guarantees page" href="https://byte.com/pages/guarantees"
-										>Guarantees</a
-									>
-									for more details.
-								</p>
-								<p class="small asterisk">
-									<sup>4</sup> Preliminary clinical studies of small groups of users
-									have shown that daily recommended use of a high-frequency seating
-									device functionally equivalent to HyperByte with clear aligners may
-									accelerate tooth movement. Individual results may vary.
-								</p>
+								<p class="small rights-reserved">©${new Date().getFullYear()} Byte. All rights reserved.</p>
 								${data.map((note, i) => {
-									console.log(note)
-									return note && note.Footnote && note.Footnote.length > 0 ? `<p class="small asterisk"><sup>${i + 5}</sup>${note.Footnote}</p>` : ''
+									return note && note.Footnote && note.Footnote.length > 0 ? `<p class="small asterisk"><sup>${i + 1}</sup>${note.Footnote}</p>` : ''
 								}).join('')}
 							</div>
 						</div>
