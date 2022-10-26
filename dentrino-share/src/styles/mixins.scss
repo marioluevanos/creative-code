@@ -1,0 +1,68 @@
+@import 'variables';
+
+@mixin media($size) {
+  @if $size == 1-up {
+    @media (min-width: $media-1) { @content; }
+  } @else if $size == 2-up {
+    @media (min-width: $media-2) { @content; }
+  } @else if $size == 3-up {
+    @media (min-width: $media-3) { @content; }
+  } @else if $size == 4-up {
+    @media (min-width: $media-4) { @content; }
+  } @else if $size == 5-up {
+    @media (min-width: $media-5) { @content; }
+  } @else if $size == 6-up {
+    @media (min-width: $media-6) { @content; }
+  } @else if $size == 7-up {
+    @media (min-width: $media-7) { @content; }
+  } @else if $size == 1-down {
+    @media (max-width: $media-1) { @content; }
+  } @else if $size == 2-down {
+    @media (max-width: $media-2) { @content; }
+  } @else if $size == 3-down {
+    @media (max-width: $media-3) { @content; }
+  } @else if $size == 4-down {
+    @media (max-width: $media-4) { @content; }
+  } @else if $size == 5-down {
+    @media (max-width: $media-5) { @content; }
+  } @else if $size == 6-down {
+    @media (max-width: $media-6) { @content; }
+  } @else if $size == 7-down {
+    @media (max-width: $media-7) { @content; }
+  }
+}
+
+@mixin tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  margin: 0;
+  background: $mint50;
+  color: $black;
+  border: none;
+  height: 32px;
+  font: 600 14px/0 $font-body;
+  transition: all 0.2s ease-in-out;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+
+  @include media(3-up) {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background: darken($mint50, 15%);
+    color: $black;
+  }
+
+  input:checked + &,
+  &.selected {
+    pointer-events: none;
+    background: $navy;
+    color: $white;
+  }
+}

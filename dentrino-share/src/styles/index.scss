@@ -1,0 +1,124 @@
+@import "mixins.scss";
+@import "variables.scss";
+@import "fonts.scss";
+@import "global.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  background-color: #eee;
+}
+
+body {
+  height: inherit;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-demo] {
+  background: white;
+  width: 375px;
+  max-height: 667px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 4.75rem 1rem 1rem;
+}
+
+.screen {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  height: inherit;
+}
+
+[data-screen="1"] {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  user-select: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 0;
+
+  .is-screen-2 & {
+    height: 62px;
+  }
+}
+
+[data-screen="2"] {
+  display: none;
+
+  .is-screen-2 & {
+    display: flex;
+  }
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  text-align: center;
+  line-height: 1;
+}
+
+#share {
+  margin: 1rem 0 1.5rem;
+  text-align: center;
+  p {
+    margin: 0 0 0.5rem;
+  }
+}
+
+.results {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    display: block;
+  }
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  grid-gap: 1rem;
+}
+
+.social-icons a {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none !important;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #1c1e28;
+  transition: all 0.2s ease;
+
+  &.facebook:hover {
+    background: #435a92;
+  }
+  
+  &.twitter:hover {
+    background: #6eace6;
+  }
+  
+  &.linkedin:hover {
+    background: #3d71a1;
+  }
+}
+
+.button {
+  width: 100%;
+}
