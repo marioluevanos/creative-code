@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Aiming for Pixel Perfect UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dist/fonts.css" />
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" />
+    <link rel="stylesheet" href="presentation.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-color="var(--navy)">
+          <h1>Resource Article Updates with ISR</h1>
+        </section>
+
+        <section style="text-align: left" data-background-color="white">
+          <section>
+            <h2>Context</h2>
+            <p>We are nearing the Resource article release</p>
+            <ol>
+              <li>
+                To rebuild all 500+ articles each time a build is triggered
+              </li>
+              <li>
+                Limit this to the latest 100 articles and have the rest built
+                per request.
+              </li>
+            </ol>
+
+            <aside class="notes">
+              Describe details of Component Library
+              <ul>
+                <li>thin and light borders</li>
+                <li>open and closed states</li>
+                <li>input fields</li>
+                <li>day night play badges</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <section style="text-align: left">
+          <h2>Decision Drivers</h2>
+          <p>
+            A Next.js configuration that will allow the Resource articles to
+            scale in volume and that this solution would not negatively affect
+            the build and deployment times.
+          </p>
+        </section>
+
+        <section style="text-align: left">
+          <h2>Considered Options</h2>
+          <ul>
+            <li>Server-side Rendering (SSR)</li>
+            <li>Static Site Generation (SSG)</li>
+            <li>Incremental Static Regeneration (ISR)</li>
+          </ul>
+        </section>
+
+        <section style="text-align: left">
+          <p id="markdown-header-server-side-rendering-ssr">
+            Server-side Rendering (SSR)
+          </p>
+          <h4 id="markdown-header-positive">Positive</h4>
+          <ul>
+            <li>
+              The data used to generate the page is fetched at the request time.
+            </li>
+            <li>The HTML is generated on each request.</li>
+            <li>Access to URL parameter to handle dynamic pages</li>
+          </ul>
+          <h4 id="markdown-header-negative">Negative</h4>
+          <ul>
+            <li>The first initial load can take a long time.</li>
+            <li>
+              If APIs are slow, this can negatively impact the drawn-out
+              rendering cycle.
+            </li>
+            <li>
+              The app deals with Hydration as overhead for the rendering cycle.
+            </li>
+            <li>Need to set caching via request headers manually.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="presentation.js"></script>
+  </body>
+</html>

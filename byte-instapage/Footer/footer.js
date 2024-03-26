@@ -178,7 +178,7 @@
 		}
 		footer .footer-legal .small.asterisk sup {
 			left: 0;
-			top: 0.5rem;
+			top: 0.25rem;
 			position: absolute;
 			vertical-align: baseline;
 			margin-right: 0.25rem;
@@ -976,6 +976,7 @@
   }
 
   async function getServerData(tableId) {
+		if (!tableId) return Promise.resolve([]);
     try {
       const response = await fetch(
         `https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=${tableId}`

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="all.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: var(--navy-bg);
+        padding: 3rem;
+        margin: 0;
+        color: white;
+        display: grid;
+        grid-gap: 0 1rem;
+        justify-content: flex-start;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      h2 {
+        font-size: 5vw;
+        font-weight: 600;
+        margin: 0;
+        text-align: left;
+      }
+      .abs {
+        color: var(--putty);
+        font-weight: 400;
+      }
+      .rec {
+        background: var(--navy);
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        margin-left: -1rem;
+        justify-self: flex-start;
+        align-self: flex-start;
+      }
+      .rec span {
+        text-shadow: 0 0 24px white;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 class="rec">✅ <span>em</span></h2>
+    <h2 class="rec">✅ <span>rem</span></h2>
+
+    <h2>✅ vw</h2>
+    <h2>✅ vh</h2>
+
+    <h2>✅ vmin</h2>
+    <h2>✅ vmax</h2>
+
+    <h2>✅ %</h2>
+
+    <!-- <h2 class="abs">px</h2>
+    <h2 class="abs">pt</h2>
+    <h2 class="abs">pc</h2>
+    <h2 class="abs">in</h2>
+    <h2 class="abs">cm</h2>
+    <h2 class="abs">mm</h2> -->
+  </body>
+</html>

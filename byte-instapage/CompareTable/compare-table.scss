@@ -1,5 +1,5 @@
-@import '../styles/variables';
-@import '../styles/mixins';
+@import "../styles/variables";
+@import "../styles/mixins";
 
 * {
   box-sizing: border-box;
@@ -55,7 +55,7 @@ One Row
     grid-template-columns: 1fr var(--col-w) var(--col-w);
     text-align: left;
     transition: background 0.3s $ease-out-sine;
-    
+
     @include media(3-up) {
       min-height: 58px;
       --col-w: 144px;
@@ -157,7 +157,7 @@ Perk Column
     --padding: 24px;
   }
 
-  >* {
+  > * {
     justify-content: flex-start;
     line-height: 1.15;
   }
@@ -168,7 +168,7 @@ Perk Column
     margin: 0 8px 0 0;
     color: $putty-text;
     display: flex;
-  
+
     svg {
       width: 12px;
       height: 12px;
@@ -190,7 +190,7 @@ Perk Column
     }
   }
 
-  @media (hover:hover) {
+  @media (hover: hover) {
     &.has-description .cell-row:hover p {
       opacity: 0.66;
     }
@@ -258,7 +258,7 @@ Highlighted Column
     z-index: 1;
   }
   .cell.highlight::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -1.5px;
@@ -267,9 +267,7 @@ Highlighted Column
     background: $putty-light-bg;
     border-left: 1.5px solid $putty-decorative;
     border-right: 1.5px solid $putty-decorative;
-    transition:
-      height 0.3s $ease-in-out-sine,
-      top 0.3s $ease-in-out-sine;
+    transition: height 0.3s $ease-in-out-sine, top 0.3s $ease-in-out-sine;
     z-index: 0;
   }
 
@@ -340,10 +338,8 @@ Content (Slide Down)
     visibility: hidden;
     padding: 24px;
     z-index: -1;
-    transition:
-      height 0.3s $ease-in-out-sine,
-      padding-top 0.3s $ease-in-out-sine,
-      padding-bottom 0.3s $ease-in-out-sine;
+    transition: height 0.3s $ease-in-out-sine,
+      padding-top 0.3s $ease-in-out-sine, padding-bottom 0.3s $ease-in-out-sine;
   }
 
   // When its been initialized via JS
@@ -364,16 +360,14 @@ Content (Slide Down)
     margin: 0;
     opacity: 0;
     transform: translate3d(0, -8px, 0);
-    transition:
-      opacity 0.15s $ease-in-out-sine 0s,
+    transition: opacity 0.15s $ease-in-out-sine 0s,
       transform 0.15s $ease-in-out-sine 0s;
   }
 
   &.is-active .description > p {
     transform: translate3d(0, 0, 0);
     opacity: 1;
-    transition:
-      opacity 0.15s $ease-out-sine 0.15s,
+    transition: opacity 0.15s $ease-out-sine 0.15s,
       transform 0.15s $ease-out-sine 0.15s;
   }
 }
@@ -388,10 +382,8 @@ Active State
     z-index: 1;
   }
 
-
   &:only-child .highlight::before {
     top: 0;
     height: 100%;
   }
 }
-

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="all.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--navy);
+        color: white;
+      }
+      .grid {
+        padding: 2rem 0.5rem;
+        overflow: auto;
+        position: relative;
+        grid-gap: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .grid .row {
+        padding: 1rem 1.5rem;
+        display: grid;
+        grid-gap: 1rem 0;
+        grid-template-columns: repeat(3, 0.2fr) 0.4fr;
+        align-items: center;
+        position: relative;
+        justify-content: flex-start;
+      }
+      .grid .row:nth-child(even) {
+        background: rgba(0, 0, 0, 0.15);
+      }
+      .grid span {
+        border-radius: 0.5rem;
+        place-content: center;
+        font: 600 1.5rem/1 'Source Sans Pro';
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-variant-numeric: proportional-nums;
+        color: var(--red-decorative);
+      }
+      .grid .row:not(:first-child) span {
+        font: 400 2rem/1 'Source Sans Pro';
+        text-transform: none;
+        letter-spacing: 0;
+        color: var(--white);
+        font-variant-numeric: proportional-nums;
+      }
+    
+      .grid .row span:last-child {
+        background: var(--green);
+        border-radius: 0;
+        display: block;
+      }
+      .grid .row.base {
+        background: var(--navy-bg);
+        color: var(--green);
+      }
+      .grid .row.base span {
+        font-weight: 700;
+      }
+      .grid .row span em {
+        font-style: normal;
+        margin-left: 0.25rem;
+        opacity: 0.33;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid"></div>
+  </body>
+  <script>
+    const grid = document.querySelector('.grid');
+    const spacing = [
+      ['Pixels', 'Relative', 'Size'],
+      [4, 0.25, 'xx-small'],
+      [8, 0.5, 'x-small'],
+      [10, 0.625, 'small'],
+      [16, 1, 'medium'],
+      [32, 2, 'large'],
+      [40, 2.5, 'x-large'],
+      [64, 4, 'xx-large'],
+    ];
+
+    const rows = spacing.map(([a, b, c, d], i) => {
+      return `
+        <div class="row ${a === 16 ? 'base' : ''}">
+          <span>${a}${i === 0 ? '' : '<em>px</em>'}</span>
+          <span>${b}${i === 0 ? '' : '<em>rem</em>'}</span>
+          <span>${c}</span>
+          <span style="width: ${b}rem; height: ${b}rem"></span>
+        </div>
+      `;
+    });
+
+    grid.innerHTML = rows.join('')
+
+  </script>
+</html>

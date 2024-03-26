@@ -1,0 +1,228 @@
+/* Avenir Next Condensed Demi */
+@font-face {
+  font-family: "AvenirNextLTW01-DemiCn";
+  src: url("./fonts/721305/d268cd4d-987c-468a-a9bb-685df57a3892.woff2")
+      format("woff2"),
+    url("./fonts/721305/add96dac-4679-4981-9390-74fd5a5bf61f.woff")
+      format("woff");
+}
+
+/* Avenir Next Condensed Bold */
+@font-face {
+  font-family: "AvenirNextLTW01-BoldCn";
+  src: url("./fonts/721317/9f6106aa-36e0-4cfb-8cda-c3354eab2461.woff2")
+      format("woff2"),
+    url("./fonts/721317/ff039068-be8b-415c-b1a9-24eedee1c3ab.woff")
+      format("woff");
+}
+
+/* Avenir Roman */
+@font-face {
+  font-family: "Avenir LT W05 55 Roman";
+  src: url("./fonts/6288193/54cd418c-d829-40d8-87cb-60132155501c.woff2")
+      format("woff2"),
+    url("./fonts/6288193/1ee2e0d8-ea43-407d-b037-a7d4d89890b9.woff")
+      format("woff");
+}
+
+/* Avenir Oblique */
+@font-face {
+  font-family: "Avenir LT W05_55 Oblique";
+  src: url("./fonts/6288109/0f039122-3d9a-42de-9237-a882e95c3f6b.woff2")
+      format("woff2"),
+    url("./fonts/6288109/c8a015bc-6002-49a6-a2f3-b4ed76bbd9bf.woff")
+      format("woff");
+}
+
+/* Avenir Black */
+@font-face {
+  font-family: "Avenir LT W05 95 Black";
+  src: url("./fonts/6237457/04376105-33eb-4368-8027-ceb0a1dc8ced.woff2")
+      format("woff2"),
+    url("./fonts/6237457/6ce13c54-7d23-4b2d-8647-9bceaf4a208a.woff")
+      format("woff");
+}
+
+/* Avenir Black Oblique */
+@font-face {
+  font-family: "Avenir LT W05_95 Black Oblique";
+  src: url("./fonts/6237271/38c1022f-1f2c-42ae-9319-1bb40215186e.woff2")
+      format("woff2"),
+    url("./fonts/6237271/16b69502-06da-4578-8d16-e6f3a1a2c820.woff")
+      format("woff");
+}
+
+:root {
+  --to-y: 200vh;
+  --color-black: #050b18;
+  --color-white: #fff;
+  --color-primary: #1131a7;
+  --color-deep-blue: #0a152e;
+  --color-silver-blue: #e2e7ea;
+  --color-slate-blue: #262b34;
+  --color-red: #ff0505;
+  --color-red-brown: #b33321;
+  --color-gray-444: #444;
+  --color-gray-light: #eaeaea;
+  --color-gray-medium: #888;
+  --color-category-yellow: #fff200;
+  --color-category-red: #d2232a;
+  --color-category-pink: #ec008c;
+  --color-category-blue: #25408f;
+  --color-cyan: #00aeef;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: white;
+  background: var(--color-black);
+  font-weight: 600;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#magazines {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+}
+
+#magazines .container {
+  width: 100%;
+  height: 100vh;
+  height: -webkit-fill-available;
+  position: absolute;
+  left: 0;
+  top: 0;
+  user-select: none;
+  padding: 0;
+  max-width: none;
+}
+
+#magazines .center {
+  height: 100vh;
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  user-select: none;
+  transform-origin: 50% 0%;
+  transform: translate(0px, 72%) scale(0.66);
+}
+
+#magazines .items {
+  transform-origin: center var(--to-y);
+  transform: rotate(0);
+  user-select: none;
+  display: flex;
+}
+
+#magazines .item {
+  position: absolute;
+  user-select: none;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+#magazines .item .card {
+  display: block;
+  color: #fff;
+  user-select: none;
+  border-radius: 0.25rem;
+  cursor: grab;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  height: 100%;
+  width: auto;
+  width: 80vw;
+  aspect-ratio: 8.5/11;
+}
+
+@media (min-width: 768px) {
+  #magazines .item .card {
+    width: 40vw;
+  }
+}
+
+#magazines .item .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: hard-light;
+  opacity: 0.8;
+  background: linear-gradient(
+    90deg,
+    hsl(0deg 0% 0% / 50%) 1%,
+    hsl(0deg 0% 0% / 80%) 3%,
+    hsl(0deg 0% 60% / 60%) 60%,
+    hsl(0deg 0% 0% / 60%) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+#magazines .item .card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(8px, 8px);
+  background-color: gray;
+  background-image: linear-gradient(
+    90deg,
+    transparent 50%,
+    hsl(0deg 0% 0% / 30%) 50%
+  );
+  background-size: 2px;
+  z-index: -1;
+}
+
+#magazines .image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 0 0;
+  aspect-ratio: 8.5/11;
+}
+
+#magazines .cta {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#magazines .logo {
+  display: block;
+  height: 8rem;
+  width: 20rem;
+  object-fit: contain;
+}
+
+.cta button {
+  background: white;
+  color: var(--color-white);
+  font-size: 14px;
+  line-height: 40px;
+  font-family: AvenirNextLTW01-DemiCn, san-serif;
+  height: 40px;
+  margin: 1.5rem 0;
+  padding: 0 20px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  box-sizing: border-box;
+  box-shadow: 3px 3px 0 0 #1d4efe;
+  cursor: pointer;
+}

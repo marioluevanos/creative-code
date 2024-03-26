@@ -32,7 +32,8 @@
   }
 
   async function faqCategory() {
-    const data = await getData();
+    const target = document.querySelector(`[data-component="${id}"]`);
+    const data = await getData(target.dataset.table);
     insertComponent.call(this, data)
     createBadgerAccordion();
 
@@ -47,7 +48,6 @@
   }
 
   async function insertComponent(data) {
-    console.log('insertComponent')
     const targets = document.querySelectorAll(`[data-component="${id}"]`);
     targets.forEach((t) => {
       t.insertAdjacentHTML("afterbegin", html(data));
@@ -162,10 +162,11 @@
     ];
   }
 
-  async function getServerData() {
+  async function getServerData(tableId) {
+    if (!tableId) tableId = 'faq';
     try {
       const response = await fetch(
-        "https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=faq"
+        `https://us-central1-mario-luevanos.cloudfunctions.net/api/byte/components?table=${tableId}`
       );
       if (response.ok) {
         return await response.json();
@@ -176,9 +177,8 @@
     }
   }
 
-  async function getData() {
-    const data = await getServerData();
-    console.log({data})
+  async function getData(tableId) {
+    const data = await getServerData(tableId);
     if (Array.isArray(data)) {
       return data;
     }

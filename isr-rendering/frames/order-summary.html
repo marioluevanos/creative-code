@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="all.css" rel="stylesheet" />
+    <link href="order-summary.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <figure id="os-design">
+      <img src="../assets/os-design.png" />
+      <figcaption class="label">
+        Design
+        <img src="../assets/figma.svg" />
+      </figcaption>
+    </figure>
+    <div>
+      <div class="os" data-order-summary data-state="closed">
+        <button class="os-header os-line" data-order-summary-toggle>
+          <span class="os-link">Order Summary</span>
+          <span class="os-subtotal"
+            >$32.05
+            <svg iewBox="0 0 16 16" class="icon os-chevron" fill="currentColor">
+              <path
+                d="M12.3,10.8c0.1,0.1,0.2,0.2,0.4,0.2c0.1,0,0.2,0,0.3-0.1c0.1-0.1,0.1-0.1,0.2-0.2c0.1-0.1,0.1-0.2,0.1-0.3 c0-0.1,0-0.1,0-0.2c0-0.1-0.1-0.1-0.1-0.2L8.4,5.2C8.3,5.1,8.1,5,8,5C7.9,5,7.8,5,7.8,5c-0.1,0-0.1,0.1-0.2,0.1L2.9,10 c-0.1,0.1-0.2,0.2-0.2,0.4c0,0.1,0,0.2,0.1,0.3c0,0.1,0.1,0.2,0.2,0.2C3.1,11,3.2,11,3.3,11c0.2,0,0.3-0.1,0.4-0.2L8,6.4L12.3,10.8z"
+              />
+            </svg>
+          </span>
+        </button>
+        <div class="os-content" data-order-summary-content>
+          <div class="os-item os-section has-discount" data-item>
+            <figure class="os-img">
+              <img src="../assets/os-ik.png" />
+            </figure>
+            <h3 class="os-title">Impression Kit</h3>
+            <lable for="os-discount-input">
+              <input
+                autocomplete="off"
+                placeholder="Promo Code"
+                id="os-discount-input"
+                type="text"
+                value="BYTE22"
+              />
+              <svg viewBox="0 0 16 16" class="os-tag icon">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2784"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14,8.9l-4.8,4.8 C9.1,13.8,9,13.9,8.8,14s-0.3,0.1-0.5,0.1S8,14.1,7.8,14s-0.3-0.2-0.4-0.3L1.6,8V1.3h6.7L14,7.1c0.2,0.2,0.4,0.6,0.4,0.9 C14.4,8.4,14.3,8.7,14,8.9L14,8.9z"
+                />
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2784"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5,4.7L5,4.7"
+                />
+              </svg>
+
+              <button class="os-x icon" data-discount-clear>
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.5,3.5c0.3,0.3,0.3,0.7,0,0.9l-8,8c-0.3,0.3-0.7,0.3-0.9,0 c-0.3-0.3-0.3-0.7,0-0.9l8-8C11.8,3.3,12.2,3.3,12.5,3.5z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.5,3.5c0.3-0.3,0.7-0.3,0.9,0l8,8c0.3,0.3,0.3,0.7,0,0.9c-0.3,0.3-0.7,0.3-0.9,0 l-8-8C3.3,4.2,3.3,3.8,3.5,3.5z"
+                  />
+                </svg>
+              </button>
+
+              <svg viewBox="0 0 16 16" class="os-loading icon">
+                <path
+                  d="M8 16a8 8 0 1 1 8-8 8.009 8.009 0 0 1-8 8zM8 2a6 6 0 1 0 6 6 6.006 6.006 0 0 0-6-6z"
+                  opacity=".4"
+                ></path>
+                <path
+                  d="M8 0v2a6.006 6.006 0 0 1 6 6h2a8.009 8.009 0 0 0-8-8z"
+                ></path>
+              </svg>
+            </lable>
+            <p class="os-price">$95.00</p>
+            <p class="os-discount-price">(-$65.00)</p>
+            <p class="os-discount-message" data-discount-message>
+              + $100 OFF Aligners!
+            </p>
+          </div>
+          <div class="os-fees os-section">
+            <div class="os-line">
+              <span class="os-label">Preferred Plan</span>
+              <span class="os-value" data-plan="day">
+                <svg
+                  class="icon os-plan"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8,5.7c-1.3,0-2.3,1-2.3,2.3s1,2.3,2.3,2.3c1.3,0,2.3-1,2.3-2.3 S9.3,5.7,8,5.7z M4.5,8c0-1.9,1.6-3.5,3.5-3.5c1.9,0,3.5,1.6,3.5,3.5S9.9,11.5,8,11.5C6.1,11.5,4.5,9.9,4.5,8z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8,1c0.3,0,0.6,0.3,0.6,0.6v1.2c0,0.3-0.3,0.6-0.6,0.6 c-0.3,0-0.6-0.3-0.6-0.6V1.6C7.4,1.3,7.7,1,8,1z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8,12.7c0.3,0,0.6,0.3,0.6,0.6v1.2C8.6,14.7,8.3,15,8,15 c-0.3,0-0.6-0.3-0.6-0.6v-1.2C7.4,12.9,7.7,12.7,8,12.7z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3,3c0.2-0.2,0.6-0.2,0.8,0l0.8,0.8c0.2,0.2,0.2,0.6,0,0.8 c-0.2,0.2-0.6,0.2-0.8,0L3,3.9C2.8,3.6,2.8,3.3,3,3z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M11.3,11.3c0.2-0.2,0.6-0.2,0.8,0l0.8,0.8c0.2,0.2,0.2,0.6,0,0.8 c-0.2,0.2-0.6,0.2-0.8,0l-0.8-0.8C11.1,11.9,11.1,11.5,11.3,11.3z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M1,8c0-0.3,0.3-0.6,0.6-0.6h1.2c0.3,0,0.6,0.3,0.6,0.6 c0,0.3-0.3,0.6-0.6,0.6H1.6C1.3,8.6,1,8.3,1,8z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.7,8c0-0.3,0.3-0.6,0.6-0.6h1.2C14.7,7.4,15,7.7,15,8 c0,0.3-0.3,0.6-0.6,0.6h-1.2C12.9,8.6,12.7,8.3,12.7,8z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M4.7,11.3c0.2,0.2,0.2,0.6,0,0.8L3.9,13c-0.2,0.2-0.6,0.2-0.8,0 c-0.2-0.2-0.2-0.6,0-0.8l0.8-0.8C4.1,11.1,4.5,11.1,4.7,11.3z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13,3c0.2,0.2,0.2,0.6,0,0.8l-0.8,0.8c-0.2,0.2-0.6,0.2-0.8,0 c-0.2-0.2-0.2-0.6,0-0.8L12.1,3C12.4,2.8,12.7,2.8,13,3z"
+                  />
+                </svg>
+                All-Day Plan
+              </span>
+            </div>
+            <div class="os-line">
+              <span class="os-label">Shipping</span>
+              <span class="os-value upper">FREE</span>
+            </div>
+            <div class="os-line">
+              <span class="os-label bold">Subtotal</span>
+              <span class="os-value bold">$29.95</span>
+            </div>
+            <div class="os-line">
+              <span class="os-label">Taxes</span>
+              <span class="os-value">$2.10</span>
+            </div>
+          </div>
+          <div class="os-total os-line os-section">
+            <span class="os-label bold">Order Total</span>
+            <span class="os-value bold">$32.05</span>
+          </div>
+          <div class="os-disclosure os-section">
+            <p class="os-disclosure-title os-link">Promotional Disclosures</p>
+            <p
+              class="os-disclosure-text italic"
+              data-disclosure
+              data-state="less"
+            >
+              Offer only valid with aligner treatment plan purchase.
+              <span
+                >Offer cannot be combined with any other sale, promotion, deal,
+                discount, code, coupon, and/or offer. May not be redeemed when
+                using bytepay monthly payment plans. Limit one (1) per customer.
+                Holds no cash value.</span
+              >
+            </p>
+            <button
+              class="os-link"
+              data-disclosure-toggle
+              data-btn-text="See More"
+            >
+              <svg
+                iewBox="0 0 16 16"
+                class="icon os-chevron"
+                fill="currentColor"
+              >
+                <path
+                  d="M12.3,10.8c0.1,0.1,0.2,0.2,0.4,0.2c0.1,0,0.2,0,0.3-0.1c0.1-0.1,0.1-0.1,0.2-0.2c0.1-0.1,0.1-0.2,0.1-0.3 c0-0.1,0-0.1,0-0.2c0-0.1-0.1-0.1-0.1-0.2L8.4,5.2C8.3,5.1,8.1,5,8,5C7.9,5,7.8,5,7.8,5c-0.1,0-0.1,0.1-0.2,0.1L2.9,10 c-0.1,0.1-0.2,0.2-0.2,0.4c0,0.1,0,0.2,0.1,0.3c0,0.1,0.1,0.2,0.2,0.2C3.1,11,3.2,11,3.3,11c0.2,0,0.3-0.1,0.4-0.2L8,6.4L12.3,10.8z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="label">
+        HTML & CSS
+        <img src="../assets/chrome.svg" />
+      </p>
+    </div>
+    <button id="overlay" class="button fixed">
+      <span class="icon">
+        <svg
+          class="stack"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <title>stack</title>
+          <g stroke-width="2" fill="#212121" stroke="#212121">
+            <polygon
+              fill="none"
+              stroke="#212121"
+              stroke-linecap="square"
+              stroke-miterlimit="10"
+              points="2,7 12,1 22,7 12,13 "
+              stroke-linejoin="miter"
+            ></polygon>
+            <polyline
+              fill="none"
+              stroke-linecap="square"
+              stroke-miterlimit="10"
+              points=" 22,12 12,18 2,12 "
+              stroke-linejoin="miter"
+            ></polyline>
+            <polyline
+              fill="none"
+              stroke-linecap="square"
+              stroke-miterlimit="10"
+              points=" 22,17 12,23 2,17 "
+              stroke-linejoin="miter"
+            ></polyline>
+          </g>
+        </svg>
+        <svg
+          class="apart"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <title>enlarge-horizontal</title>
+          <g
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+            stroke-width="2"
+            fill="none"
+            stroke="#212121"
+            stroke-miterlimit="10"
+          >
+            <line
+              x1="2"
+              y1="12"
+              x2="22"
+              y2="12"
+              stroke-linecap="butt"
+              stroke="#212121"
+            ></line>
+            <polyline points="17,7 22,12 17,17 "></polyline>
+            <polyline points="7,17 2,12 7,7 "></polyline>
+          </g>
+        </svg>
+      </span>
+    </button>
+  </body>
+  <script>
+    const BORKED = window.location.search.split("=")[1];
+    const overlay = document.getElementById("overlay");
+    const os = document.querySelector("[data-order-summary]");
+    const toggle = document.querySelector("[data-order-summary-toggle]");
+    const content = document.querySelector("[data-order-summary-content]");
+    const input = document.getElementById("os-discount-input");
+    const clear = document.querySelector("[data-discount-clear]");
+    const item = document.querySelector("[data-item]");
+    const dmessage = document.querySelector("[data-discount-message]");
+    const dbutton = document.querySelector("[data-disclosure-toggle]");
+    const dtext = document.querySelector("[data-disclosure]");
+    const dmore = dtext.querySelector("span");
+
+    document.addEventListener("DOMContentLoaded", init);
+    toggle.addEventListener("click", toggleState);
+    clear.addEventListener("click", onDiscountClear);
+    dbutton.addEventListener("click", onDisclosureToggle);
+    input.addEventListener("input", onDiscountInput);
+    input.addEventListener("keydown", onDiscountEnter);
+    overlay.addEventListener("click", onOverlay);
+
+    if (BORKED) document.body.classList.add(BORKED);
+
+    function init() {
+      setTimeout(
+        () => {
+          dmore.dataset.dh = dmore.clientHeight;
+          dmore.style.setProperty("--dh", 0);
+          toggleState();
+        },
+        BORKED ? 0 : 500
+      );
+      document.body.classList.toggle("is-delay-ready", !document.body.classList.contains("is-overlay"));
+    }
+
+    function onOverlay() {
+      document.body.classList.toggle("is-overlay");
+      document.body.classList.toggle("is-delay-ready", !document.body.classList.contains("is-overlay"))
+    }
+
+    function onDisclosureToggle(event) {
+      const isMore = dtext.dataset.state === "more";
+      dtext.dataset.state = isMore ? "less" : "more";
+
+      const dh = isMore ? 0 : dmore.dataset.dh;
+      dmore.style.setProperty("--dh", dh);
+
+      dbutton.dataset.btnText = isMore ? "See More" : "See Less";
+
+      requestAnimationFrame(() => {
+        // To allow the disclosures to expand
+        os.style = null;
+      });
+    }
+
+    function onDiscountInput() {
+      input.value = input.value.toUpperCase();
+      input.disabled = false;
+      item.classList.remove("loading");
+      item.classList.remove("has-discount");
+      item.classList.remove("has-error");
+      console.log("input");
+    }
+
+    function onDiscountEnter(event) {
+      if (event.code !== "Enter") return;
+      input.disabled = true;
+      item.classList.add("loading");
+
+      setTimeout(() => {
+        input.disabled = false;
+        item.classList.remove("loading");
+
+        if (input.value === "BYTE22") {
+          item.classList.add("has-discount");
+          dmessage.innerHTML = "+ $100 OFF Aligners!";
+        } else {
+          item.classList.add('has-error');
+          dmessage.innerHTML = 'Invalid Code.'
+        }
+      }, 1000);
+    }
+
+    function onDiscountClear() {
+      if (input) {
+        input.value = "";
+        item.classList.remove("has-discount");
+        input.focus();
+        input.disabled = false;
+      }
+    }
+
+    function getChildrenHeight() {
+      return Array.from(content.children).reduce(
+        (p, c) => p + c.clientHeight,
+        0
+      );
+    }
+
+    function toggleState() {
+      const { state } = os.dataset;
+
+      // getChildrenHeight should not be cached
+      os.style.setProperty("--ch", getChildrenHeight());
+      os.dataset.ch = getChildrenHeight();
+      os.dataset.state = state === "open" ? "closed" : "open";
+    }
+  </script>
+</html>
