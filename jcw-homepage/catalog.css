@@ -1,0 +1,165 @@
+#catalog {
+  --range-handle-width: 60px;
+  --range-handle-height: 20px;
+  --range-track-height: 4px;
+
+  padding: 3rem 1.5rem;
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+#catalog .years {
+  display: flex;
+  oveflow: auto hidden;
+
+  .year {
+    padding: 0 1.5rem;
+    font-family: AvenirNextLTW01-DemiCn, san-serif;
+    line-height: 98px;
+    transition: all 0.6s ease;
+    cursor: pointer;
+  }
+
+  .year.active {
+    font-size: 98px;
+  }
+}
+
+#catalog .header {
+  position: relative;
+  margin: 3rem auto 6rem;
+  padding: 0;
+}
+
+#catalog .logo {
+  object-fit: contain;
+  max-width: 320px;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+#catalog .items {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#catalog .item {
+  margin: 0;
+  flex: 1;
+  aspect-ratio: 1.78;
+}
+
+#catalog .item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+#catalog input[type="range"] {
+  display: inline-block;
+  width: 100%;
+  height: var(--range-track-height);
+  border-radius: 5px;
+  background: black;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+  appearance: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: ew-resize;
+  position: relative;
+  z-index: 1;
+}
+
+#catalog input::-moz-focus-inner,
+#catalog input::-moz-focus-outer {
+  border: 0;
+  outline: none;
+}
+
+#catalog input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--range-handle-width);
+  height: var(--range-handle-height);
+  border-radius: 2px;
+  background: #3c4667
+    url("https://typecrop.web.app/bg-slider-handle.be078012.png") 50% 50% /
+    contain no-repeat;
+  cursor: ew-resize;
+  transition: background 0.15s ease-in-out;
+}
+
+#catalog input[type="range"]:hover::-webkit-slider-thumb {
+  background-color: #424c6d;
+}
+
+#catalog input[type="range"]:active::-webkit-slider-thumb {
+  background-color: var(--color-cyan);
+}
+
+#catalog input[type="range"]::-moz-range-thumb {
+  width: var(--range-handle-width);
+  height: var(--range-handle-height);
+  border: 0;
+  border-radius: 2px;
+  background: #3c4667
+    url("https://typecrop.web.app/bg-slider-handle.be078012.png") 50% 50% /
+    contain no-repeat;
+  cursor: ew-resize;
+  transition: background 0.15s ease-in-out;
+}
+
+#catalog input[type="range"]:hover::-moz-range-thumb {
+  background-color: var(--color-cyan);
+}
+
+#catalog input[type="range"]:active::-moz-range-thumb {
+  background-color: var(--color-cyan);
+}
+
+#catalog input::-moz-range-track {
+  background-color: black;
+  border: 0;
+}
+
+span.value-display {
+  display: inline-block;
+  background: var(--color-cyan);
+  color: black;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.3);
+  padding: 0 0.5em;
+  border-radius: 2px;
+  position: absolute;
+  top: -1.5rem;
+  min-width: 60px;
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    border-width: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: var(--color-cyan) transparent transparent transparent;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 0);
+  }
+}
+
+span.value-display.active {
+  opacity: 1;
+}
