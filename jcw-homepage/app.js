@@ -8,7 +8,8 @@ const App = {
     Magazine,
   },
   template: `
-  <Catalog/>
+
+  <Magazine/>
   `,
 };
 
