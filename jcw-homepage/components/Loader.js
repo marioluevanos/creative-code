@@ -60,7 +60,6 @@ export default {
   },
   mounted() {
     this.images = Array.from(document.querySelectorAll("img"));
-
     requestAnimationFrame(() => {
       const loader = imagesLoaded("img", this.onComplete);
       loader.on("progress", this.onLoaderProgress.bind(this));

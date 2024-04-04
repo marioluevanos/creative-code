@@ -38,7 +38,6 @@
 #magazines .header {
   grid-area: header;
   position: relative;
-  opacity: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -153,6 +152,13 @@
       padding: 0;
     }
   }
+
+  .s-cyan {
+    stroke: var(--color-cyan);
+  }
+  .f-cyan {
+    fill: var(--color-cyan);
+  }
 }
 
 #magazines .canvas {
@@ -202,7 +208,7 @@
 }
 
 #magazines .item .magazine {
-  display: block;
+  display: flex;
   color: #fff;
   user-select: none;
   border-radius: 0.25rem;
@@ -219,6 +225,12 @@
 @media (min-width: 768px) {
   #magazines .item .magazine {
     width: calc(var(--canvas-w) * 0.33);
+  }
+}
+
+@media (min-width: 1024px) {
+  #magazines .item .magazine {
+    width: calc(var(--canvas-w) * 0.4);
   }
 }
 

@@ -1,0 +1,164 @@
+.compare {
+  --exposure: 50%;
+  --handle-background-image: url('data:image/svg+xml;utf8,<svg transform="scale(0.7)" fill="white" stroke-width="1" stroke="white" viewBox="0 0 20.03 11.87" width="18" height="15" aria-hidden="true" shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" data-type="Select"><path d="M6.54,.25c.33,.33,.33,.87,0,1.2L2.05,5.94l4.49,4.49c.33,.33,.33,.87,0,1.2s-.87,.33-1.2,0L.25,6.54c-.33-.33-.33-.87,0-1.2L5.34,.25c.33-.33,.87-.33,1.2,0Z"/><path d="M12.88,.25c.36-.33,.95-.33,1.31,0l5.57,5.09c.36,.33,.36,.87,0,1.2l-5.57,5.09c-.36,.33-.95,.33-1.31,0-.36-.33-.36-.87,0-1.2l4.91-4.49L12.88,1.45c-.36-.33-.36-.87,0-1.2Z"/></svg>');
+  --handle-size: calc(var(--handle-s, 42) * 1px);
+  --handle-radius: 50%;
+  --handle-border-color: white;
+  --handle-border-size: 0.2188rem;
+  --focus-width: 1.5px;
+  --focus-color: rgba(0, 0, 0, 0.3);
+
+  position: relative;
+  max-width: 768px;
+  margin: 0 auto;
+  position: relative;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Both Original/Modified images
+ ----------------------------- */
+
+.image {
+  overflow: hidden;
+  max-width: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  user-select: none;
+  pointer-events: none;
+  margin: 0;
+
+  img {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(1.05);
+  }
+
+  .isVisible & img {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+    transition: opacity 0.6s var(--ease-out-sine),
+      filter 0.6s var(--ease-out-sine), transform 0.6s var(--ease-out-sine);
+    transition-delay: 0.3s;
+  }
+}
+
+/* Resizer
+ ----------------------------- */
+
+.resizer.image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: inset(0 0 0 calc(var(--exposure) * 1%));
+  filter: drop-shadow(-2px 0 0 hsla(0, 0%, 100%, 0.9));
+}
+
+.icon {
+  --size: 1.5rem;
+  color: currentColor;
+  transform: rotate(90deg);
+}
+
+.input {
+  position: absolute;
+  margin: 0 auto;
+  width: calc(100% + var(--handle-size));
+  appearance: none;
+  background: none;
+  border: none;
+  z-index: 3;
+  bottom: 15%;
+  cursor: grab;
+  visible: hidden;
+  opacity: 0;
+
+  &:active {
+    cursor: col-resize;
+  }
+}
+
+/* Handle Thumb
+ ----------------------------- */
+
+.input::-moz-range-thumb {
+  background-color: var(--handle-background-color);
+  background-image: var(--handle-background-image);
+  background-size: 90%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: var(--handle-radius);
+  border: var(--handle-border-size) var(--handle-border-color) solid;
+  color: var(--handle-border-color);
+  width: var(--handle-size);
+  height: var(--handle-size);
+  visible: hidden;
+  opacity: 0;
+}
+
+.input::-webkit-slider-thumb {
+  appearance: none;
+  background-color: var(--handle-background-color);
+  background-image: var(--handle-background-image);
+  background-size: 90%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: var(--handle-radius);
+  border: var(--handle-border-size) var(--handle-border-color) solid;
+  color: var(--handle-border-color);
+  width: var(--handle-size);
+  height: var(--handle-size);
+  visible: hidden;
+  opacity: 0;
+}
+
+.input:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+}
+
+.input:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+}
+
+/* Vertical Line
+ ----------------------------- */
+
+.divider {
+  width: var(--handle-size);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(calc(var(--divider-x) * 1px));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: var(--handle-border-size);
+    height: calc(85% - var(--handle-size));
+    height: 100%;
+    background-color: white;
+  }
+
+  &::after {
+    height: calc(15%);
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+  }
+}

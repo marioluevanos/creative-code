@@ -17,35 +17,21 @@ const App = {
     Banner,
     Grid,
   },
-  data() {
-    return {
-      loaderComplete: false,
-    };
-  },
-  methods: {
-    onLoaderComplete() {
-      console.log("onLoaderComplete");
-      this.loaderComplete = true;
-    },
-  },
   template: `
-    <template v-if="loaderComplete">
-      <div class="announcement-bar">
-        <div class="container">
-          <a href="#">
-            🔥 Hot Off The Press! Get Our NEW JC Whitney Magazine &amp; Catalog
-          </a>
-        </div>
+    <div class="announcement-bar">
+      <div class="container">
+        <a href="#">
+          🔥 Hot Off The Press! Get Our NEW JC Whitney Magazine &amp; Catalog
+        </a>
       </div>
-      <Header />
-      <!-- <div style="height: 25vh"></div> -->
-      <!-- <Grid/> -->
-      <!-- <Newsletter/> -->
-      <!-- <Catalog/> -->
-      <Magazine/>
-      <Banner/>
-    </template>
-    <Loader v-else :onComplete="onLoaderComplete" />
+    </div>
+    <Header />
+    <!-- <Grid/> -->
+    <Newsletter/>
+    <Catalog/>
+    <Magazine/>
+    <Banner/>
+    <div style="height: 25vh"></div>
   `,
 };
 
