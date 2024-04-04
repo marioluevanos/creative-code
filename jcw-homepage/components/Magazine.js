@@ -28,7 +28,7 @@ const template = `
             v-else
             class="magazine"
             :aspectRatio="o.width / o.height"
-            :original="images[i - 1].src"
+            :original="images[0].src"
             :modified="o.src"
             :scrollProgress="scrollProgress"
           />
@@ -68,36 +68,11 @@ export default {
   },
   data() {
     const images = [
-      // {
-      //   src: "https://i.ibb.co/y089Y01/16531642-a630-5d23-9649-89215d765fa8-1024x1024.jpg",
-      //   width: 843,
-      //   height: 1024,
-      // },
-      // {
-      //   src: "https://i.ibb.co/XZFDSXg/Screenshot-2024-03-26-at-3-18-30-PM.png",
-      //   width: 854,
-      //   height: 1042,
-      // },
-      // {
-      //   src: "https://i.ibb.co/9VCg72m/JC-Whitney-cover1143071959.jpg",
-      //   width: 500,
-      //   height: 667,
-      // },
-      // {
-      //   src: "https://i.ibb.co/rdQKH7W/383-Bcover.jpg",
-      //   width: 901,
-      //   height: 1200,
-      // },
-      // {
-      //   src: "https://i.ibb.co/wQBmfPx/s-l1600.jpg",
-      //   width: 946,
-      //   height: 1200,
-      // },
-      // {
-      //   src: "https://i.ibb.co/nQC059L/s-l1600.jpg",
-      //   width: 1316,
-      //   height: 1600,
-      // },
+      {
+        src: "https://i.ibb.co/wQBmfPx/s-l1600.jpg",
+        width: 946,
+        height: 1200,
+      },
       {
         src: "https://i.ibb.co/xHJchsC/6016b24e-d839-5f27-bad4-545b8565b5f2-1024x1024.jpg",
         width: 831,
@@ -116,11 +91,6 @@ export default {
       {
         src: "https://i.ibb.co/rdQKH7W/383-Bcover.jpg",
         width: 901,
-        height: 1200,
-      },
-      {
-        src: "https://i.ibb.co/wQBmfPx/s-l1600.jpg",
-        width: 946,
         height: 1200,
       },
       {
@@ -175,10 +145,28 @@ export default {
         0
       );
 
+      timeline.fromTo(
+        ["#magazines .header h2", "#magazines .header p"],
+        {
+          opacity: 0,
+          y: 24,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "circ.out",
+          stagger: 0.15,
+        },
+        0
+      );
+
       images.forEach((image, index) => {
+        const finalRot = (index * this.degree) / 3;
         gsap.set(image, {
           visibility: "visible",
           rotation: 0,
+          rotation: finalRot,
         });
 
         const stackDelay = 0.15;
@@ -187,75 +175,41 @@ export default {
         timeline.from(
           image,
           {
-            x: () => (index % 2 ? canvasW * 0.5 : -canvasW * 0.5),
+            x: () => (index % 2 ? -canvasW * 0.25 : canvasW * 0.25),
             y: () => canvasH,
-            rotation: index % 2 ? this.totalDeg : -this.totalDeg,
-            scale: 1.5,
+            rotation: index % 2 ? -this.totalDeg : this.totalDeg,
+            scale: 2,
             opacity: 0,
-            ease: "power4.out",
+            ease: "expo.out",
             duration: stackDuration,
             delay: stackDelay * Math.floor(index / 2),
+            zIndex: index,
           },
           0.6
-        );
-
-        const startAt =
-          stackDuration + stackDelay * Math.floor((this.images.length - 1) / 2);
-
-        timeline.to(
-          image,
-          {
-            scale: 1,
-            duration: 0.6,
-            ease: "circ.out",
-          },
-          startAt
-        );
-
-        timeline.to(
-          image,
-          {
-            rotation: (index * this.degree) / 2,
-            duration: 1,
-            ease: "circ.inOut",
-          },
-          startAt + 0.6
-        );
-
-        timeline.to(
-          "#magazines .center",
-          {
-            transformOrigin: "50% 50%",
-            duration: 1,
-            ease: "circ.inOut",
-          },
-          startAt + 0.6
         );
 
         timeline.to(
           ".center",
           {
-            rotation: (-this.totalDeg / 2) * 0.66,
+            rotation: -finalRot,
+            transformOrigin: "50% 50%",
             ease: "circ.inOut",
             duration: 1,
           },
-          startAt + 0.6
+          0
         );
 
-        timeline.fromTo(
-          ["#magazines .header h2", "#magazines .header p"],
+        const startAt = 1.6;
+        timeline.to(
+          image,
           {
-            opacity: 0,
-            y: 24,
-          },
-          {
-            opacity: 1,
-            y: 0,
+            scale: 1,
+            duration: 0.6,
+            rotation: finalRot,
             duration: 1,
-            ease: "circ.out",
-            stagger: 0.1,
+            ease: "circ.inOut",
           },
-          startAt + 1
+          startAt
         );
 
         timeline.fromTo(
@@ -270,7 +224,7 @@ export default {
             ease: "circ.out",
             duration: 1,
           },
-          startAt + 1.1
+          startAt + 0.4
         );
 
         timeline.fromTo(
@@ -285,7 +239,7 @@ export default {
             ease: "circ.out",
             duration: 1,
           },
-          startAt + 1.2
+          startAt + 0.5
         );
 
         timeline.fromTo(
@@ -300,7 +254,7 @@ export default {
             ease: "circ.out",
             duration: 1,
           },
-          startAt + 1.3
+          startAt + 0.6
         );
       });
 
@@ -331,15 +285,22 @@ export default {
     };
 
     // GSDevTools.create({ animation: this.animation });
+    const small = window.innerWidth <= 768;
+    const start = small ? "top 75%" : "top 67%";
+    const end = small ? "bottom 150%" : "bottom 67%";
 
     ScrollTrigger.create({
       trigger: "#magazines",
-      start: "top 50%",
-      end: "bottom 100%",
+      start,
+      end,
       onEnter,
       onUpdate: (self) => {
         this.scrollProgress = self.progress * 100;
       },
+      onLeaveBack: ({ progress, direction, isActive }) =>
+        console.log({ progress, direction, isActive }),
+      onLeave: ({ progress, direction, isActive }) =>
+        console.log({ progress, direction, isActive }),
       markers: true,
     });
   },

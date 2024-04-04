@@ -245,7 +245,7 @@
   position: absolute;
   inset: 0;
   mix-blend-mode: hard-light;
-  opacity: 0.666;
+  opacity: 0.333;
   background: linear-gradient(
     90deg,
     hsl(0deg 0% 0% / 50%) 1%,
