@@ -135,6 +135,9 @@ export default {
 
       const timeline = gsap.timeline({
         paused: true,
+        onComplete() {
+          this.draggable();
+        },
       });
 
       timeline.set(
@@ -278,7 +281,6 @@ export default {
   mounted() {
     gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
     this.animation = this.init();
-    this.draggable();
 
     const onEnter = () => {
       this.animation.play();
@@ -287,7 +289,7 @@ export default {
     // GSDevTools.create({ animation: this.animation });
     const small = window.innerWidth <= 768;
     const start = small ? "top 75%" : "top 67%";
-    const end = small ? "bottom 150%" : "bottom 67%";
+    const end = small ? "bottom 125%" : "bottom 67%";
 
     ScrollTrigger.create({
       trigger: "#magazines",
@@ -301,7 +303,7 @@ export default {
         console.log({ progress, direction, isActive }),
       onLeave: ({ progress, direction, isActive }) =>
         console.log({ progress, direction, isActive }),
-      markers: true,
+      // markers: true,
     });
   },
 };

@@ -1057,7 +1057,7 @@ header .flex-row {
 }
 
 header a.logo-primary {
-  display: block;
+  display: inline-block;
 }
 
 header a.logo-primary svg {

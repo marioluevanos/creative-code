@@ -2,12 +2,13 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  position: relative;
+  inset: 0;
   z-index: 1000;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--color-deep-blue);
 }
 
 #logo {

@@ -37,29 +37,52 @@ export default {
       return this.progress / this.images.length;
     },
   },
+  watch: {
+    loaderProgress(val) {},
+  },
   methods: {
+    moveLogo() {
+      const hLogo = document.querySelector(".logo-primary svg");
+      const { top, left, width } = hLogo.getClientRects()[0];
+      const timeline = gsap.timeline({
+        onComplete() {
+          document.getElementById("loader").remove();
+        },
+      });
+      timeline.to("#logo", {
+        width,
+        top,
+        left,
+        position: "fixed",
+        ease: "expo.inOut",
+        duration: 0.6,
+      });
+
+      timeline.to(
+        "#loader",
+        {
+          opacity: 0,
+          ease: "power2.in",
+          duration: 0.3,
+          delay: 1,
+        },
+        "-=0.3"
+      );
+
+      return timeline;
+    },
     onLoaderProgress() {
       this.progress += 1;
       if (this.progress === this.images.length) {
         console.log("Done loading");
-
-        const timeline = gsap.timeline();
-        timeline.to(
-          "#logo",
-          {
-            scale: 0,
-            ease: "power2.in",
-            duration: 0.6,
-          },
-          0
-        );
-      } else {
+        this.moveLogo();
+      } else if (this.progress >= 0) {
         console.log(this.images.length - this.progress, " Remaining");
       }
     },
   },
   mounted() {
-    this.images = Array.from(document.querySelectorAll("img"));
+    this.images = Array.from(document.querySelectorAll("#magazines img"));
     requestAnimationFrame(() => {
       const loader = imagesLoaded("img", this.onComplete);
       loader.on("progress", this.onLoaderProgress.bind(this));

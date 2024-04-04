@@ -17,8 +17,14 @@ const App = {
     Banner,
     Grid,
   },
+  data() {
+    return {
+      showui: false,
+    };
+  },
   template: `
-    <div class="announcement-bar">
+    <Loader/>
+    <div v-if="showui" class="announcement-bar">
       <div class="container">
         <a href="#">
           🔥 Hot Off The Press! Get Our NEW JC Whitney Magazine &amp; Catalog
@@ -26,12 +32,15 @@ const App = {
       </div>
     </div>
     <Header />
-    <!-- <Grid/> -->
-    <Newsletter/>
-    <Catalog/>
-    <Magazine/>
-    <Banner/>
-    <div style="height: 50vh"></div>
+    <Grid v-if="showui"/>
+    <div style="height: 80vh; text-align: center; padding: 0 1rem 0; display: flex; align-items: center; justify-content: center;">
+      <p>Scoll top see Magazine section</p>
+    </div>
+    <Newsletter v-if="showui" />
+    <Catalog v-if="showui"/>
+    <Magazine />
+    <Banner v-if="showui" />
+    <div style="height: 80vh"></div>
   `,
 };
 
