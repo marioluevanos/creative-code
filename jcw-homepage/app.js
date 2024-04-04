@@ -31,7 +31,7 @@ const App = {
     <Catalog/>
     <Magazine/>
     <Banner/>
-    <div style="height: 25vh"></div>
+    <div style="height: 50vh"></div>
   `,
 };
 

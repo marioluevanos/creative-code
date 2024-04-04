@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "jcwhitney",
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", ".vscode", "**/node_modules/**"]
+  }
+}

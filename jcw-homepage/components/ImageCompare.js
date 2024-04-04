@@ -29,7 +29,7 @@ const template = `
     min="0"
     max="100"
   />
-  <span class="divider" />
+  <span class="divider" :class="scrollProgress === 100 && 'done'"  />
 </figure>
 `;
 

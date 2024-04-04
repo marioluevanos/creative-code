@@ -4,7 +4,7 @@
   --handle-size: calc(var(--handle-s, 42) * 1px);
   --handle-radius: 50%;
   --handle-border-color: white;
-  --handle-border-size: 0.2188rem;
+  --handle-border-size: 0.1rem;
   --focus-width: 1.5px;
   --focus-color: rgba(0, 0, 0, 0.3);
 
@@ -55,7 +55,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  clip-path: inset(0 0 0 calc(var(--exposure) * 1%));
+  clip-path: inset(0 calc(var(--exposure) * 1%) 0 0);
   filter: drop-shadow(-2px 0 0 hsla(0, 0%, 100%, 0.9));
 }
 
@@ -133,12 +133,17 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  transform: translateX(calc(var(--divider-x) * 1px));
+  right: 0;
+  transform: translateX(calc(var(--divider-x) * -1px));
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.3s var(--ease-out-sine);
+
+  &.done {
+    opacity: 0;
+  }
 
   &::before,
   &::after {
@@ -147,7 +152,7 @@
     width: var(--handle-border-size);
     height: calc(85% - var(--handle-size));
     height: 100%;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 1);
   }
 
   &::after {

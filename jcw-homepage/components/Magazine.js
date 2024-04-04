@@ -28,7 +28,7 @@ const template = `
             v-else
             class="magazine"
             :aspectRatio="o.width / o.height"
-            :original="images[i-1].src"
+            :original="images[i - 1].src"
             :modified="o.src"
             :scrollProgress="scrollProgress"
           />
@@ -311,9 +311,10 @@ export default {
       return timeline;
     },
     draggable() {
-      const items = "#magazines .items";
+      const items = "#magazines .item";
       Draggable.create(items, {
-        type: "rotation",
+        type: "x, y",
+        bounds: this.$refs.canvas,
         inertia: true,
         dragResistance: 0.9,
         allowNativeTouchScrolling: true,
@@ -323,31 +324,23 @@ export default {
   mounted() {
     gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
     this.animation = this.init();
-    // this.draggable();
+    this.draggable();
 
     const onEnter = () => {
-      console.log("Enter");
       this.animation.play();
     };
 
     // GSDevTools.create({ animation: this.animation });
 
-    const trigger = ScrollTrigger.create({
+    ScrollTrigger.create({
       trigger: "#magazines",
-      start: "top top+=50%",
-      end: "bottom center",
+      start: "top 50%",
+      end: "bottom 100%",
       onEnter,
       onUpdate: (self) => {
         this.scrollProgress = self.progress * 100;
-        console.log(this.scrollProgress);
       },
-      markers: {
-        startColor: "white",
-        endColor: "white",
-        fontSize: "18px",
-        fontWeight: "bold",
-        indent: 20,
-      },
+      markers: true,
     });
   },
 };
