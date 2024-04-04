@@ -7,6 +7,10 @@
   padding: 6rem 0;
   position: relative;
   margin: 0 auto;
+  background: var(--color-black);
+  color: white;
+  overflow: hidden;
+  width: 100vw;
 }
 
 #catalog .logo {
@@ -27,7 +31,7 @@
 
   .year {
     padding: 0 1.5rem;
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: AvenirNextLTW01-DemiCn, san-serif;
     font-weight: 700;
     font-style: normal;
     line-height: 98px;

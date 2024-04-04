@@ -1,4 +1,4 @@
-import { horizontalLoop } from "./utils.js";
+import { horizontalLoop } from "../utils.js";
 
 const template = `
 <section id="catalog" ref="root">
@@ -228,21 +228,9 @@ const Catalog = {
     },
   },
   mounted() {
-    const loader = imagesLoaded(this.$refs.items, () => {
-      this.init();
-      this.draggable(this.$refs.years, { liveSnap: true });
-      this.draggable(this.$refs.items, { loop: true });
-    });
-
-    let total = this.images.length;
-    loader.on("progress", () => {
-      total -= 1;
-      if (total === 0) {
-        console.log("Done loading");
-      } else {
-        console.log(total, " Remaining");
-      }
-    });
+    this.init();
+    this.draggable(this.$refs.years, { liveSnap: true });
+    this.draggable(this.$refs.items, { loop: true });
   },
 };
 

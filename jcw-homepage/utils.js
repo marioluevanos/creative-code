@@ -277,3 +277,49 @@ export function clamp(a, min = 0, max = 1) {
 export function invlerp(x, y, a) {
   return clamp((a - x) / (y - x));
 }
+
+export const cssToRgb = (css) =>
+  css
+    .replace(/\D+/g, " ")
+    .trim()
+    .split(" ")
+    .map((n) => Number(n));
+
+export const rgbToHex = ([r, g, b]) =>
+  "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+export const rgbToHsl = ([r, g, b]) => {
+  let d, h, l, s;
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+
+  h = 0;
+  s = 0;
+  l = (max + min) / 2;
+  if (max === min) {
+    h = s = 0;
+  } else {
+    d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+    }
+    h /= 6;
+  }
+  h = h * 360;
+  s = `${(s * 100).toFixed(2)}%`;
+  l = `${(l * 100).toFixed(2)}%`;
+
+  return `hsl(${h.toFixed(0)}, ${s}, ${l})`;
+};

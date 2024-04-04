@@ -1,0 +1,92 @@
+.newsletter-signup-banner {
+  padding: 2.5rem 0 3.5rem;
+  background-color: var(--color-cyan);
+}
+
+.newsletter-signup-banner h3 {
+  margin: 0 0 2rem;
+  text-align: center;
+}
+
+.newsletter-signup-banner form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 0 8px;
+}
+
+.newsletter-signup-banner input {
+  border: 1px solid white;
+  background: none;
+  padding: 1rem;
+  height: 48px;
+  padding: 0px 1.5rem;
+  color: white;
+  font: normal 1rem/1 "Avenir LT W05 55 Roman";
+
+  &::placeholder {
+    color: white;
+  }
+
+  &:focus-within {
+    outline: none;
+    background: white;
+    color: black;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
+
+.newsletter-signup-banner form button {
+  padding: 12px 20px;
+  height: 48px;
+  font: normal 1.125rem/1 "AvenirNextLTW01-DemiCn", san-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  min-width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    position: absolute;
+  }
+}
+
+.nc-loop-dots-3-48-icon-o > * {
+  --animation-duration: 0.8s;
+  transform-origin: 50% 50%;
+  animation: nc-loop-dots-3-anim var(--animation-duration) infinite;
+}
+
+.nc-loop-dots-3-48-icon-o > :nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.nc-loop-dots-3-48-icon-o > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes nc-loop-dots-3-anim {
+  0%,
+  100%,
+  60% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(20%);
+  }
+}
+
+.news-enter-active,
+.news-leave-active {
+  transition: opacity 0.15s var(--ease-in-out-sine);
+}
+
+.news-enter-from,
+.news-leave-to {
+  opacity: 0;
+}
