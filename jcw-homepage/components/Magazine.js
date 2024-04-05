@@ -69,32 +69,32 @@ export default {
   data() {
     const images = [
       {
-        src: "https://i.ibb.co/wQBmfPx/s-l1600.jpg",
+        src: "assets/s-l1600.webp",
         width: 946,
         height: 1200,
       },
       {
-        src: "https://i.ibb.co/xHJchsC/6016b24e-d839-5f27-bad4-545b8565b5f2-1024x1024.jpg",
+        src: "assets/1024x1024.webp",
         width: 831,
         height: 1024,
       },
       {
-        src: "https://i.ibb.co/NxCB1W8/pap2700a.jpg",
+        src: "assets/pap2700a.webp",
         width: 678,
         height: 872,
       },
       {
-        src: "https://i.ibb.co/9VCg72m/JC-Whitney-cover1143071959.jpg",
+        src: "assets/JC-Whitney-cover1143071959.webp",
         width: 500,
         height: 667,
       },
       {
-        src: "https://i.ibb.co/rdQKH7W/383-Bcover.jpg",
+        src: "assets/383-Bcover.webp",
         width: 901,
         height: 1200,
       },
       {
-        src: "https://i.ibb.co/bXzNmhr/Untitled-2.png",
+        src: "assets/Untitled-2.webp",
         width: 592,
         height: 842,
       },
@@ -130,14 +130,14 @@ export default {
       const images = Array.from(this.$refs.items.children);
       const canvasW = this.$refs.canvas.clientWidth;
       const canvasH = this.$refs.canvas.clientHeight;
+      const onComplete = () =>
+        window.innerWidth > 768 ? this.draggable() : undefined;
 
       this.$refs.canvas.style.setProperty("--canvas-w", `${canvasW}px`);
 
       const timeline = gsap.timeline({
         paused: true,
-        onComplete() {
-          this.draggable();
-        },
+        onComplete,
       });
 
       timeline.set(
