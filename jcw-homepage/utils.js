@@ -142,6 +142,7 @@ export function horizontalLoop(items, config) {
           .add("label" + i, distanceToStart / pixelsPerSecond);
         times[i] = distanceToStart / pixelsPerSecond;
       }
+
       timeWrap = gsap.utils.wrap(0, tl.duration());
     },
     refresh = (deep) => {
@@ -218,6 +219,7 @@ export function horizontalLoop(items, config) {
         "InertiaPlugin required for momentum-based scrolling and snapping. https://greensock.com/club"
       );
     draggable = Draggable.create(proxy, {
+      dragResistance: 0.7,
       trigger: items[0].parentNode,
       type: "x",
       onPressInit() {

@@ -1,0 +1,172 @@
+[
+  {
+    "src": "assets/catalog/fiberglass-hoods.webp",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Hoods", "Fiberglass", "Volkswagen"],
+    "title": "Fiberglass hoods and continental rear to customize your Beetle"
+  },
+  {
+    "src": "assets/catalog/jcw-1972-horns-donkey-horn.webp",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Animals", "Electric", "Accessories"],
+    "title": "Authentic Electric Donkey Horn, \"HEE-HAW\""
+  },
+  {
+    "src": "assets/catalog/hubcaps-racing.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Electric", "Accessories"],
+    "title": "Racing Hub Style Custom Wheel Covers"
+  },
+
+  {
+    "src": "assets/catalog/Horn-Sale.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Horns", "Accessories"],
+    "title": "Big Savings on Horns and Bells"
+  },
+  {
+    "src": "assets/catalog/Continental-Kit.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Hoods", "Volkswagen"],
+    "title": "Rolls-Royce style Hood & Continental Style Rear"
+  },
+  {
+    "src": "assets/catalog/white-white-tires.webp",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Accessories", "Tires"],
+    "title": "White Wall Kit"
+  },
+
+  {
+    "src": "assets/catalog/upholstery.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Upholstery", "Accessories"],
+    "title": "The Denim Look"
+  },
+  {
+    "src": "assets/catalog/light.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Light", "Accessories"],
+    "title": "Tri-Beam Warning Light"
+  },
+  {
+    "src": "assets/catalog/emergency-light.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Lights", "Accessories"],
+    "title": "Flashing Emergency Light"
+  },
+  {
+    "src": "assets/catalog/magnetic-strobe.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Lights", "Accessories", "Magnetic"],
+    "title": "Flashing Emergency Light"
+  },
+  {
+    "src": "assets/catalog/lights.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Lights", "Accessories"],
+    "title": "All Lights"
+  },
+  {
+    "src": "assets/catalog/ckit.webp",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Accessories"],
+    "title": "Continental Kit"
+  },
+  {
+    "src": "assets/catalog/magnetic-flashlight.png",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Lights", "Accessories", "Magnetic"],
+    "title": "Magnetic Flashlight"
+  },
+  {
+    "src": "assets/catalog/animals.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Electric", "Animals", "Accessories"],
+    "title": "Winking Animals"
+  },
+  {
+    "src": "assets/catalog/horn.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Electric", "Accessories"],
+    "title": "Police, Fire Engine and Ambulance Sounds"
+  },
+  {
+    "src": "assets/catalog/tach.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Accessories", "Electric"],
+    "title": "Illuminated Extra-Wide Tachometer"
+  },
+  {
+    "src": "assets/catalog/JC-Whitney-Louver-Kit.webp",
+    "width": 445,
+    "height": 600,
+    "keywords": ["Tools"],
+    "title": "Form-A-Louver Cutting and Forming Tool Kit"
+  },
+  {
+    "src": "assets/catalog/JC-Whitney-Left-Foot.webp",
+    "width": 624,
+    "height": 468,
+    "keywords": ["Accessories", "Comfort"],
+    "title": "Duplex left footer accelerator for new driving comfort!"
+  },
+  {
+    "src": "assets/catalog/JC-Whitney-Pull-Start.webp",
+    "width": 637,
+    "height": 600,
+    "keywords": ["Starter", "Volkswagen"],
+    "title": "Hand Starter to fit 49-73 Volkswagen & Karmann Ghia"
+  },
+  {
+    "src": "assets/catalog/JC-Whitney-Barefoot-Pedal-1.webp",
+    "width": 576,
+    "height": 507,
+    "keywords": ["Pedals", "Accessories"],
+    "title": "Barefoot Accelarator Pedal"
+  },
+  {
+    "src": "assets/catalog/JCW-Throwback-Love-Your-Car-scaled.webp",
+    "width": 2560,
+    "height": 1035,
+    "keywords": ["Care", "Maintenance"],
+    "title": "Love your car? Doesn't everybody?"
+  },
+  {
+    "src": "assets/catalog/JCW-Throwback-Hollywood-Mufflers.webp",
+    "width": 625,
+    "height": 369,
+    "keywords": ["Mufflers", "Performance"],
+    "title": "Hollywood Mufflers"
+  },
+  {
+    "src": "assets/catalog/JCW-Throwback-Hot-Rocket-Illuminated-Ornament.webp",
+    "width": 821,
+    "height": 392,
+    "keywords": ["Accessories"],
+    "title": "Hot Rocket Illuminated Ornament"
+  },
+  {
+    "src": "assets/catalog/JCW-Throwback-In-The-Car-Coffee-Maker-Final.webp",
+    "width": 2020,
+    "height": 2000,
+    "keywords": ["Accessories"],
+    "title": "In-The-Car Coffee Maker Kit"
+  }
+]

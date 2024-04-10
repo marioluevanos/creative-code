@@ -22,38 +22,50 @@
   height: auto;
 }
 
-#catalog .years {
+#catalog .keywords {
   display: flex;
-  oveflow: auto hidden;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  grid-gap: 0.5rem;
   position: relative;
-  margin: 3rem auto 1.5rem;
+  margin: 3rem auto 3rem;
   padding: 0;
+  max-width: 768px;
+}
 
-  .year {
-    padding: 0 1.5rem;
-    font-family: AvenirNextLTW01-DemiCn, san-serif;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 98px;
-    cursor: pointer;
-    opacity: 0.66;
+.keyword {
+  padding: 0.5rem 1rem;
+  margin: 0;
+  cursor: pointer;
+  font: normal 1rem/1 AvenirNextLTW01-BoldCn, AvenirNextLTW01-DemiCn,
+    "Arial Narrow", san-serif;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.33;
+  display: inline-block;
+  border-radius: 2px;
+  background: var(--color-category-blue);
+  color: white;
+  border: none;
 
-    * {
-      pointer-events: none;
-    }
-
-    span {
-      display: inline-block;
-      transition: transform 0.3s var(--ease-in-out-sine);
-    }
-  }
-
-  .year.active {
-    opacity: 1;
+  &[disabled] {
+    pointer-events: none;
+    background: var(--color-gray-444);
   }
 }
 
-#catalog .items {
+@media (hover: hover) {
+  .keyword:hover {
+    opacity: 0.6;
+  }
+}
+
+.keyword.active {
+  opacity: 1;
+}
+
+#catalog .catalogs {
   display: flex;
   flex-wrap: nowrap;
   width: 100vw;
@@ -61,26 +73,41 @@
   margin: auto;
 }
 
-#catalog .item {
+.item {
   margin: 0;
   flex: 1;
   min-width: 70%;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
 
   &::before {
+    --dur: 0.3s;
     content: "";
     position: absolute;
-    inset: 3rem;
+    inset: 0 0 12.5% 0;
     background: var(--color-deep-blue);
     pointer-events: none;
-    transition: opacity 0.3s var(--ease-out-cube),
-      transform 0.3s var(--ease-out-cube);
-    opacity: 0.5;
+    transition: opacity var(--dur) var(--ease-in-out-cube),
+      transform var(--dur) var(--ease-in-out-cube),
+      background var(--dur) var(--ease-in-out-cube);
+    transform-origin: 50% 25%;
+    pointer-events: none;
+    opacity: 1;
     z-index: -1;
+  }
+
+  &.active {
+    z-index: 10;
+  }
+
+  #catalogs.loops &.active::before {
+    --dur: 0.15s;
+    background: var(--color-slate-blue);
+    transform: scale(1.3);
+    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
   }
 
   * {
@@ -100,53 +127,40 @@
   display: block;
   max-height: 300px;
   object-fit: contain;
-  object-position: 50% 0;
-  transform-origin: 50% 0;
+  object-position: 50% 100%;
+  transform-origin: 50% 50%;
   position: relative;
-  filter: brightness(0.3) saturate(0);
+  filter: brightness(0.24) saturate(0);
   transform: scale(0.84);
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
 }
 
+#catalog .item.active img {
+  filter: none;
+  transition: filter 0.3s var(--ease-out-cube),
+    transform 0.3s var(--ease-out-cube);
+  transform: scale(1);
+
+  & + figcaption {
+    opacity: 1;
+  }
+}
+
 #catalog figcaption {
-  font: 700 1.5rem/1 AvenirNextLTW01-BoldCn, san-serif;
-  text-transform: uppercase;
+  font: 700 1rem/1.3 AvenirNextLTW01-BoldCn, san-serif;
+  text-transform: capitalize;
   text-align: center;
   opacity: 0;
   z-index: 10;
-  padding: 1.5rem 1rem;
-  background: rgba(0, 0, 0, 0.16);
+  padding: 1.5rem 1rem 0;
+  text-wrap: balance;
   transition: opacity 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
-  display: none;
 }
 
 @media (min-width: 768px) {
   #catalog figcaption {
-    font-size: 2rem;
-  }
-}
-
-#catalog .item.active {
-  z-index: 1;
-
-  &::before {
-    opacity: 1;
-  }
-
-  img {
-    filter: none;
-    transition: filter 0.3s var(--ease-out-cube),
-      transform 0.3s var(--ease-out-cube);
-    transform: scale(1);
-  }
-
-  img + figcaption {
-    opacity: 1;
-    background: hsl(228deg 81% 36% / 76%);
-    background: var(--color-primary);
-    transform: translateY(calc(1rem + 0%));
-    box-shadow: 3px 3px 0 0 #1d4efe;
+    font-size: 1.5rem;
   }
 }

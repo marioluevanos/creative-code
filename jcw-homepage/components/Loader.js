@@ -72,20 +72,18 @@ export default {
       return timeline;
     },
     onLoaderProgress() {
-      this.progress += 1;
-      if (this.progress === this.images.length) {
-        console.log("Done loading");
-        this.moveLogo();
-      } else if (this.progress >= 0) {
-        console.log(this.images.length - this.progress, " Remaining");
-      }
+      this.progress -= 1;
+      if (this.progress === 0) this.moveLogo();
     },
   },
   mounted() {
-    this.images = Array.from(document.querySelectorAll("#magazines img"));
-    requestAnimationFrame(() => {
-      const loader = imagesLoaded("img", this.onComplete);
-      loader.on("progress", this.onLoaderProgress.bind(this));
-    });
+    this.images = [
+      ...Array.from(document.querySelectorAll("#magazines img")),
+      ...Array.from(document.querySelectorAll("#catalog img")),
+    ];
+    this.progress = this.images.length;
+
+    const loader = imagesLoaded("img", this.onComplete);
+    loader.on("progress", this.onLoaderProgress.bind(this));
   },
 };

@@ -34,13 +34,15 @@ const App = {
     <Header />
     <Grid v-if="showui"/>
     <div style="height: 80vh; text-align: center; padding: 0 1rem 0; display: flex; align-items: center; justify-content: center;">
-      <p>Scoll top see Magazine section</p>
+      Scroll
     </div>
     <Newsletter v-if="showui" />
-    <Catalog v-if="showui"/>
     <Magazine />
+    <Catalog />
     <Banner v-if="showui" />
-    <div style="height: 80vh"></div>
+    <div style="height: 25vh; text-align: center; padding: 0 1rem 0; display: flex; align-items: center; justify-content: center;">
+      End
+    </div>
   `,
 };
 

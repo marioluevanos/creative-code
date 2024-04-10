@@ -55,7 +55,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  clip-path: inset(0 calc(var(--exposure) * 1%) 0 0);
+  clip-path: inset(0 0 0 calc(var(--exposure) * 1%));
   filter: drop-shadow(-2px 0 0 hsla(0, 0%, 100%, 0.9));
 }
 
@@ -133,8 +133,8 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 0;
-  transform: translateX(calc(var(--divider-x) * -1px));
+  left: 0;
+  transform: translateX(calc(var(--divider-x) * 1px));
   z-index: 2;
   display: flex;
   align-items: center;

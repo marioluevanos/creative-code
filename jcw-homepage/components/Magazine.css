@@ -22,12 +22,12 @@
   @media (min-width: 768px) {
     padding: 6rem;
     grid-gap: 2rem 1.5rem;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(120px, 180px) minmax(120px, 180px);
     grid-template-areas:
-      "header header header"
-      "c1 canvas c2"
-      "c3 canvas c4"
-      "cta cta cta";
+      "canvas header header"
+      "canvas c1 c2"
+      "canvas c3 c4"
+      "canvas cta cta";
   }
 
   @media (min-width: 1280px) {
@@ -38,12 +38,18 @@
 #magazines .header {
   grid-area: header;
   position: relative;
-  text-align: center;
   display: flex;
   flex-direction: column;
   text-wrap: balance;
   max-width: 768px;
   margin: auto;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    & {
+      text-align: left;
+    }
+  }
 
   &::before {
     display: none;
@@ -61,8 +67,6 @@
 
 #magazines .box {
   width: 100%;
-  min-width: 180px;
-  max-width: 240px;
   text-wrap: balance;
   display: grid;
   justify-self: start;
@@ -75,23 +79,40 @@
     "text";
 
   @media (min-width: 768px) {
-    grid-template-columns: 48px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "icon title"
-      "icon text";
+      "icon"
+      "title"
+      "text";
   }
 
   svg {
     width: 32px;
     aspect-ratio: 1;
-    color: var(--color-cyan);
+    color: var(--color-gray-medium);
     grid-area: icon;
-    margin: 0 0 0.5rem;
+    margin: 0 0 1rem;
+    display: block;
 
     @media (min-width: 768px) {
-      width: 48px;
-      margin: 0;
+      width: 32px;
+      margin: 0 0 1rem;
     }
+
+    @media (min-width: 1024px) {
+      width: 40px;
+      margin: 0 0 1rem;
+    }
+
+    /* display: none; */
+  }
+
+  svg .s-cyan {
+    stroke: var(--color-cyan);
+  }
+
+  svg .f-cyan {
+    fill: var(--color-cyan);
   }
 
   h3 {
@@ -111,11 +132,12 @@
     grid-area: text;
     font-size: 14px;
     margin: 0.5rem 0 0;
+    opacity: 0.66;
   }
 
   @media (min-width: 768px) {
     p {
-      font-size: 18px;
+      font-size: 16px;
       margin: 1rem 0 0;
     }
   }
@@ -152,13 +174,6 @@
       padding: 0;
     }
   }
-
-  .s-cyan {
-    stroke: var(--color-cyan);
-  }
-  .f-cyan {
-    fill: var(--color-cyan);
-  }
 }
 
 #magazines .canvas {
@@ -175,8 +190,15 @@
   min-width: 300px;
   min-height: 300px;
   aspect-ratio: 1.25;
-  margin: 0 auto;
+  margin: 1rem auto 1.5rem;
   grid-area: canvas;
+}
+
+@media (min-width: 541px) {
+  #magazines .canvas {
+    left: -2rem;
+    margin: 0 auto;
+  }
 }
 
 #magazines .center {
@@ -218,25 +240,25 @@
   margin: 0;
   height: 100%;
   width: auto;
-  width: calc(var(--canvas-w) * 0.5);
+  width: calc(var(--canvas-w) * 0.65);
   aspect-ratio: 8.5/11;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 541px) {
   #magazines .item .magazine {
-    width: calc(var(--canvas-w) * 0.33);
+    width: calc(var(--canvas-w) * 0.5);
   }
 }
 
 @media (min-width: 1024px) {
   #magazines .item .magazine {
-    width: calc(var(--canvas-w) * 0.4);
+    width: calc(var(--canvas-w) * 0.65);
   }
 }
 
 @media (min-width: 1280px) {
   #magazines .item .magazine {
-    width: calc(var(--canvas-w) * 0.5);
+    width: calc(var(--canvas-w) * 0.8);
   }
 }
 
@@ -267,6 +289,12 @@
 }
 
 #magazines .cta {
-  margin: 1.5rem auto 0;
+  margin: 1.5rem 0 0;
   grid-area: cta;
+
+  @media (min-width: 768px) {
+    position: relative;
+    left: -24px;
+    grid-area: unset;
+  }
 }
