@@ -14,7 +14,7 @@ const template = `
       d="M521.4 21.9 264.4.1l-.8-.1-.8.1L8.4 21.9l-8.4.7v154.8l8.4.7 254.5 21.8.8.1.8-.1 257-21.8 8.4-.7V22.6l-8.5-.7zm-.7 147.1-257 21.8L9.2 169V31L263.7 9.2l257 21.8v138z"
     ></path>
   </svg>
-  <div class="loading" :style="{ '--progress': loaderProgress }"/>
+  <div class="isBusy" :style="{ '--progress': loaderProgress }"/>
 </section>
 `;
 

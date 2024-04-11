@@ -8,6 +8,12 @@ const template = `
 
 const Button = {
   template,
+  props: {
+    animate: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       size: 0,
@@ -16,6 +22,8 @@ const Button = {
   },
   methods: {
     onClick(event) {
+      if (!this.animate) return;
+
       const offset = event.target.getBoundingClientRect();
       const newX = event.clientX - offset.left;
       const newY = event.clientY - offset.top;

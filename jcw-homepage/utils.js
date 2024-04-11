@@ -161,6 +161,7 @@ export function horizontalLoop(items, config) {
   populateTimeline();
   populateOffsets();
   window.addEventListener("resize", () => refresh(true));
+
   function toIndex(index, vars) {
     vars = vars || {};
     Math.abs(index - curIndex) > length / 2 &&

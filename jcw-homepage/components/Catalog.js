@@ -1,20 +1,28 @@
 import { horizontalLoop } from "../utils.js";
+import Button from "./Button.js";
 
 const template = `
 <section id="catalog" ref="root">
-  <div class="keywords" id="keywords" ref="keywords">
-    <button
-      v-for="(keyword, i) in keywords"
+  <Button class="ghost white filter" :class="isFiltersActive ? 'active' : undefined" @click="onToggleFilterClick">
+    Filter Keywords
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>arrow-sm-down</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><polyline fill="none" stroke="currentColor" stroke-width="2" points="16,10 12,14 8,10 " transform="translate(0, 0)"></polyline></g></svg>
+  </Button>
+  <div class="keywords" id="keywords" ref="keywords" v-if="isFiltersActive">
+    <Button
+      v-for="([keyword, count], i) in keywords"
       class="keyword"
-      :class="{ 'active': this.filters.has(keyword) }"
+      :class="{ 'active': filters.has(keyword) }"
       :data-keyword="keyword"
       :style="keywordStyle(keyword, i)"
       :data-index="i"
-      :disabled="loading"
+      :data-count="count"
+      :disabled="isBusy"
       @click="onKeywordClick"
+      :animate="!filters.has(keyword)"
+      :data-animate="!filters.has(keyword)"
     >
       {{keyword}}
-    </button>
+    </Button>
   </div>
   <div
     class="catalogs"
@@ -23,10 +31,10 @@ const template = `
     id="catalogs"
   >
     <figure
-      @click="onImageClick"
+      @click="onCatalogItemClick"
       class="item"
       v-for="(image, index) in catalogs"
-      :key="image.title + index"
+      :key="image.src + index + image.keywords"
       :data-keywords="image.keywords"
       :data-id="image.id"
     >
@@ -41,29 +49,51 @@ const template = `
     </figure>
   </div>
 </section>
+<section
+  id="catalog-view"
+  ref="catalogView"
+  class="catalog-view"
+  :data-active="isCatalogView || undefined"
+  @click="onCatalogItemClick"
+>
+
+</section>
 `;
 
 const Catalog = {
   template,
+  components: {
+    Button,
+  },
   data() {
     return {
       filters: new Set(),
       images: [],
+      isCatalogView: false,
       loop: undefined,
-      isDetailView: false,
-      prevLength: 0,
+      isFiltersActive: false,
       min: 3,
-      loading: false,
+      isBusy: false,
     };
   },
   computed: {
     keywords() {
-      return Array.from(
+      return Object.entries(
         this.images.reduce((keywords, item) => {
-          item.keywords.forEach((w) => keywords.add(w));
+          item.keywords.forEach((w) => {
+            if (!keywords[w]) keywords[w] = { count: 0 };
+            if (keywords[w]) keywords[w]["count"] += 1;
+          });
           return keywords;
-        }, new Set())
-      ).reverse();
+        }, {})
+      )
+        .reduce((all, item) => {
+          const [key, { count }] = item;
+          all.push([key, count]);
+          return all;
+        }, [])
+        .sort((a, b) => (a[1] > b[1] ? -1 : 1))
+        .slice(0, 7);
     },
     filteredCatalogs() {
       const filters = Array.from(this.filters);
@@ -85,43 +115,31 @@ const Catalog = {
       ).map((catalog, index) => ({ ...catalog, id: index }));
     },
   },
-  watch: {
-    catalogs: {
-      handler(_nv, ov) {
-        this.prevLength = ov.length;
-      },
-      deep: true,
-    },
-  },
   methods: {
     keywordStyle(keyword) {
       return { "--length": keyword.length };
     },
-    onImageClick(event) {
-      this.openCatalogView(event.target.dataset);
-    },
     killDraggable() {
-      this.loading = true;
-      console.log("KILL DRAGGABLE");
+      this.isBusy = true;
+
       return new Promise((resolve) => {
         if (this.loop?.draggable) {
           this.loop.draggable.kill();
         }
 
         if (this.loop) {
-          this.loop.kill();
+          this.loop.revert();
         }
 
         setTimeout(() => {
+          this.isBusy = false;
           resolve(true);
-          this.loop = undefined;
-          this.loading = false;
-        }, 500);
+        }, 0);
       });
     },
     onKeywordClick(event) {
       const { keyword } = event.target.dataset;
-      if (!keyword) return;
+      if (!keyword || this.isBusy) return;
 
       if (this.filters.has(keyword)) {
         this.filters.delete(keyword);
@@ -129,19 +147,31 @@ const Catalog = {
         this.filters.add(keyword);
       }
 
-      this.killDraggable().then(() => {
-        if (this.catalogs.length >= this.min) {
-          this.initDraggable(this.$refs.catalogs);
-        } else {
-          Array.from(this.$refs.catalogs?.children).forEach((item) =>
-            item.classList.add("active")
-          );
-        }
-      });
+      console.log("KILLING DRAGGABLE...", this.loop);
+
+      // this.killDraggable().then(() => {
+      //   console.log("%cKILLED DRAGGABLE", "color: red", this.loop);
+      //   if (this.catalogs.length >= this.min) {
+      //     console.log("%cDRAGGABLE", "color: green", this.loop);
+      //     this.initDraggable(this.$refs.catalogs);
+      //   } else {
+      //     Array.from(this.$refs.catalogs?.children).forEach((item) =>
+      //       item.classList.add("active")
+      //     );
+      //   }
+      // });
     },
-    openCatalogView(dataset) {
-      console.log({ dataset });
-      this.isDetailView = true;
+    onToggleFilterClick(event) {
+      event.preventDefault();
+      this.isFiltersActive = !this.isFiltersActive;
+    },
+    onCatalogItemClick(event) {
+      if (event.target.dataset.init) {
+        delete event.target.dataset.init;
+        return;
+      }
+
+      this.isCatalogView = !this.isCatalogView;
     },
     setCatalogItemsVisible() {
       Array.from(this.$refs.catalogs?.children).forEach((image) => {
@@ -151,7 +181,6 @@ const Catalog = {
     initDraggable(parentElement) {
       const els = Array.from(parentElement.children);
 
-      console.log({ els });
       this.loop = horizontalLoop(els, {
         paused: true,
         draggable: true,
@@ -167,9 +196,15 @@ const Catalog = {
 
       els.forEach((el, i) =>
         el.addEventListener("click", () =>
-          this.loop.toIndex(i, { duration: 0.8, ease: "power1.inOut" })
+          this.loop.toIndex(i, {
+            duration: 0.8,
+            ease: "power1.inOut",
+          })
         )
       );
+
+      els[0].dataset.init = "true";
+      els[0].click();
     },
     async getData() {
       const response = await fetch("/catalog.json");

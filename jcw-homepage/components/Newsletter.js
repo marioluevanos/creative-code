@@ -13,7 +13,7 @@ const template = `
       </label>
       <Button type="submit" class="white">
         <Transition name="news" mode="out-in">
-          <span v-if="!loading">Submit</span>
+          <span v-if="!isBusy">Submit</span>
           <svg v-else xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">  <g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" > <g class="nc-loop-dots-3-48-icon-o"> <circle cx="6" cy="24" fill="none" r="4" stroke="currentColor" stroke-width="2" ></circle> <circle cx="24" cy="24" fill="none" r="4" stroke="currentColor" stroke-width="2" ></circle> <circle cx="42" cy="24" fill="none" r="4" stroke="currentColor" stroke-width="2" ></circle> </g> </g></svg>
         </Transition>
       </Button>
@@ -27,16 +27,16 @@ const Newsletter = {
   components: { Button },
   data() {
     return {
-      loading: false,
+      isBusy: false,
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.loading = true;
+      this.isBusy = true;
 
       setTimeout(() => {
-        this.loading = false;
+        this.isBusy = false;
       }, 800);
     },
   },

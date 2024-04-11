@@ -21,7 +21,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/04/Screenshot-at-Apr-01-11-53-57.png          1734w,
             https://www.jcwhitney.com/wp-content/uploads/2024/04/Screenshot-at-Apr-01-11-53-57-1500x533.png 1500w,
@@ -79,7 +79,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/lucas-clarysse-PQGvriOF3jQ-unsplash-1.webp           1920w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/lucas-clarysse-PQGvriOF3jQ-unsplash-1-1500x988.webp  1500w,
@@ -131,7 +131,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/22c0290-008-w1920xh1080-cutout-e1711556204760.webp          1920w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/22c0290-008-w1920xh1080-cutout-e1711556204760-1500x572.webp 1500w,
@@ -183,7 +183,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/cristofer-maximilian-DxskbIpx14I-unsplash-scaled.webp    2560w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/cristofer-maximilian-DxskbIpx14I-unsplash-1500x1000.webp 1500w,
@@ -237,7 +237,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-98002575.webp         1256w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-98002575-768x511.webp  768w,
@@ -288,7 +288,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-166272819-1.webp         1254w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-166272819-1-768x512.webp  768w,
@@ -344,7 +344,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-1487704204-1.webp         1254w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-1487704204-1-768x512.webp  768w,
@@ -400,7 +400,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/The-Fast-and-the-Furious-Tokyo-Drift-Streaming.webp         1200w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/The-Fast-and-the-Furious-Tokyo-Drift-Streaming-768x432.webp  768w
@@ -455,7 +455,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-865192836.webp           2000w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/iStock-865192836-1500x1124.webp 1500w,
@@ -512,7 +512,7 @@ const template = `
           class="attachment-full size-full wp-post-image"
           alt=""
           decoding="async"
-          loading="lazy"
+          isBusy="lazy"
           srcset="
             https://www.jcwhitney.com/wp-content/uploads/2024/03/gabriel-tovar-BSBnWIhve1I-unsplash-1-scaled.webp    2560w,
             https://www.jcwhitney.com/wp-content/uploads/2024/03/gabriel-tovar-BSBnWIhve1I-unsplash-1-1500x1000.webp 1500w,
