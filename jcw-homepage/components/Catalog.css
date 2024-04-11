@@ -41,26 +41,21 @@
 
   p {
     color: var(--color-gray-light);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     opacity: 0.66;
   }
 
   .fill-1 {
-    fill: var(--color-gray-medium);
+    fill: var(--color-red-brown);
   }
 
   .fill-2 {
-    fill: var(--color-cyan);
+    fill: var(--color-gray-medium);
   }
-}
 
-#catalog .logo {
-  object-fit: contain;
-  max-width: 16rem;
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  height: auto;
+  .icon .lock {
+    fill: var(--color-gray-medium);
+  }
 }
 
 #catalog .keywords {
@@ -70,9 +65,28 @@
   flex-wrap: wrap;
   grid-gap: 0.5rem;
   position: relative;
-  margin: 1.5rem auto 3rem;
+  margin: 1rem auto 3rem;
   padding: 0;
   max-width: 768px;
+}
+
+@keyframes enter-button {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0%, 0);
+  }
+}
+
+@keyframes exit-button {
+  0% {
+    transform: translate3d(0, 0%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0%, 0);
+  }
 }
 
 #catalog .filter.button {
@@ -80,19 +94,40 @@
   display: flex;
   align-items: center;
   margin: auto;
-  transition: none;
   color: white;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: color 0.16s var(--ease-out-sine) 0s,
+    background 0.16s var(--ease-out-sine) 0s;
 
-  svg {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    z-index: -1;
+    transform: translate3d(0, -100%, 0);
+    transition: transform 0.16s var(--ease-in-expo) 0s;
+    animation: exit-button 0.16s var(--ease-in-expo) forwards;
+  }
+
+  svg.icon {
     transform: scale(1, -1);
+    width: 1rem;
+    height: 1rem;
   }
 
   &.active {
-    transition: none;
-    background: none;
-    color: white;
-    transition: color 0.3s var(--ease-out-sine) 0.6s;
-    svg {
+    color: black;
+
+    &::before {
+      transform: translate3d(0, 0%, 0);
+      transition: transform 0.3s var(--ease-out-expo) 0s;
+      animation: enter-button 0.3s var(--ease-out-expo) forwards;
+    }
+
+    svg.icon {
       transform: scale(1, 1);
     }
   }
@@ -104,37 +139,46 @@
   }
 }
 
-.keyword.button {
-  padding: 0.5rem 1rem;
+.keyword.button.small {
   margin: 0;
   cursor: pointer;
-  font: normal 0.75rem/1 AvenirNextLTW01-BoldCn, AvenirNextLTW01-DemiCn,
-    "Arial Narrow", san-serif;
-  text-transform: uppercase;
-  text-align: center;
   display: inline-block;
-  border-radius: 2px;
-  background: transparent;
-  color: white;
-  border: none;
   border: 1px solid hsla(0deg 0% 100% / 16%);
-  user-select: none;
   box-shadow: none;
   position: relative;
   z-index: 1;
+
+  @media (hover: hover) {
+    &:hover {
+      background: none;
+      color: currentColor;
+      box-shadow: none;
+      border: 1px solid hsla(0deg 0% 100% / 33%);
+    }
+  }
 
   &:not(.active) {
     transition: none;
   }
 
+  &.active {
+    border: 1px solid transparent;
+    &::before {
+      opacity: 1;
+      background: var(--color-category-blue);
+      transition: opacity 1s var(--ease-out-cube),
+        background 1s var(--ease-out-cube);
+    }
+  }
+
   &[disabled] {
     pointer-events: none;
-    background: var(--color-gray-444);
+    background: transparent;
   }
 
   &::before {
     content: "";
-    background: var(--color-category-red);
+    background: var(--color-cyan);
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -153,28 +197,58 @@
   }
 }
 
-@media (hover: hover) {
-  .keyword:hover {
-    background: var(--color-gray-444);
-    border: 1px solid transparent;
-  }
-}
-
-.keyword.active {
-  border: 1px solid transparent;
-  &::before {
-    opacity: 1;
-    background: var(--color-category-blue);
-    transition: opacity 1s var(--ease-out-cube),
-      background 1s var(--ease-out-cube);
-  }
-}
-
-#catalog .button + .catalogs {
+#catalog .button + .catalogs-grid {
   margin-top: 3rem;
 }
 
-#catalog .catalogs {
+#catalogs-grid {
+  max-width: 1440px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+
+  @media (min-width: 768px) {
+    & {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    & {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+#catalogs-grid .item {
+  background: var(--color-deep-blue);
+  margin: 0;
+  padding: 1rem;
+}
+
+#catalogs-grid .item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: 50% 50%;
+  aspect-ratio: 1.76;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+#catalogs-grid .item figcaption {
+  margin-top: 1rem;
+  color: var(--color-gray-light);
+  font-family: "AvenirNextLTW01-DemiCn";
+}
+
+/**
+ * Catalogs
+ */
+
+#catalogs.catalogs {
   display: flex;
   flex-wrap: nowrap;
   width: 100vw;
@@ -187,7 +261,7 @@
   }
 }
 
-.item {
+#catalogs .item {
   margin: 0;
   flex: 1;
   min-width: 75vw;
@@ -199,8 +273,8 @@
 
   @media (min-width: 768px) {
     & {
-      min-width: 320px;
-      max-width: 320px;
+      min-width: 240px;
+      max-width: 240px;
     }
   }
 
@@ -214,7 +288,7 @@
     transition: opacity var(--dur) var(--ease-in-out-cube),
       transform var(--dur) var(--ease-in-out-cube),
       background var(--dur) var(--ease-in-out-cube);
-    transform-origin: 50% 25%;
+    transform-origin: 50% 50%;
     pointer-events: none;
     opacity: 1;
   }
@@ -222,27 +296,29 @@
   &.active {
     z-index: 10;
   }
-
-  #catalogs.loops &::before {
-    transform: scale(0.98, 1);
-  }
-
-  #catalogs.loops &.active::before {
-    --dur: 0.15s;
-    background: #242c35;
-    transform: scale(1.08);
-    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
-  }
 }
 
-#catalog .item img {
+#catalogs.loops .item::before {
+  transform: scale(0.98, 1);
+}
+
+#catalogs.loops .item.active::before {
+  --dur: 0.15s;
+  background: #272e3f;
+  transform: scale(1.08);
+  box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
+}
+
+#catalogs .item img {
   width: 100%;
   height: auto;
   display: block;
   max-height: 300px;
   object-fit: contain;
-  object-position: 50% 100%;
+  background: rgba(0, 0, 0, 0.16);
+  object-position: 50% 50%;
   transform-origin: 50% 50%;
+  aspect-ratio: 2;
   position: relative;
   filter: brightness(0.24) saturate(0);
   transform: scale(0.84);
@@ -250,7 +326,7 @@
     transform 0.3s var(--ease-out-cube);
 }
 
-#catalog .item.active img {
+#catalogs .item.active img {
   filter: none;
   pointer-events: all;
   transition: filter 0.3s var(--ease-out-cube),
@@ -263,7 +339,7 @@
   }
 }
 
-#catalog figcaption {
+#catalogs figcaption {
   font: 700 1rem/1.3 AvenirNextLTW01-BoldCn, san-serif;
   text-transform: capitalize;
   text-align: center;
@@ -276,8 +352,8 @@
 }
 
 @media (min-width: 768px) {
-  #catalog figcaption {
-    font-size: 1.5rem;
+  #catalogs figcaption {
+    font-size: 1.25rem;
   }
 }
 
@@ -285,13 +361,42 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: transparent;
   pointer-events: none;
-  transition: background 0.16s var(--ease-in-expo);
+  overflow: hidden;
 
   &[data-active] {
-    transition: background 0.32s var(--ease-out-expo);
-    background: rgba(0, 0, 0, 0.66);
     pointer-events: all;
   }
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.66);
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    transition: opacity 0.16s var(--ease-in-expo);
+    opacity: 0;
+  }
+
+  &[data-active] .overlay {
+    transition: opacity 0.32s var(--ease-out-expo);
+    opacity: 1;
+  }
+}
+
+.catalog-view .modal {
+  background: #272e3f;
+  padding: 1.5rem 0;
+  position: fixed;
+  /* min-height: 75vh; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translate3d(0, 100%, 0);
+  transition: transform 0.3s var(--ease-in-expo);
+  overflow: hidden;
+}
+
+.catalog-view[data-active] .modal {
+  transform: translate3d(0, 0%, 0);
+  transition: transform 0.6s var(--ease-out-expo);
 }

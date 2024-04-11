@@ -182,6 +182,7 @@ export function horizontalLoop(items, config) {
       ? tl.time(timeWrap(time))
       : tl.tweenTo(time, vars);
   }
+  tl.refresh = refresh;
   tl.toIndex = (index, vars) => toIndex(index, vars);
   tl.closestIndex = (setCurrent) => {
     let index = getClosest(times, tl.time(), tl.duration());
