@@ -59,13 +59,13 @@
   filter: drop-shadow(-2px 0 0 hsla(0, 0%, 100%, 0.9));
 }
 
-.icon {
+.compare .icon {
   --size: 1.5rem;
   color: currentColor;
   transform: rotate(90deg);
 }
 
-.input {
+.compare .input {
   position: absolute;
   margin: 0 auto;
   width: calc(100% + var(--handle-size));

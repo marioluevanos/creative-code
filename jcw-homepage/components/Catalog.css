@@ -4,7 +4,7 @@
   --range-track-height: 4px;
   --item-gutter: 48px;
 
-  padding: 6rem 0;
+  padding: 5rem 0;
   position: relative;
   margin: 0 auto;
   background: var(--color-black);
@@ -12,6 +12,46 @@
   overflow: hidden;
   width: 100vw;
   max-width: 1400px;
+}
+
+#catalog .header {
+  grid-area: header;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-wrap: balance;
+  max-width: 768px;
+  margin: 0 auto;
+  text-align: center;
+
+  &::before {
+    display: none;
+  }
+
+  .icon {
+    max-width: 32px;
+    width: 100%;
+    margin: 0 auto 1.5rem;
+  }
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-gray-light);
+    margin-bottom: 1rem;
+    opacity: 0.66;
+  }
+
+  .fill-1 {
+    fill: var(--color-gray-medium);
+  }
+
+  .fill-2 {
+    fill: var(--color-cyan);
+  }
 }
 
 #catalog .logo {
@@ -30,7 +70,7 @@
   flex-wrap: wrap;
   grid-gap: 0.5rem;
   position: relative;
-  margin: 1rem auto 3rem;
+  margin: 1.5rem auto 3rem;
   padding: 0;
   max-width: 768px;
 }
@@ -40,12 +80,27 @@
   display: flex;
   align-items: center;
   margin: auto;
+  transition: none;
+  color: white;
+
   svg {
     transform: scale(1, -1);
   }
 
-  &.active svg {
-    transform: scale(1, 1);
+  &.active {
+    transition: none;
+    background: none;
+    color: white;
+    transition: color 0.3s var(--ease-out-sine) 0.6s;
+    svg {
+      transform: scale(1, 1);
+    }
+  }
+}
+
+@media (hover: hover) {
+  #catalog .filter.button:hover {
+    background: hsla(0deg 0% 100% / 16%);
   }
 }
 
@@ -89,6 +144,13 @@
     transition: background 0.16s var(--ease-in-cube),
       opacity 0.16s var(--ease-in-cube);
   }
+
+  &::after {
+    content: " " attr(data-count);
+    opacity: 0.66;
+    padding-left: 0.25rem;
+    font-family: "AvenirNextLTW01-DemiCn";
+  }
 }
 
 @media (hover: hover) {
@@ -118,6 +180,11 @@
   width: 100vw;
   max-width: 1440px;
   margin: auto;
+
+  &.static {
+    justify-content: center;
+    grid-gap: 1rem;
+  }
 }
 
 .item {
@@ -133,6 +200,7 @@
   @media (min-width: 768px) {
     & {
       min-width: 320px;
+      max-width: 320px;
     }
   }
 
@@ -148,7 +216,6 @@
       background var(--dur) var(--ease-in-out-cube);
     transform-origin: 50% 25%;
     pointer-events: none;
-    transform: scale(0.92);
     opacity: 1;
   }
 
@@ -156,15 +223,15 @@
     z-index: 10;
   }
 
-  #catalogs.loops &.active::before {
-    --dur: 0.15s;
-    background: var(--color-slate-blue);
-    transform: scale(1.08);
-    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
+  #catalogs.loops &::before {
+    transform: scale(0.98, 1);
   }
 
-  * {
-    pointer-events: none;
+  #catalogs.loops &.active::before {
+    --dur: 0.15s;
+    background: #242c35;
+    transform: scale(1.08);
+    box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -185,9 +252,11 @@
 
 #catalog .item.active img {
   filter: none;
+  pointer-events: all;
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
   transform: scale(1);
+  cursor: pointer;
 
   & + figcaption {
     opacity: 1;
@@ -200,7 +269,7 @@
   text-align: center;
   opacity: 0;
   z-index: 10;
-  padding: 1.5rem 1rem 0;
+  padding: 1.5rem 1rem;
   text-wrap: balance;
   transition: opacity 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
@@ -218,8 +287,10 @@
   z-index: 100;
   background: transparent;
   pointer-events: none;
+  transition: background 0.16s var(--ease-in-expo);
 
   &[data-active] {
+    transition: background 0.32s var(--ease-out-expo);
     background: rgba(0, 0, 0, 0.66);
     pointer-events: all;
   }

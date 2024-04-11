@@ -20,7 +20,41 @@
     "keywords": ["Horns", "Electric", "Accessories"],
     "title": "Racing Hub Style Custom Wheel Covers"
   },
-
+  {
+    "src": "assets/catalog/donkey.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Animals", "Electric", "Accessories"],
+    "title": "Electric Donkey Horn"
+  },
+  {
+    "src": "assets/catalog/mustang-horn.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Electric", "Animals"],
+    "title": "Mustang Horn For All Cars & Trucks"
+  },
+  {
+    "src": "assets/catalog/cat.png",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Lights", "Electric", "Animals"],
+    "title": "The Whinky White Cat"
+  },
+  {
+    "src": "assets/catalog/white-cat.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Lights", "Electric", "Animals"],
+    "title": "The Whinky White Cat"
+  },
+  {
+    "src": "assets/catalog/valve-covers.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Engine", "Valve Covers"],
+    "title": "Valve Covers"
+  },
   {
     "src": "assets/catalog/Horn-Sale.jpeg",
     "width": 980,
