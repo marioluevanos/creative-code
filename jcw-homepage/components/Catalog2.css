@@ -16,6 +16,7 @@
 
   @media (min-width: 768px) {
     --item-w: 360px;
+    overflow: visible;
     flex-direction: row;
   }
 }
@@ -23,13 +24,22 @@
 #catalog2 .header {
   position: relative;
   text-wrap: balance;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
 
   &::before {
     display: none;
   }
 
   .icon {
-    margin: 0 0 1.5rem;
+    margin: 0 auto 1.5rem;
+
+    @media (min-width: 768px) {
+      margin: 0 0 1.5rem;
+    }
   }
 
   .title {
@@ -45,7 +55,9 @@
   }
 
   .title {
-    max-width: 320px;
+    @media (min-width: 768px) {
+      max-width: 320px;
+    }
   }
 
   p {
@@ -94,7 +106,7 @@
 
 #catalogs2 .item img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   max-height: 640px;
   object-fit: contain;

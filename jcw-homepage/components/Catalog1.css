@@ -1,8 +1,9 @@
-#catalog {
+#catalog1 {
   --range-handle-width: 60px;
   --range-handle-height: 20px;
   --range-track-height: 4px;
   --item-gutter: 48px;
+  --item-w: 320px;
 
   padding: 5rem 0;
   position: relative;
@@ -11,9 +12,13 @@
   color: white;
   overflow: hidden;
   width: 100vw;
+
+  @media (min-width: 768px) {
+    --item-w: 380px;
+  }
 }
 
-#catalog .header {
+#catalog1 .header {
   grid-area: header;
   position: relative;
   display: flex;
@@ -56,7 +61,7 @@
   }
 }
 
-#catalog .keywords {
+#catalog1 .keywords {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +92,7 @@
   }
 }
 
-#catalog .filter.button {
+#catalog1 .filter.button {
   box-shadow: none;
   display: flex;
   align-items: center;
@@ -134,7 +139,7 @@
 }
 
 @media (hover: hover) {
-  #catalog .filter.button:hover {
+  #catalog1 .filter.button:hover {
     background: hsla(0deg 0% 100% / 16%);
   }
 }
@@ -201,7 +206,7 @@
  * Catalogs
  */
 
-#catalogs.catalogs {
+#catalogs1.catalogs1 {
   display: flex;
   flex-wrap: nowrap;
   width: 100vw;
@@ -213,10 +218,10 @@
   }
 }
 
-#catalogs .item {
+#catalogs1 .item {
   margin: 0;
   flex: 1;
-  min-width: 360px;
+  min-width: var(--item-w);
   position: relative;
 
   &.active {
@@ -224,13 +229,14 @@
   }
 }
 
-#catalogs .item-content {
+#catalogs1 .item-content {
   display: flex;
   margin: 0.25rem;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
   border-radius: 0.25rem;
+  position: relative;
 
   &::before {
     --dur: 0.3s;
@@ -249,7 +255,7 @@
   }
 }
 
-#catalogs .item img {
+#catalogs1 .item img {
   width: 100%;
   height: auto;
   display: block;
@@ -264,12 +270,11 @@
     transform 0.3s var(--ease-out-cube);
 }
 
-#catalogs .item.active img {
+#catalogs1 .item.active img {
   filter: none;
   pointer-events: all;
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
-  /* transform: scale(1); */
   cursor: pointer;
 
   & + figcaption {
@@ -277,7 +282,7 @@
   }
 }
 
-#catalogs figcaption {
+#catalogs1 figcaption {
   flex: 1;
   opacity: 0.66;
   z-index: 10;
@@ -300,7 +305,7 @@
 }
 
 @media (min-width: 768px) {
-  #catalogs figcaption {
+  #catalogs1 figcaption {
     font-size: 1.25rem;
   }
 }

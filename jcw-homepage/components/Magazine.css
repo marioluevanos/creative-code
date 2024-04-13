@@ -18,6 +18,7 @@
     "cta cta";
 
   @media (min-width: 768px) {
+    overflow: visible;
     padding: 6rem;
     grid-gap: 2rem 1.5rem;
     grid-template-columns: auto minmax(120px, 180px) minmax(120px, 180px);

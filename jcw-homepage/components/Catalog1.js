@@ -2,7 +2,7 @@ import { debounce } from "../utils.js";
 import Button from "./Button.js";
 
 const template = `
-<section id="catalog" ref="root">
+<section id="catalog1" ref="root">
   <header class="header">
     <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M36.4,43.7h2.5c2.3-0.1,4.1-2.1,4-4.4V8.1 c0.1-2.3-1.7-4.3-4-4.4h-2.5"/>
@@ -11,9 +11,9 @@ const template = `
       <path class="f-cyan" d="M12.8,14.5c-0.4,0.5-1,0.8-1.9,0.8c-0.6,0-1.1-0.2-1.5-0.5C9,14.4,8.8,14,8.6,13.4l1.6-0.7c0,0.2,0.1,0.4,0.2,0.5 s0.3,0.2,0.4,0.2c0.3,0,0.4-0.1,0.5-0.3c0.1-0.2,0.1-0.5,0.1-0.9V6.6h1.9v5.8C13.4,13.3,13.2,14,12.8,14.5z"/>
       <path class="f-cyan" d="M32,40.8c-0.4,0.2-0.9,0.3-1.4,0.3c-0.5,0-0.9-0.1-1.3-0.3c-0.4-0.2-0.8-0.5-1-0.9c-0.3-0.4-0.5-0.9-0.7-1.4 s-0.2-1.1-0.2-1.8c0-0.7,0.1-1.3,0.2-1.8s0.4-1,0.7-1.4c0.3-0.4,0.6-0.7,1-0.9c0.4-0.2,0.9-0.3,1.3-0.3c0.6,0,1,0.1,1.4,0.3 s0.7,0.5,0.9,0.8l-1,1.4c-0.1-0.2-0.3-0.3-0.5-0.5C31.2,34,31,34,30.7,34c-0.3,0-0.5,0.1-0.7,0.2c-0.2,0.1-0.3,0.3-0.5,0.6 c-0.1,0.2-0.2,0.5-0.3,0.8s-0.1,0.7-0.1,1s0,0.7,0.1,1c0.1,0.3,0.2,0.6,0.3,0.8c0.1,0.2,0.3,0.4,0.5,0.6c0.2,0.1,0.4,0.2,0.7,0.2 s0.5-0.1,0.7-0.2c0.2-0.1,0.3-0.3,0.5-0.5l1.1,1.3C32.7,40.3,32.4,40.5,32,40.8z"/>
     </svg>
-    <h2 class="fs-h3 title">Catalog Throwback</h2>
+    <h2 class="fs-h2 title">Catalog Throwback</h2>
     <p class="fs-small">
-    Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
+      Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
     </p>
   </header>
   <Button
@@ -42,14 +42,14 @@ const template = `
     </Button>
   </div>
   <div
-    class="catalogs"
+    class="catalogs1"
     :class="{ loops: draggable, static: !draggable }"
-    ref="catalogs"
-    id="catalogs"
+    ref="catalogs1"
+    id="catalogs1"
   >
     <figure
       class="item"
-      v-for="(image, index) in catalogs"
+      v-for="(image, index) in catalogs1"
       :key="image.src + index + image.keywords"
     >
       <div class="item-content">
@@ -86,9 +86,9 @@ const Catalog = {
       catalogIndex: 0,
       isFiltersActive: false,
       isBusy: false,
-      minCatalogs: 2,
       maxFilters: 7,
-      maxGrid: 8,
+      minCatalogs: 2,
+      maxCatalogs: 8,
       draggable: undefined,
     };
   },
@@ -101,7 +101,7 @@ const Catalog = {
   },
   computed: {
     loops() {
-      return this.catalogs.length >= this.minCatalogs;
+      return this.catalogs1.length >= this.minCatalogs;
     },
     keywords() {
       return Object.entries(
@@ -133,14 +133,14 @@ const Catalog = {
         return all;
       }, []);
     },
-    catalogs() {
+    catalogs1() {
       return (
         Array.from(this.filters).length === 0
           ? this.images
           : this.filteredCatalogs
       )
         .map((catalog, index) => ({ ...catalog, id: index }))
-        .slice(0, this.maxGrid);
+        .slice(0, this.maxCatalogs);
     },
   },
   methods: {
@@ -150,18 +150,15 @@ const Catalog = {
     killDraggable() {
       this.isBusy = true;
 
-      const kill = () => {
+      return new Promise((resolve) => {
         console.log("%cKILLING...", "color: white; background: red");
         if (this.draggable) {
           this.draggable.kill();
-          Array.from(this.$refs.catalogs.children).forEach(
+          Array.from(this.$refs.catalogs1.children).forEach(
             (item) => (item.style = null)
           );
         }
-      };
 
-      return new Promise((resolve) => {
-        kill();
         setTimeout(() => {
           this.enableDraggable();
           resolve(true);
@@ -171,12 +168,12 @@ const Catalog = {
     },
     enableDraggable() {
       console.log("%cKILLED DRAGGABLE", "color: red");
-      if (this.catalogs.length >= this.minCatalogs) {
+      if (this.catalogs1.length >= this.minCatalogs) {
         console.log("%cDRAGGABLE", "color: green");
-        this.initDraggable(this.$refs.catalogs);
+        this.initDraggable(this.$refs.catalogs1);
       } else {
         console.log("%cNO DRAG EXISTS", "color: gray");
-        Array.from(this.$refs.catalogs?.children).forEach((item) =>
+        Array.from(this.$refs.catalogs1?.children).forEach((item) =>
           item.classList.add("active")
         );
       }
@@ -206,12 +203,12 @@ const Catalog = {
       this.isCatalogView = !this.isCatalogView;
     },
     setCatalogItemsVisible() {
-      Array.from(this.$refs.catalogs?.children).forEach((image) => {
+      Array.from(this.$refs.catalogs1?.children).forEach((image) => {
         image.style.visibility = "visible";
       });
     },
     getBounds() {
-      const totalW = Array.from(this.$refs.catalogs.children).reduce(
+      const totalW = Array.from(this.$refs.catalogs1.children).reduce(
         (t, el) => {
           t += el.clientWidth;
           return t;
@@ -220,6 +217,7 @@ const Catalog = {
       );
       const header = document.querySelector("#header .container");
       const headerOffset = header.clientWidth - header.offsetLeft * 2;
+
       const isLargeScreen = window.innerWidth > 768;
       const minX = isLargeScreen ? 0 : header.offsetLeft + 24;
       const maxX = -(totalW - headerOffset) - window.innerWidth * 0.33;
@@ -230,7 +228,7 @@ const Catalog = {
       };
     },
     initDraggable(parentElement) {
-      const children = Array.from(this.$refs.catalogs.children);
+      const children = Array.from(this.$refs.catalogs1.children);
       const bounds = this.getBounds();
       const [draggable] = Draggable.create(parentElement, {
         type: "x",
@@ -274,7 +272,7 @@ const Catalog = {
       this.images = data;
       this.$nextTick(() => {
         this.setCatalogItemsVisible();
-        this.initDraggable(this.$refs.catalogs);
+        this.initDraggable(this.$refs.catalogs1);
       });
     });
 

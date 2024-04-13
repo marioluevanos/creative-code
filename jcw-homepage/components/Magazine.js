@@ -32,7 +32,7 @@ const template = `
     <p>Great deals on automotive parts.</p>
   </div>
   <Button class="button cta">Subscribe today</Button>
-  <div class="canvas" ref="canvas">
+  <div class="canvas" ref="canvas" id="canvas">
     <div class="center">
       <div class="items" ref="items">
         <div class="item" v-for="(o, i) in images" :key="o.src" style="visibility: hidden;">

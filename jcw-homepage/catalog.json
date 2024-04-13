@@ -1,26 +1,10 @@
 [
   {
-    "src": "assets/catalog/fiberglass-hoods.webp",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Hoods", "Fiberglass", "Volkswagen"],
-    "title": "Fiberglass hoods and continental rear to customize your Beetle",
-    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
-  },
-  {
     "src": "assets/catalog/jcw-1972-horns-donkey-horn.webp",
     "width": 980,
     "height": 551,
     "keywords": ["Horns", "Animals"],
     "title": "Authentic Electric Donkey Horn, \"HEE-HAW\"",
-    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
-  },
-  {
-    "src": "assets/catalog/hubcaps-racing.jpg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Tires", "Wheels"],
-    "title": "Racing Hub Style Custom Wheel Covers",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
@@ -32,11 +16,35 @@
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
-    "src": "assets/catalog/mustang-horn.jpg",
+    "src": "assets/catalog/JCW-Pipe_Organ_Speakers.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Animals"],
-    "title": "Mustang Horn For All Cars & Trucks",
+    "keywords": ["Horns", "Audio"],
+    "title": "Pipe Organ Speakers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/pipe-organ.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Audio"],
+    "title": "Pipe Organ Speakers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/JC-Whitney-Barefoot-Pedal-1.webp",
+    "width": 576,
+    "height": 507,
+    "keywords": ["Pedals", "Interior"],
+    "title": "Barefoot Accelarator Pedal",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/barefoot.jpeg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Audio"],
+    "title": "Barefoot Accelerator",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
@@ -56,11 +64,35 @@
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
+    "src": "assets/catalog/mustang-horn.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Horns", "Animals"],
+    "title": "Mustang Horn For All Cars & Trucks",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
     "src": "assets/catalog/valve-covers.jpg",
     "width": 980,
     "height": 551,
     "keywords": ["Engine", "Valve Covers"],
     "title": "Valve Covers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/fiberglass-hoods.webp",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Hoods", "Fiberglass", "Volkswagen"],
+    "title": "Fiberglass hoods and continental rear to customize your Beetle",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/hubcaps-racing.jpg",
+    "width": 980,
+    "height": 551,
+    "keywords": ["Tires", "Wheels"],
+    "title": "Racing Hub Style Custom Wheel Covers",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
@@ -189,14 +221,6 @@
     "height": 600,
     "keywords": ["Starter", "Volkswagen"],
     "title": "Hand Starter to fit 49-73 Volkswagen & Karmann Ghia",
-    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
-  },
-  {
-    "src": "assets/catalog/JC-Whitney-Barefoot-Pedal-1.webp",
-    "width": 576,
-    "height": 507,
-    "keywords": ["Pedals", "Interior"],
-    "title": "Barefoot Accelarator Pedal",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {

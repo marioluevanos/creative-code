@@ -3,7 +3,7 @@ import Button from "./Button.js";
 
 const template = `
 <section id="catalog2" ref="root">
-  <header class="header">
+  <header class="header" ref="header">
     <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M36.4,43.7h2.5c2.3-0.1,4.1-2.1,4-4.4V8.1 c0.1-2.3-1.7-4.3-4-4.4h-2.5"/>
       <path class="s-cyan" fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M32.1,20.7v6l-11.2,1l-11.1-1v-6l11.1-1 C20.9,19.7,32.1,20.7,32.1,20.7z"/>
@@ -13,7 +13,7 @@ const template = `
     </svg>
     <h2 class="fs-h2 title">Catalog Throwback</h2>
     <p class="fs-small">
-    Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
+      Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
     </p>
   </header>
   <div
@@ -58,7 +58,7 @@ const Catalog2 = {
       resizeFn: () => undefined,
       filters: new Set(),
       images: [],
-      maxCatalogs: 100,
+      maxCatalogs: 8,
       scrollTimeline: undefined,
     };
   },
@@ -96,9 +96,12 @@ const Catalog2 = {
       return ScrollTrigger.create({
         animation: this.createAnimationTimeline(),
         trigger: "#catalogs2",
-        start: "top 150%",
         scrub: true,
-        end: "bottom 0%",
+        start: "top 150%",
+        end: "bottom 50%",
+        // start: `top top+=${this.$refs.root.clientHeight / 2}px`,
+        // pin: "#catalog2",
+        // markers: true,
       });
     },
     createAnimationTimeline() {
@@ -114,26 +117,25 @@ const Catalog2 = {
             x: idx * 600,
             y: idx * -600,
             z: idx * -600,
-            filter: "brightness(0.24) saturate(0)",
+            filter: "brightness(0.16) saturate(0) blur(6px)",
           },
           {
             x: index * -1,
             y: index * 1,
             z: index * 1,
             duration: items.length,
+            filter: "brightness(0.16) saturate(0) blur(0px)",
           },
           idx
         );
 
         tl.to(item, {
-          filter: "brightness(1) saturate(1)",
+          filter: "brightness(1) saturate(1) blur(0px)",
         });
 
         tl.to(item, {
+          delay: 0.5,
           opacity: 0,
-          rotation: 5,
-          y: 120,
-          ease: "sine.in",
         });
       });
 
@@ -143,9 +145,13 @@ const Catalog2 = {
     },
     onReady() {
       this.scrollTimeline = this.createScrollTimeline();
+      this.onResize();
     },
     onResize() {
-      //
+      this.$refs.root.style.setProperty(
+        "--item-w",
+        `${this.$refs.header.clientWidth}px`
+      );
     },
   },
   mounted() {
