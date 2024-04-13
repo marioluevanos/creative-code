@@ -11,7 +11,6 @@
   color: white;
   overflow: hidden;
   width: 100vw;
-  max-width: 1400px;
 }
 
 #catalog .header {
@@ -20,7 +19,7 @@
   display: flex;
   flex-direction: column;
   text-wrap: balance;
-  max-width: 768px;
+  max-width: 1392px;
   margin: 0 auto;
   text-align: center;
 
@@ -29,8 +28,6 @@
   }
 
   .icon {
-    max-width: 32px;
-    width: 100%;
     margin: 0 auto 1.5rem;
   }
 
@@ -41,7 +38,8 @@
 
   p {
     color: var(--color-gray-light);
-    margin-bottom: 1.5rem;
+    margin: 1rem auto 1.5rem;
+    max-width: 768px;
     opacity: 0.66;
   }
 
@@ -65,7 +63,7 @@
   flex-wrap: wrap;
   grid-gap: 0.5rem;
   position: relative;
-  margin: 1rem auto 3rem;
+  margin: 1rem auto;
   padding: 0;
   max-width: 768px;
 }
@@ -93,13 +91,14 @@
   box-shadow: none;
   display: flex;
   align-items: center;
-  margin: auto;
+  margin: 0 auto 3rem;
   color: white;
   position: relative;
   z-index: 1;
   overflow: hidden;
   transition: color 0.16s var(--ease-out-sine) 0s,
     background 0.16s var(--ease-out-sine) 0s;
+  /* display: none; */
 
   &::before {
     content: "";
@@ -112,7 +111,7 @@
     animation: exit-button 0.16s var(--ease-in-expo) forwards;
   }
 
-  svg.icon {
+  svg.button-icon {
     transform: scale(1, -1);
     width: 1rem;
     height: 1rem;
@@ -120,6 +119,7 @@
 
   &.active {
     color: black;
+    margin-bottom: 0;
 
     &::before {
       transform: translate3d(0, 0%, 0);
@@ -127,7 +127,7 @@
       animation: enter-button 0.3s var(--ease-out-expo) forwards;
     }
 
-    svg.icon {
+    svg.button-icon {
       transform: scale(1, 1);
     }
   }
@@ -197,53 +197,6 @@
   }
 }
 
-#catalog .button + .catalogs-grid {
-  margin-top: 3rem;
-}
-
-#catalogs-grid {
-  max-width: 1440px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1rem;
-
-  @media (min-width: 768px) {
-    & {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    & {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-}
-
-#catalogs-grid .item {
-  background: var(--color-deep-blue);
-  margin: 0;
-  padding: 1rem;
-}
-
-#catalogs-grid .item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  object-position: 50% 50%;
-  aspect-ratio: 1.76;
-  cursor: pointer;
-  pointer-events: all;
-}
-
-#catalogs-grid .item figcaption {
-  margin-top: 1rem;
-  color: var(--color-gray-light);
-  font-family: "AvenirNextLTW01-DemiCn";
-}
-
 /**
  * Catalogs
  */
@@ -252,37 +205,39 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100vw;
-  max-width: 1440px;
+  max-width: 1400px;
   margin: auto;
 
   &.static {
     justify-content: center;
-    grid-gap: 1rem;
   }
 }
 
 #catalogs .item {
   margin: 0;
   flex: 1;
-  min-width: 75vw;
+  min-width: 360px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
 
-  @media (min-width: 768px) {
-    & {
-      min-width: 240px;
-      max-width: 240px;
-    }
+  &.active {
+    z-index: 10;
   }
+}
+
+#catalogs .item-content {
+  display: flex;
+  margin: 0.25rem;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.25rem;
 
   &::before {
     --dur: 0.3s;
     content: "";
     position: absolute;
-    inset: 0 0 0 0;
+    inset: 0;
+    background: #272e3f;
     background: var(--color-deep-blue);
     pointer-events: none;
     transition: opacity var(--dur) var(--ease-in-out-cube),
@@ -292,36 +247,19 @@
     pointer-events: none;
     opacity: 1;
   }
-
-  &.active {
-    z-index: 10;
-  }
-}
-
-#catalogs.loops .item::before {
-  transform: scale(0.98, 1);
-}
-
-#catalogs.loops .item.active::before {
-  --dur: 0.15s;
-  background: #272e3f;
-  transform: scale(1.08);
-  box-shadow: 0 8px 64px rgba(0, 0, 0, 0.8);
 }
 
 #catalogs .item img {
   width: 100%;
   height: auto;
   display: block;
-  max-height: 300px;
+  max-height: 640px;
   object-fit: contain;
-  background: rgba(0, 0, 0, 0.16);
   object-position: 50% 50%;
   transform-origin: 50% 50%;
-  aspect-ratio: 2;
   position: relative;
   filter: brightness(0.24) saturate(0);
-  transform: scale(0.84);
+  transform: scale(1);
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
 }
@@ -331,7 +269,7 @@
   pointer-events: all;
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
-  transform: scale(1);
+  /* transform: scale(1); */
   cursor: pointer;
 
   & + figcaption {
@@ -340,15 +278,25 @@
 }
 
 #catalogs figcaption {
-  font: 700 1rem/1.3 AvenirNextLTW01-BoldCn, san-serif;
-  text-transform: capitalize;
-  text-align: center;
-  opacity: 0;
+  flex: 1;
+  opacity: 0.66;
   z-index: 10;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem;
   text-wrap: balance;
   transition: opacity 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
+
+  .item-title {
+    font: 700 1.125rem/1.3 AvenirNextLTW01-BoldCn, san-serif;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  .item-description {
+    margin: 0.5rem 0 0;
+    font-size: 14px;
+    opacity: 0.66;
+  }
 }
 
 @media (min-width: 768px) {
@@ -384,10 +332,8 @@
 }
 
 .catalog-view .modal {
-  background: #272e3f;
   padding: 1.5rem 0;
   position: fixed;
-  /* min-height: 75vh; */
   bottom: 0;
   left: 0;
   right: 0;

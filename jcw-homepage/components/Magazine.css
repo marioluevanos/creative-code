@@ -1,16 +1,14 @@
 #magazines {
   position: relative;
   display: grid;
-  overflow: hidden;
-  place-items: center;
-  background: var(--color-black);
-  background: var(--color-deep-blue);
   color: white;
   margin: 0 auto;
   align-items: center;
   max-width: 1400px;
-  padding: 3rem 0;
+  padding: 3rem 1rem;
   grid-gap: 1.5rem 0;
+  z-index: 2;
+  overflow: hidden;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "header header"
@@ -32,6 +30,30 @@
 
   @media (min-width: 1280px) {
     padding: 6rem 10rem;
+  }
+
+  &::before {
+    --x: 50%;
+    --y: 50%;
+    --f: 100%;
+    content: "";
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      var(--color-primary),
+      var(--color-deep-blue),
+      transparent var(--f)
+    );
+    position: absolute;
+    inset: 0;
+    filter: blur(128px);
+    border-radius: 100vw;
+    opacity: 0.66;
+  }
+
+  @media (min-width: 768px) {
+    --x: 66%;
+    --y: 40%;
+    --f: 66%;
   }
 }
 
@@ -62,6 +84,7 @@
 
   p {
     color: var(--color-gray-light);
+    opacity: 0.66;
   }
 }
 
@@ -84,35 +107,6 @@
       "icon"
       "title"
       "text";
-  }
-
-  svg {
-    width: 32px;
-    aspect-ratio: 1;
-    color: var(--color-gray-medium);
-    grid-area: icon;
-    margin: 0 0 1rem;
-    display: block;
-
-    @media (min-width: 768px) {
-      width: 32px;
-      margin: 0 0 1rem;
-    }
-
-    @media (min-width: 1024px) {
-      width: 40px;
-      margin: 0 0 1rem;
-    }
-
-    /* display: none; */
-  }
-
-  svg .s-cyan {
-    stroke: var(--color-cyan);
-  }
-
-  svg .f-cyan {
-    fill: var(--color-cyan);
   }
 
   h3 {
@@ -294,7 +288,6 @@
 
   @media (min-width: 768px) {
     position: relative;
-    left: -24px;
     grid-area: unset;
   }
 }

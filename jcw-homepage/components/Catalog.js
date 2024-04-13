@@ -1,20 +1,16 @@
-import { horizontalLoop } from "../utils.js";
+import { debounce } from "../utils.js";
 import Button from "./Button.js";
 
 const template = `
 <section id="catalog" ref="root">
   <header class="header">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 30.9 22.7">
-      <path class="fill-1 lock" d="M13.9,16.1c0-0.9,0.8-1.7,1.7-1.7s1.7,0.8,1.7,1.7c0,0.9-0.8,1.7-1.7,1.7S13.9,17,13.9,16.1z"/>
-      <path class="fill-1" d="M30.9,13.9v7.7c0,0.6-0.5,1.1-1.1,1.1H1.1c-0.6,0-1.1-0.5-1.1-1.1v-7.7h13.1v2.2c0,1.4,1.1,2.5,2.5,2.5 c1.4,0,2.5-1.1,2.5-2.5v-2.2H30.9z"/>
-      <path class="fill-1" d="M26.3,4.4H5L0.2,9.3h30.5L26.3,4.4z"/>
-      <path class="fill-1" d="M9.7,5.4L8.5,4.7c0,0,0.3-0.6,1.5-2.9C10.9,0.1,12,0,13,0h3.9v1.4H13c-0.7,0-1.2,0-1.7,1 C10.1,4.9,9.7,5.4,9.7,5.4z"/>
-      <path class="fill-1" d="M21.8,5.4c0,0-0.3-0.6-1.6-3c-0.5-1-1-1-1.7-1h-3.9V0h3.9c1,0,2.1,0.1,2.9,1.8C22.7,4.2,23,4.7,23,4.7 L21.8,5.4L21.8,5.4z"/>
-      <path class="fill-2" d="M30.9,10H0v0.7h30.9V10z"/>
-      <path class="fill-2" d="M30.9,11.2H0v0.7h30.9V11.2z"/>
-      <path class="fill-2" d="M30.9,12.5H0v0.7h30.9V12.5z"/>
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M36.4,43.7h2.5c2.3-0.1,4.1-2.1,4-4.4V8.1 c0.1-2.3-1.7-4.3-4-4.4h-2.5"/>
+      <path class="s-cyan" fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M32.1,20.7v6l-11.2,1l-11.1-1v-6l11.1-1 C20.9,19.7,32.1,20.7,32.1,20.7z"/>
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" d="M8.9,1.7h24c2.2,0,4,1.8,4,4v36c0,2.2-1.8,4-4,4h-24 c-2.2,0-4-1.8-4-4v-36C4.9,3.5,6.7,1.7,8.9,1.7z"/>
+      <path class="f-cyan" d="M12.8,14.5c-0.4,0.5-1,0.8-1.9,0.8c-0.6,0-1.1-0.2-1.5-0.5C9,14.4,8.8,14,8.6,13.4l1.6-0.7c0,0.2,0.1,0.4,0.2,0.5 s0.3,0.2,0.4,0.2c0.3,0,0.4-0.1,0.5-0.3c0.1-0.2,0.1-0.5,0.1-0.9V6.6h1.9v5.8C13.4,13.3,13.2,14,12.8,14.5z"/>
+      <path class="f-cyan" d="M32,40.8c-0.4,0.2-0.9,0.3-1.4,0.3c-0.5,0-0.9-0.1-1.3-0.3c-0.4-0.2-0.8-0.5-1-0.9c-0.3-0.4-0.5-0.9-0.7-1.4 s-0.2-1.1-0.2-1.8c0-0.7,0.1-1.3,0.2-1.8s0.4-1,0.7-1.4c0.3-0.4,0.6-0.7,1-0.9c0.4-0.2,0.9-0.3,1.3-0.3c0.6,0,1,0.1,1.4,0.3 s0.7,0.5,0.9,0.8l-1,1.4c-0.1-0.2-0.3-0.3-0.5-0.5C31.2,34,31,34,30.7,34c-0.3,0-0.5,0.1-0.7,0.2c-0.2,0.1-0.3,0.3-0.5,0.6 c-0.1,0.2-0.2,0.5-0.3,0.8s-0.1,0.7-0.1,1s0,0.7,0.1,1c0.1,0.3,0.2,0.6,0.3,0.8c0.1,0.2,0.3,0.4,0.5,0.6c0.2,0.1,0.4,0.2,0.7,0.2 s0.5-0.1,0.7-0.2c0.2-0.1,0.3-0.3,0.5-0.5l1.1,1.3C32.7,40.3,32.4,40.5,32,40.8z"/>
     </svg>
-
     <h2 class="fs-h3 title">Catalog Throwback</h2>
     <p class="fs-small">
     Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
@@ -24,10 +20,9 @@ const template = `
     class="ghost filter small"
     :class="isFiltersActive ? 'active' : undefined"
     @click="onToggleFilterClick"
-    
   >
     Filter Keywords
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>arrow-sm-down</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><polyline fill="none" stroke="currentColor" stroke-width="2" points="16,10 12,14 8,10 " transform="translate(0, 0)"></polyline></g></svg>
+    <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>arrow-sm-down</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><polyline fill="none" stroke="currentColor" stroke-width="2" points="16,10 12,14 8,10 " transform="translate(0, 0)"></polyline></g></svg>
   </Button>
   <div class="keywords" id="keywords" ref="keywords" v-if="isFiltersActive">
     <Button
@@ -47,51 +42,19 @@ const template = `
     </Button>
   </div>
   <div
-    class="catalogs-grid"
-    ref="catalogs-grid"
-    id="catalogs-grid"
+    class="catalogs"
+    :class="{ loops: draggable, static: !draggable }"
+    ref="catalogs"
+    id="catalogs"
   >
     <figure
       class="item"
-      v-for="(image, index) in catalogs.slice(0, maxGrid)"
+      v-for="(image, index) in catalogs"
       :key="image.src + index + image.keywords"
     >
-      <img
-        class="image"
-        @click="onCatalogItemClick"
-        :style="{ '--ar': image.width / image.height }"
-        :src="image.src"
-        :width="image.width"
-        :height="image.height"
-        :data-keywords="image.keywords"
-        :data-id="image.id"
-      />
-      <figcaption>{{image.title}}</figcaption>
-    </figure>
-  </div>
-  
-</section>
-<section
-  id="catalog-view"
-  ref="catalogView"
-  class="catalog-view"
-  :data-active="isCatalogView || undefined"
->
-  <div class="overlay" @click="onCatalogItemClick"></div>
-  <article class="modal">
-    <div
-      class="catalogs"
-      :class="{ loops, static: !loops }"
-      ref="catalogs"
-      id="catalogs"
-    >
-      <figure
-        class="item"
-        v-for="(image, index) in catalogs"
-        :key="image.src + index + image.keywords"
-      >
+      <div class="item-content">
         <img
-          class="image"
+          class="item-image"
           :style="{ '--ar': image.width / image.height }"
           :src="image.src"
           :width="image.width"
@@ -99,10 +62,13 @@ const template = `
           :data-keywords="image.keywords"
           :data-id="image.id"
         />
-        <figcaption>{{image.title}}</figcaption>
-      </figure>
-    </div>
-  </article>
+        <figcaption>
+          <p class="item-title">{{image.title}}</p>
+          <p class="item-description">{{image.description}}</p>
+        </figcaption>
+      </div>
+    </figure>
+  </div>
 </section>
 `;
 
@@ -113,24 +79,23 @@ const Catalog = {
   },
   data() {
     return {
+      resizeFn: () => undefined,
       filters: new Set(),
       images: [],
       isCatalogView: false,
       catalogIndex: 0,
       isFiltersActive: false,
-      loop: undefined,
       isBusy: false,
-      minCatalogs: 3,
+      minCatalogs: 2,
       maxFilters: 7,
       maxGrid: 8,
+      draggable: undefined,
     };
   },
   watch: {
     isCatalogView(n, o) {
-      if (n && this.loop === undefined) {
-        this.initDraggable(this.$refs.catalogs);
+      if (n && this.draggable === undefined) {
       } else {
-        this.de;
       }
     },
   },
@@ -173,7 +138,9 @@ const Catalog = {
         Array.from(this.filters).length === 0
           ? this.images
           : this.filteredCatalogs
-      ).map((catalog, index) => ({ ...catalog, id: index }));
+      )
+        .map((catalog, index) => ({ ...catalog, id: index }))
+        .slice(0, this.maxGrid);
     },
   },
   methods: {
@@ -185,15 +152,11 @@ const Catalog = {
 
       const kill = () => {
         console.log("%cKILLING...", "color: white; background: red");
-        if (this.loop) {
-          this.loop.progress(0).revert().kill();
+        if (this.draggable) {
+          this.draggable.kill();
           Array.from(this.$refs.catalogs.children).forEach(
             (item) => (item.style = null)
           );
-        }
-
-        if (this.loop?.draggable) {
-          this.loop.draggable.kill();
         }
       };
 
@@ -247,48 +210,63 @@ const Catalog = {
         image.style.visibility = "visible";
       });
     },
+    getBounds() {
+      const totalW = Array.from(this.$refs.catalogs.children).reduce(
+        (t, el) => {
+          t += el.clientWidth;
+          return t;
+        },
+        0
+      );
+      const header = document.querySelector("#header .container");
+      const headerOffset = header.clientWidth - header.offsetLeft * 2;
+      const isLargeScreen = window.innerWidth > 768;
+      const minX = isLargeScreen ? 0 : header.offsetLeft + 24;
+      const maxX = -(totalW - headerOffset) - window.innerWidth * 0.33;
+
+      return {
+        minX,
+        maxX,
+      };
+    },
     initDraggable(parentElement) {
-      const els = Array.from(parentElement.children);
-
-      this.loop = horizontalLoop(els, {
-        paused: true,
-        draggable: true,
-        center: true,
-        snap: true,
-        onChange: (target) => {
-          const parent = target.parentElement;
-          if (!parent) return;
-
-          Array.from(parent.children).forEach((el) => {
-            el.classList.remove("active");
+      const children = Array.from(this.$refs.catalogs.children);
+      const bounds = this.getBounds();
+      const [draggable] = Draggable.create(parentElement, {
+        type: "x",
+        bounds,
+        inertia: true,
+        edgeResistance: 0.86,
+        onPressInit() {
+          gsap.to(children, {
+            scale: 0.96,
+            ease: "expo.out",
+            duration: 0.6,
+            delay: 0.08,
           });
-
-          target.classList.add("active");
+        },
+        onPress(event) {
+          console.log(event);
+        },
+        onRelease() {
+          gsap.to(children, {
+            scale: 1,
+            ease: "expo.out",
+            duration: 0.6,
+          });
         },
       });
 
-      this.loop.refresh(true);
-
-      els.forEach((el, i) =>
-        el.addEventListener("click", () =>
-          this.loop.toIndex(i, {
-            duration: 0.8,
-            ease: "power1.inOut",
-          })
-        )
-      );
-
-      /**
-       * Click the first element to center it
-       * Add the "init" dataset to tell the handler
-       * not to activate the modal
-       */
-      els[0].dataset.init = "true";
-      els[0].click();
+      this.draggable = draggable;
+      gsap.set(parentElement, { x: bounds.minX });
     },
     async getData() {
       const response = await fetch("/catalog.json");
       return response.json();
+    },
+    onResize() {
+      console.log(this.draggable);
+      this.draggable.applyBounds(this.getBounds());
     },
   },
   mounted() {
@@ -296,8 +274,12 @@ const Catalog = {
       this.images = data;
       this.$nextTick(() => {
         this.setCatalogItemsVisible();
+        this.initDraggable(this.$refs.catalogs);
       });
     });
+
+    this.resizeFn = debounce(this.onResize, 500);
+    window.addEventListener("resize", this.resizeFn);
   },
 };
 

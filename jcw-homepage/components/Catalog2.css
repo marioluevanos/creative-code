@@ -1,0 +1,174 @@
+#catalog2 {
+  --range-handle-width: 60px;
+  --range-handle-height: 20px;
+  --range-track-height: 4px;
+  --item-gutter: 48px;
+  --item-w: 280px;
+
+  padding: 8rem 1.5rem;
+  position: relative;
+  color: white;
+  max-width: 1024px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    --item-w: 360px;
+    flex-direction: row;
+  }
+}
+
+#catalog2 .header {
+  position: relative;
+  text-wrap: balance;
+
+  &::before {
+    display: none;
+  }
+
+  .icon {
+    margin: 0 0 1.5rem;
+  }
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-gray-light);
+    margin: 1rem 0 1.5rem;
+    max-width: 768px;
+    opacity: 0.66;
+  }
+
+  .title {
+    max-width: 320px;
+  }
+
+  p {
+    max-width: 500px;
+  }
+}
+
+/**
+ * Catalogs
+ */
+
+#catalogs2.catalogs2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 10rem auto 0;
+  transform-style: preserve-3d;
+  min-height: var(--item-w);
+  perspective: var(--item-w);
+  perspective-origin: calc(var(--item-w) * -0.5) 50%;
+
+  @media (min-width: 768px) {
+    perspective-origin: 50% 50%;
+    margin: auto;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+
+#catalogs2 .item {
+  margin: 0 auto;
+  flex: 1;
+  width: var(--item-w);
+  height: var(--item-w);
+  position: absolute;
+}
+
+#catalogs2 .item-content {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  height: 100%;
+}
+
+#catalogs2 .item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 640px;
+  object-fit: contain;
+  object-position: 50% 50%;
+  transform-origin: 50% 50%;
+  position: relative;
+  transform: scale(1);
+}
+
+#catalogs2 figcaption {
+  flex: 1;
+  opacity: 0.66;
+  z-index: 10;
+  padding: 1.5rem;
+  text-wrap: balance;
+  display: none;
+
+  .item-title {
+    font: 700 1.125rem/1.3 AvenirNextLTW01-BoldCn, san-serif;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  .item-description {
+    margin: 0.5rem 0 0;
+    font-size: 14px;
+    opacity: 0.66;
+  }
+}
+
+@media (min-width: 768px) {
+  #catalogs2 figcaption {
+    font-size: 1.25rem;
+  }
+}
+
+.catalog-view {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+
+  &[data-active] {
+    pointer-events: all;
+  }
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.66);
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    transition: opacity 0.16s var(--ease-in-expo);
+    opacity: 0;
+  }
+
+  &[data-active] .overlay {
+    transition: opacity 0.32s var(--ease-out-expo);
+    opacity: 1;
+  }
+}
+
+.catalog-view .modal {
+  padding: 1.5rem 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translate3d(0, 100%, 0);
+  transition: transform 0.3s var(--ease-in-expo);
+  overflow: hidden;
+}
+
+.catalog-view[data-active] .modal {
+  transform: translate3d(0, 0%, 0);
+  transition: transform 0.6s var(--ease-out-expo);
+}

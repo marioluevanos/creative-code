@@ -45,14 +45,13 @@ const Header = {
      * Add class to header when it becomes sticky
      */
     onHeaderScrollAddSticky() {
-      var header = document.getElementById("header");
-      var sticky = header.offsetTop;
+      const sticky = document.getElementById("header").offsetTop;
 
       function handleScroll() {
         if (window.scrollY > sticky) {
-          header.classList.add("sticky");
+          document.documentElement.classList.add("sticky");
         } else {
-          header.classList.remove("sticky");
+          document.documentElement.classList.remove("sticky");
         }
       }
 

@@ -4,203 +4,231 @@
     "width": 980,
     "height": 551,
     "keywords": ["Hoods", "Fiberglass", "Volkswagen"],
-    "title": "Fiberglass hoods and continental rear to customize your Beetle"
+    "title": "Fiberglass hoods and continental rear to customize your Beetle",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/jcw-1972-horns-donkey-horn.webp",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Animals", "Electric", "Accessories"],
-    "title": "Authentic Electric Donkey Horn, \"HEE-HAW\""
+    "keywords": ["Horns", "Animals"],
+    "title": "Authentic Electric Donkey Horn, \"HEE-HAW\"",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/hubcaps-racing.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Electric", "Accessories"],
-    "title": "Racing Hub Style Custom Wheel Covers"
+    "keywords": ["Tires", "Wheels"],
+    "title": "Racing Hub Style Custom Wheel Covers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/donkey.jpeg",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Animals", "Electric", "Accessories"],
-    "title": "Electric Donkey Horn"
+    "keywords": ["Horns", "Animals"],
+    "title": "Electric Donkey Horn",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/mustang-horn.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Electric", "Animals"],
-    "title": "Mustang Horn For All Cars & Trucks"
+    "keywords": ["Horns", "Animals"],
+    "title": "Mustang Horn For All Cars & Trucks",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/cat.png",
     "width": 980,
     "height": 551,
-    "keywords": ["Lights", "Electric", "Animals"],
-    "title": "The Whinky White Cat"
+    "keywords": ["Lights", "Animals"],
+    "title": "The Whinky White Cat",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/white-cat.jpeg",
     "width": 980,
     "height": 551,
-    "keywords": ["Lights", "Electric", "Animals"],
-    "title": "The Whinky White Cat"
+    "keywords": ["Lights", "Animals"],
+    "title": "The Whinky White Cat",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/valve-covers.jpg",
     "width": 980,
     "height": 551,
     "keywords": ["Engine", "Valve Covers"],
-    "title": "Valve Covers"
+    "title": "Valve Covers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/Horn-Sale.jpeg",
     "width": 980,
     "height": 551,
     "keywords": ["Electric", "Horns", "Accessories"],
-    "title": "Big Savings on Horns and Bells"
+    "title": "Big Savings on Horns and Bells",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/Continental-Kit.jpg",
     "width": 980,
     "height": 551,
     "keywords": ["Hoods", "Volkswagen"],
-    "title": "Rolls-Royce style Hood & Continental Style Rear"
+    "title": "Rolls-Royce style Hood & Continental Style Rear",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/white-white-tires.webp",
     "width": 980,
     "height": 551,
-    "keywords": ["Accessories", "Tires"],
-    "title": "White Wall Kit"
+    "keywords": ["Wheels", "Tires"],
+    "title": "White Wall Kit",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
-
   {
     "src": "assets/catalog/upholstery.jpeg",
     "width": 980,
     "height": 551,
-    "keywords": ["Upholstery", "Accessories"],
-    "title": "The Denim Look"
+    "keywords": ["Upholstery", "Interior"],
+    "title": "The Denim Look",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/light.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Light", "Accessories"],
-    "title": "Tri-Beam Warning Light"
+    "keywords": ["Lights"],
+    "title": "Tri-Beam Warning Light",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/emergency-light.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Lights", "Accessories"],
-    "title": "Flashing Emergency Light"
+    "keywords": ["Lights", "Magnetic"],
+    "title": "Flashing Emergency Light",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/magnetic-strobe.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Lights", "Accessories", "Magnetic"],
-    "title": "Flashing Emergency Light"
+    "keywords": ["Lights", "Magnetic"],
+    "title": "Flashing Emergency Light",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/lights.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Lights", "Accessories"],
-    "title": "All Lights"
+    "keywords": ["Lights"],
+    "title": "All Lights",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/ckit.webp",
     "width": 980,
     "height": 551,
-    "keywords": ["Accessories"],
-    "title": "Continental Kit"
+    "keywords": ["Interior", "Tools"],
+    "title": "Continental Kit",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/magnetic-flashlight.png",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Lights", "Accessories", "Magnetic"],
-    "title": "Magnetic Flashlight"
+    "keywords": ["Tools", "Lights", "Magnetic"],
+    "title": "Magnetic Flashlight",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/animals.jpeg",
     "width": 980,
     "height": 551,
-    "keywords": ["Electric", "Animals", "Accessories"],
-    "title": "Winking Animals"
+    "keywords": ["Electric", "Animals", "Interior"],
+    "title": "Winking Animals",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/horn.jpeg",
     "width": 980,
     "height": 551,
-    "keywords": ["Horns", "Electric", "Accessories"],
-    "title": "Police, Fire Engine and Ambulance Sounds"
+    "keywords": ["Horns"],
+    "title": "Police, Fire Engine and Ambulance Sounds",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/tach.jpg",
     "width": 980,
     "height": 551,
-    "keywords": ["Accessories", "Electric"],
-    "title": "Illuminated Extra-Wide Tachometer"
+    "keywords": ["Interior", "Performance"],
+    "title": "Illuminated Extra-Wide Tachometer",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JC-Whitney-Louver-Kit.webp",
     "width": 445,
     "height": 600,
-    "keywords": ["Tools"],
-    "title": "Form-A-Louver Cutting and Forming Tool Kit"
+    "keywords": ["Tools", "Upholstery"],
+    "title": "Form-A-Louver Cutting and Forming Tool Kit",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JC-Whitney-Left-Foot.webp",
     "width": 624,
     "height": 468,
-    "keywords": ["Accessories", "Comfort"],
-    "title": "Duplex left footer accelerator for new driving comfort!"
+    "keywords": ["Interior", "Comfort", "Pedals"],
+    "title": "Duplex left footer accelerator for new driving comfort!",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JC-Whitney-Pull-Start.webp",
     "width": 637,
     "height": 600,
     "keywords": ["Starter", "Volkswagen"],
-    "title": "Hand Starter to fit 49-73 Volkswagen & Karmann Ghia"
+    "title": "Hand Starter to fit 49-73 Volkswagen & Karmann Ghia",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JC-Whitney-Barefoot-Pedal-1.webp",
     "width": 576,
     "height": 507,
-    "keywords": ["Pedals", "Accessories"],
-    "title": "Barefoot Accelarator Pedal"
+    "keywords": ["Pedals", "Interior"],
+    "title": "Barefoot Accelarator Pedal",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JCW-Throwback-Love-Your-Car-scaled.webp",
     "width": 2560,
     "height": 1035,
     "keywords": ["Care", "Maintenance"],
-    "title": "Love your car? Doesn't everybody?"
+    "title": "Love your car? Doesn't everybody?",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JCW-Throwback-Hollywood-Mufflers.webp",
     "width": 625,
     "height": 369,
     "keywords": ["Mufflers", "Performance"],
-    "title": "Hollywood Mufflers"
+    "title": "Hollywood Mufflers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JCW-Throwback-Hot-Rocket-Illuminated-Ornament.webp",
     "width": 821,
     "height": 392,
-    "keywords": ["Accessories"],
-    "title": "Hot Rocket Illuminated Ornament"
+    "keywords": ["Lights"],
+    "title": "Hot Rocket Illuminated Ornament",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JCW-Throwback-In-The-Car-Coffee-Maker-Final.webp",
     "width": 2020,
     "height": 2000,
-    "keywords": ["Accessories"],
-    "title": "In-The-Car Coffee Maker Kit"
+    "keywords": ["Interior"],
+    "title": "In-The-Car Coffee Maker Kit",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   }
 ]

@@ -62,9 +62,9 @@ export default {
         "#loader",
         {
           opacity: 0,
-          ease: "power2.in",
+          ease: "expo.in",
           duration: 0.3,
-          delay: 1,
+          delay: 0,
         },
         "-=0.3"
       );
@@ -77,13 +77,12 @@ export default {
     },
   },
   mounted() {
-    this.images = [
-      ...Array.from(document.querySelectorAll("#magazines img")),
-      ...Array.from(document.querySelectorAll("#catalog img")),
-    ];
-    this.progress = this.images.length;
+    setTimeout(() => {
+      this.images = Array.from(document.querySelectorAll("img"));
+      this.progress = this.images.length;
 
-    const loader = imagesLoaded("img", this.onComplete);
-    loader.on("progress", this.onLoaderProgress.bind(this));
+      const loader = imagesLoaded("img", this.onComplete);
+      loader.on("progress", this.onLoaderProgress.bind(this));
+    }, 100);
   },
 };
