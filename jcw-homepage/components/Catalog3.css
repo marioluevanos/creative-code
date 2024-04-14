@@ -1,0 +1,137 @@
+#catalog3 {
+  --range-handle-width: 60px;
+  --range-handle-height: 20px;
+  --range-track-height: 4px;
+  --item-gutter: 48px;
+  --item-w: 180px;
+  --to-y: 50vh; /* Determines the size of the radius */
+
+  padding: 8rem 1.5rem;
+  position: relative;
+  min-height: var(--to-y);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-black);
+  color: white;
+  max-width: 1392px;
+  margin: 0 auto;
+  width: 100%;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    --to-y: 80vh; /* Determines the size of the radius */
+    --item-w: 360px;
+    overflow: visible;
+    flex-direction: row;
+  }
+}
+
+#catalog3 .header {
+  position: relative;
+  text-wrap: balance;
+  text-align: center;
+  max-width: 1024px;
+  margin: 0;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+  }
+
+  &::before {
+    display: none;
+  }
+
+  .icon {
+    margin: 0 auto 1.5rem;
+
+    @media (min-width: 768px) {
+      margin: 0 0 1.5rem;
+    }
+  }
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-gray-light);
+    margin: 1rem 0 1.5rem;
+    max-width: 768px;
+    opacity: 0.66;
+  }
+
+  .title {
+    @media (min-width: 768px) {
+      max-width: 320px;
+    }
+  }
+
+  p {
+    max-width: 500px;
+  }
+}
+
+#catalog3 .cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: inherit;
+  width: 100%;
+  left: -1rem;
+
+  @media (min-width: 768px) {
+    min-width: 66%;
+    left: initial;
+  }
+}
+
+#catalog3 .center {
+  min-height: inherit;
+  position: absolute;
+  user-select: none;
+  transform-origin: 50% 50%;
+  z-index: 10;
+}
+
+#catalog3 .items {
+  transform-origin: center var(--to-y);
+  transform: rotate(0);
+  user-select: none;
+  display: flex;
+}
+
+#catalog3 .item {
+  position: absolute;
+  user-select: none;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+#catalog3 .item .card {
+  display: block;
+  user-select: none;
+  border-radius: 0.25rem;
+  cursor: grab;
+  position: relative;
+  margin: 0;
+  height: auto;
+  width: var(--item-w);
+  aspect-ratio: 8.5/11;
+  z-index: 1;
+}
+
+#catalog3 .image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 0 0;
+  aspect-ratio: 8.5/11;
+}

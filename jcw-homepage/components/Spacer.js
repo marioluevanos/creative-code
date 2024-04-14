@@ -14,6 +14,7 @@ const Spacer = {
         style: {
           height: this.height,
           display: "flex",
+          background: "var(--color-gray-444)",
           alignItems: "center",
           justifyContent: "center",
         },

@@ -58,8 +58,8 @@ const Catalog2 = {
       resizeFn: () => undefined,
       filters: new Set(),
       images: [],
-      maxCatalogs: 8,
       scrollTimeline: undefined,
+      maxCatalogs: 8,
     };
   },
   computed: {
@@ -138,8 +138,6 @@ const Catalog2 = {
           opacity: 0,
         });
       });
-
-      // GSDevTools.create({ animation: tl });
 
       return tl;
     },

@@ -1,6 +1,7 @@
 import Button from "./Button.js";
 import ImageCompare from "./ImageCompare.js";
 import InertiaPlugin from "../lib/InertiaPlugin.js";
+import { debounce } from "../utils.js";
 
 const template = `
 <section id="magazines" ref="root">
@@ -105,6 +106,7 @@ export default {
       progress: images.length,
       animation: null,
       scrollProgress: 0,
+      resizeFn: undefined,
     };
   },
   computed: {
@@ -113,7 +115,7 @@ export default {
     },
   },
   methods: {
-    init() {
+    createAnimation() {
       gsap.set(
         [
           "#magazines .header h2",
@@ -130,7 +132,7 @@ export default {
       const canvasW = this.$refs.canvas.clientWidth;
       const canvasH = this.$refs.canvas.clientHeight;
 
-      this.$refs.canvas.style.setProperty("--canvas-w", `${canvasW}px`);
+      this.onResize();
 
       const timeline = gsap.timeline({
         paused: true,
@@ -291,33 +293,41 @@ export default {
         allowNativeTouchScrolling: true,
       });
     },
+    onResize() {
+      this.$refs.canvas.style.setProperty(
+        "--canvas-w",
+        `${this.$refs.canvas.clientWidth}px`
+      );
+    },
+    createScrollTrigger() {
+      const small = window.innerWidth <= 768;
+      const start = small ? "top 75%" : "top 67%";
+      const end = small ? "bottom 125%" : "bottom 67%";
+
+      return ScrollTrigger.create({
+        trigger: "#magazines",
+        start,
+        end,
+        onEnter: () => {
+          this.animation.play();
+        },
+        onUpdate: (self) => {
+          this.scrollProgress = self.progress * 100;
+        },
+      });
+    },
   },
   mounted() {
     gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
-    this.animation = this.init();
 
-    // GSDevTools.create({ animation: this.animation });
-    const small = window.innerWidth <= 768;
-    const start = small ? "top 75%" : "top 67%";
-    const end = small ? "bottom 125%" : "bottom 67%";
+    this.animation = this.createAnimation();
 
-    ScrollTrigger.create({
-      trigger: "#magazines",
-      start,
-      end,
-      onEnter: () => {
-        this.animation.play();
-      },
-      onUpdate: (self) => {
-        this.scrollProgress = self.progress * 100;
-      },
-      // onLeaveBack: ({ progress, direction, isActive }) =>
-      //   console.log({ progress, direction, isActive }),
-      // onLeave: ({ progress, direction, isActive }) =>
-      //   console.log({ progress, direction, isActive }),
-      // markers: true,
-    });
+    this.createScrollTrigger();
 
     window.scrollTo(0, 0);
+
+    this.resizeFn = debounce(this.onResize, 500);
+    window.addEventListener("resize", this.resizeFn);
+    // GSDevTools.create({ animation: this.animation });
   },
 };

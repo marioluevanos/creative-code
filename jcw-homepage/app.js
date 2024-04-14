@@ -1,6 +1,7 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import Catalog1 from "./components/Catalog1.js";
 import Catalog2 from "./components/Catalog2.js";
+import Catalog3 from "./components/Catalog3.js";
 import Magazine from "./components/Magazine.js";
 import Loader from "./components/Loader.js";
 import Header from "./components/Header.js";
@@ -13,18 +14,23 @@ const App = {
     Magazine,
     Catalog1,
     Catalog2,
+    Catalog3,
     Spacer,
   },
   template: `
-    <Loader/>
     <Header />
+    
+    <Loader/>
     <Spacer>Magazine 1</Spacer>
     <Magazine />
     <Spacer>Catalog 1</Spacer>
     <Catalog1 /> 
     <Spacer>Catalog 2</Spacer>
     <Catalog2 />
-    <Spacer/>
+    
+    <Spacer>Catalog 3</Spacer>
+    <Catalog3 />
+    <Spacer>End</Spacer>
   `,
 };
 

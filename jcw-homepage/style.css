@@ -135,6 +135,18 @@ body {
     background-color: #050b18;
     background-color: var(--color-black);
   }
+
+  /* &::before {
+    content: "";
+    position: fixed;
+    height: 100vh;
+    border: 1px solid red;
+    left: 50%;
+    top: 0;
+    z-index: 101209012;
+    pointer-events: none;
+    opacity: 0.4;
+  } */
 }
 
 ::-moz-selection {

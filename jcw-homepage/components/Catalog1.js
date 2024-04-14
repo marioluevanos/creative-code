@@ -263,7 +263,6 @@ const Catalog = {
       return response.json();
     },
     onResize() {
-      console.log(this.draggable);
       this.draggable.applyBounds(this.getBounds());
     },
   },
