@@ -16,15 +16,28 @@ const template = `
     <p class="fs-small">
       Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
     </p>
+    <Button class="white ghost">View Gallery</Button>
   </header>
   <div class="cards">
     <div class="center">
       <div class="items" ref="items">
-        <div class="item" v-for="image in catalogs3" :key="image.src">
+        <div
+          class="item"
+          v-for="(image, index) in catalogs3"
+          :key="image.src"
+          :style="{ 'z-index': catalogs3.length - index }"
+        >
           <figure class="card">
             <img
               class="image"
               :style="{ '--ar': image.width / image.height }"
+              :src="image.src"
+              :width="image.width"
+              :height="image.height"
+            />
+            <img
+              v-if="image.width / image.height > (8.8/11)"
+              class="image bg"
               :src="image.src"
               :width="image.width"
               :height="image.height"
@@ -34,7 +47,6 @@ const template = `
       </div>
     </div>
   </div>
-
 </section>
 `;
 
@@ -68,75 +80,70 @@ const Catalog3 = {
   methods: {
     createAnimationTimeline(options) {
       const timeline = gsap.timeline(options);
-      const total = this.catalogs3.length;
       const items = Array.from(this.$refs.items.children);
-      const [item] = items;
-      const stackDelay = 0.1;
-      const stackDuration = 1;
-      const startAt =
-        stackDuration +
-        stackDelay * Math.floor((this.catalogs3.length - 1) / 2);
-      const startRotation = startAt + 0.6;
       const toY = getComputedStyle(this.$refs.root).getPropertyValue("--to-y");
+      const header = document.querySelector("#catalog3 .header");
+      const headerContent = Array.from(header.children);
+
+      timeline.set(headerContent, {
+        opacity: 0,
+      });
+
+      timeline.set("#catalog3 .center", {
+        y: "-50%",
+        rotation: 0,
+      });
 
       items.forEach((image, index) => {
         timeline.from(
           image,
           {
-            x: () =>
-              index % 2
-                ? window.innerWidth + image.clientWidth * 4
-                : -window.innerWidth - image.clientWidth * 4,
-            y: () => window.innerHeight - image.clientHeight,
-            rotation: index % 2 ? 200 : -200,
-            scale: 2,
-            opacity: 1,
+            clipPath: "inset(0 0 100% 0)",
             ease: "expo.out",
-            duration: stackDuration,
-            delay: stackDelay * Math.floor(index / 2),
+            duration: 1,
           },
-          0.6
+          0
         );
 
-        timeline.to(
-          image,
-          {
-            scale: 1,
-            duration: 0.6,
-            ease: "circ.out",
-          },
-          startAt
-        );
-
-        const rotationAngle = index * this.degree;
-        const mirrorAngle = -this.degree * (total - index);
-        const rotation = index > total / 2 ? mirrorAngle : rotationAngle;
+        timeline.addLabel("spread", 1);
 
         timeline.to(
           image,
           {
             transformOrigin: `center ${toY}`,
-            rotation,
+            rotation: index * this.degree,
             duration: 1,
-            ease: "circ.inOut",
+            ease: "expo.inOut",
           },
-          startRotation
+          `spread+=${index * 0.01}`
         );
       });
-
-      const toCenterY = this.breakpoint.medium
-        ? `-${item.clientHeight / 2}px`
-        : `-${item.clientHeight / 4}px`;
 
       timeline.to(
         "#catalog3 .center",
         {
-          y: toCenterY,
-          scale: 0.5,
+          y: 40,
+          scale: 0.88,
           duration: 1,
           ease: "circ.inOut",
         },
-        startRotation
+        `spread`
+      );
+
+      timeline.fromTo(
+        headerContent,
+        {
+          opacity: 0,
+          y: -8,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.3,
+          ease: "circ.inOut",
+          stagger: 0.1,
+        },
+        `spread+=0.16`
       );
 
       return timeline;
@@ -150,10 +157,6 @@ const Catalog3 = {
     },
     onResize() {
       if (this.breakpoint.medium) {
-        this.$refs.root.style.setProperty(
-          "--item-w",
-          `${this.$refs.header.clientWidth}px`
-        );
       }
     },
     async getData() {

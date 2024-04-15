@@ -24,6 +24,7 @@ const Button = {
     onClick(event) {
       if (!this.animate) return;
 
+      event.target.classList.add("animating");
       const offset = event.target.getBoundingClientRect();
       const newX = event.clientX - offset.left;
       const newY = event.clientY - offset.top;
@@ -50,6 +51,7 @@ const Button = {
           requestAnimationFrame(iterate);
         } else {
           event.target.style.background = "";
+          event.target.classList.remove("animating");
         }
       }
 

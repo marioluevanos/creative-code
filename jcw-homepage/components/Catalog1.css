@@ -8,8 +8,6 @@
   padding: 5rem 0;
   position: relative;
   margin: 0 auto;
-  background: var(--color-black);
-  color: white;
   overflow: hidden;
   width: 100vw;
 
@@ -264,7 +262,7 @@
   object-position: 50% 50%;
   transform-origin: 50% 50%;
   position: relative;
-  filter: brightness(0.24) saturate(0);
+  /* filter: brightness(0.6) saturate(0); */
   transform: scale(1);
   transition: filter 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);

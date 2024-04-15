@@ -6,11 +6,11 @@
   --item-w: 180px;
   --to-y: 50vh; /* Determines the size of the radius */
 
-  padding: 8rem 1.5rem;
+  padding: 5rem 1.5rem 2.5rem;
   position: relative;
-  min-height: var(--to-y);
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
   background: var(--color-black);
   color: white;
@@ -22,8 +22,6 @@
   @media (min-width: 768px) {
     --to-y: 80vh; /* Determines the size of the radius */
     --item-w: 360px;
-    overflow: visible;
-    flex-direction: row;
   }
 }
 
@@ -35,23 +33,12 @@
   margin: 0;
   z-index: 1;
 
-  @media (min-width: 768px) {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-  }
-
   &::before {
     display: none;
   }
 
   .icon {
     margin: 0 auto 1.5rem;
-
-    @media (min-width: 768px) {
-      margin: 0 0 1.5rem;
-    }
   }
 
   .title {
@@ -66,30 +53,23 @@
     opacity: 0.66;
   }
 
-  .title {
-    @media (min-width: 768px) {
-      max-width: 320px;
-    }
-  }
-
   p {
     max-width: 500px;
+    margin: 1.5rem auto;
+  }
+
+  .button {
+    align-self: flex-start;
   }
 }
 
 #catalog3 .cards {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   position: relative;
-  min-height: inherit;
+  min-height: calc(var(--to-y) / 2);
   width: 100%;
-  left: -1rem;
-
-  @media (min-width: 768px) {
-    min-width: 66%;
-    left: initial;
-  }
 }
 
 #catalog3 .center {
@@ -104,7 +84,6 @@
   transform-origin: center var(--to-y);
   transform: rotate(0);
   user-select: none;
-  display: flex;
 }
 
 #catalog3 .item {
@@ -123,15 +102,24 @@
   margin: 0;
   height: auto;
   width: var(--item-w);
-  aspect-ratio: 8.5/11;
+  aspect-ratio: 8.8/11;
   z-index: 1;
+  overflow: hidden;
 }
 
 #catalog3 .image {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   object-position: 0 0;
-  aspect-ratio: 8.5/11;
+  position: relative;
+  z-index: 1;
+}
+
+#catalog3 .image.bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  z-index: 0;
 }

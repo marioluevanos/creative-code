@@ -1,68 +1,69 @@
 [
   {
-    "src": "assets/catalog/jcw-1972-horns-donkey-horn.webp",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Horns", "Animals"],
-    "title": "Authentic Electric Donkey Horn, \"HEE-HAW\"",
-    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
-  },
-  {
     "src": "assets/catalog/donkey.jpeg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Horns", "Animals"],
+    "width": 1080,
+    "height": 1350,
+    "keywords": ["Horns", "Animals", "New"],
     "title": "Electric Donkey Horn",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
-    "src": "assets/catalog/JCW-Pipe_Organ_Speakers.jpg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Horns", "Audio"],
-    "title": "Pipe Organ Speakers",
+    "src": "assets/catalog/jcw-1972-horns-donkey-horn.webp",
+    "width": 906,
+    "height": 900,
+    "keywords": ["Horns", "Animals", "Vintage"],
+    "title": "Electric Donkey Horn",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/pipe-organ.jpeg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Horns", "Audio"],
+    "width": 1080,
+    "height": 1350,
+    "keywords": ["Horns", "Audio", "New"],
     "title": "Pipe Organ Speakers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/JCW-Pipe_Organ_Speakers.jpg",
+    "width": 475,
+    "height": 476,
+    "keywords": ["Horns", "Audio", "Vintage"],
+    "title": "Pipe Organ Speakers",
+    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
+  },
+  {
+    "src": "assets/catalog/barefoot.jpeg",
+    "width": 1080,
+    "height": 1350,
+    "keywords": ["Horns", "Audio", "New"],
+    "title": "Barefoot Accelerator",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
     "src": "assets/catalog/JC-Whitney-Barefoot-Pedal-1.webp",
     "width": 576,
     "height": 507,
-    "keywords": ["Pedals", "Interior"],
-    "title": "Barefoot Accelarator Pedal",
-    "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
-  },
-  {
-    "src": "assets/catalog/barefoot.jpeg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Horns", "Audio"],
+    "keywords": ["Pedals", "Interior", "Vintage"],
     "title": "Barefoot Accelerator",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
-    "src": "assets/catalog/cat.png",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Lights", "Animals"],
+    "src": "assets/catalog/white-cat.jpeg",
+    "width": 1080,
+    "height": 1350,
+    "keywords": ["Lights", "Animals", "New"],
     "title": "The Whinky White Cat",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
   {
-    "src": "assets/catalog/white-cat.jpeg",
-    "width": 980,
-    "height": 551,
-    "keywords": ["Lights", "Animals"],
+    "src": "assets/catalog/cat.png",
+    "width": 497,
+    "height": 621,
+    "keywords": ["Lights", "Animals", "Vintage"],
     "title": "The Whinky White Cat",
     "description": "Illuminate your automotive adventures with our versatile Magnetic Flashlight."
   },
+
   {
     "src": "assets/catalog/mustang-horn.jpg",
     "width": 980,

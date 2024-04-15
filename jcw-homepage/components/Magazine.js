@@ -141,7 +141,7 @@ export default {
       });
 
       timeline.set(
-        ".center",
+        "#magazines .center",
         {
           rotation: -this.totalDeg / 6,
         },
@@ -208,7 +208,7 @@ export default {
         );
 
         timeline.to(
-          ".center",
+          "#magazines .center",
           {
             rotation: -finalRot,
             transformOrigin: "50% 50%",

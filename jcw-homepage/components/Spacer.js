@@ -4,7 +4,7 @@ const Spacer = {
   props: {
     height: {
       type: String,
-      default: "75vh",
+      default: "100vh",
     },
   },
   render() {
@@ -14,7 +14,9 @@ const Spacer = {
         style: {
           height: this.height,
           display: "flex",
-          background: "var(--color-gray-444)",
+          background: "black",
+          fontSize: "1.5rem",
+          color: "var(--color-gray-medium)",
           alignItems: "center",
           justifyContent: "center",
         },

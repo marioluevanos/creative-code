@@ -15,6 +15,7 @@ const template = `
     <p class="fs-small">
       Step back in time with JC Whitney's vintage catalog gallery, showcasing decades of car parts & accessories that fueled automotive passions.
     </p>
+    <Button class="white ghost">View Gallery</Button>
   </header>
   <div
     class="catalogs2"
@@ -98,10 +99,7 @@ const Catalog2 = {
         trigger: "#catalogs2",
         scrub: true,
         start: "top 150%",
-        end: "bottom 50%",
-        // start: `top top+=${this.$refs.root.clientHeight / 2}px`,
-        // pin: "#catalog2",
-        // markers: true,
+        end: "bottom 10%",
       });
     },
     createAnimationTimeline() {
@@ -124,7 +122,7 @@ const Catalog2 = {
             y: index * 1,
             z: index * 1,
             duration: items.length,
-            filter: "brightness(0.16) saturate(0) blur(0px)",
+            filter: "brightness(0.66) saturate(0) blur(0px)",
           },
           idx
         );
