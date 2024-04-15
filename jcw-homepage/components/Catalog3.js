@@ -20,7 +20,7 @@ const template = `
   <div class="cards">
     <div class="center">
       <div class="items" ref="items">
-        <div class="item" v-for="image in catalogs3" :key="image.src" style="visibility: hidden;">
+        <div class="item" v-for="image in catalogs3" :key="image.src">
           <figure class="card">
             <img
               class="image"
@@ -47,14 +47,17 @@ const Catalog3 = {
     return {
       resizeFn: () => undefined,
       items: [],
-      scrollTimeline: undefined,
-      animationTimeline: undefined,
       maxCatalogs: 8,
     };
   },
   computed: {
     degree() {
       return 360 / this.catalogs3.length;
+    },
+    breakpoint() {
+      return {
+        medium: window.innerWidth > 768,
+      };
     },
     catalogs3() {
       return this.items
@@ -63,24 +66,20 @@ const Catalog3 = {
     },
   },
   methods: {
-    createAnimationTimeline() {
-      const timeline = gsap.timeline({ paused: true });
+    createAnimationTimeline(options) {
+      const timeline = gsap.timeline(options);
       const total = this.catalogs3.length;
       const items = Array.from(this.$refs.items.children);
       const [item] = items;
-      const stackDelay = 0.15;
+      const stackDelay = 0.1;
       const stackDuration = 1;
       const startAt =
         stackDuration +
         stackDelay * Math.floor((this.catalogs3.length - 1) / 2);
+      const startRotation = startAt + 0.6;
       const toY = getComputedStyle(this.$refs.root).getPropertyValue("--to-y");
 
       items.forEach((image, index) => {
-        gsap.set(image, {
-          visibility: "visible",
-          rotation: 0,
-        });
-
         timeline.from(
           image,
           {
@@ -90,9 +89,9 @@ const Catalog3 = {
                 : -window.innerWidth - image.clientWidth * 4,
             y: () => window.innerHeight - image.clientHeight,
             rotation: index % 2 ? 200 : -200,
-            scale: 4,
+            scale: 2,
             opacity: 1,
-            ease: "power4.out",
+            ease: "expo.out",
             duration: stackDuration,
             delay: stackDelay * Math.floor(index / 2),
           },
@@ -121,14 +120,13 @@ const Catalog3 = {
             duration: 1,
             ease: "circ.inOut",
           },
-          startAt + 0.6
+          startRotation
         );
       });
 
-      const toCenterY =
-        window.innerWidth > 768
-          ? `-${item.clientHeight / 2}px`
-          : `-${item.clientHeight / 4}px`;
+      const toCenterY = this.breakpoint.medium
+        ? `-${item.clientHeight / 2}px`
+        : `-${item.clientHeight / 4}px`;
 
       timeline.to(
         "#catalog3 .center",
@@ -138,26 +136,20 @@ const Catalog3 = {
           duration: 1,
           ease: "circ.inOut",
         },
-        startAt + 0.6
+        startRotation
       );
 
       return timeline;
     },
-    draggable() {
+    createDraggable() {
       return Draggable.create("#catalog3 .items", {
         type: "rotation",
         inertia: true,
         dragResistance: 0.5,
       });
     },
-    onReady() {
-      this.scrollTimeline = this.createScrollTimeline();
-      this.animationTimeline = this.createAnimationTimeline();
-      this.draggable();
-      this.onResize();
-    },
     onResize() {
-      if (window.innerWidth > 768) {
+      if (this.breakpoint.medium) {
         this.$refs.root.style.setProperty(
           "--item-w",
           `${this.$refs.header.clientWidth}px`
@@ -165,26 +157,25 @@ const Catalog3 = {
       }
     },
     async getData() {
-      const response = await fetch("/catalog.json");
-      return response.json();
+      try {
+        const response = await fetch("/catalog.json");
+        return response.json();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    onReady() {
+      this.createScrollTimeline();
+      this.createDraggable();
+      this.onResize();
     },
     createScrollTimeline() {
+      const animationTimeline = this.createAnimationTimeline({ paused: true });
+
       return ScrollTrigger.create({
-        animation: this.createAnimationTimeline(),
-        // markers: true,
-        start: "top 100%",
-        end: "bottom 100%",
+        onEnter: () => animationTimeline.play(),
         trigger: "#catalog3",
-        scrub: true,
-        // onToggle: (self) => {
-        //   console.log(self.isActive, self.progress);
-        //   if (self.isActive) {
-        //     this.animationTimeline.play();
-        //   } else {
-        //     // this.animationTimeline.restart();
-        //   }
-        // },
-        // pin: "#catalog3",
+        start: "top 50%",
       });
     },
   },

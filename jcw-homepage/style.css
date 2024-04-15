@@ -344,10 +344,7 @@ p {
   position: sticky;
   top: 0;
   background: var(--color-black);
-}
-
-#header {
-  z-index: 10000;
+  z-index: 200;
 }
 
 header,

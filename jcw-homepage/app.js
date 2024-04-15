@@ -19,7 +19,7 @@ const App = {
   },
   template: `
     <Header />
-    
+    <!--
     <Loader/>
     <Spacer>Magazine 1</Spacer>
     <Magazine />
@@ -27,8 +27,9 @@ const App = {
     <Catalog1 /> 
     <Spacer>Catalog 2</Spacer>
     <Catalog2 />
+    -->
     
-    <Spacer>Catalog 3</Spacer>
+    <Spacer height="100vh">Catalog 3</Spacer>
     <Catalog3 />
     <Spacer>End</Spacer>
   `,
