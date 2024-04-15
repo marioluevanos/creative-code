@@ -14,11 +14,11 @@ const Spacer = {
         style: {
           height: this.height,
           display: "flex",
-          background: "black",
           fontSize: "1.5rem",
           color: "var(--color-gray-medium)",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "column",
         },
       },
       this.$slots

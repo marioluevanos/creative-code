@@ -102,7 +102,7 @@ const Catalog = {
 
       gsap.to(card, {
         rotationY,
-        ease: "circ.out",
+        ease: "circ.inOut",
         duration: 0.6,
         onComplete() {
           if (isNewest) card.classList.remove("newest");
@@ -129,7 +129,7 @@ const Catalog = {
           },
           {
             rotationY: 0,
-            ease: "circ.out",
+            ease: "circ.inOut",
             duration: 0.6,
             onComplete() {
               item.classList.add("newest");

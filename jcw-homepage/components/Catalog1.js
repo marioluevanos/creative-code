@@ -88,7 +88,7 @@ const Catalog = {
       isBusy: false,
       maxFilters: 7,
       minCatalogs: 2,
-      maxCatalogs: 8,
+      maxCatalogs: 100,
       draggable: undefined,
     };
   },
@@ -217,7 +217,6 @@ const Catalog = {
       );
       const header = document.querySelector("#header .container");
       const headerOffset = header.clientWidth - header.offsetLeft * 2;
-
       const isLargeScreen = window.innerWidth > 768;
       const minX = isLargeScreen ? 0 : header.offsetLeft + 24;
       const maxX = -(totalW - headerOffset) - window.innerWidth * 0.33;
@@ -237,7 +236,7 @@ const Catalog = {
         edgeResistance: 0.86,
         onPressInit() {
           gsap.to(children, {
-            scale: 0.96,
+            scale: 0.99,
             ease: "expo.out",
             duration: 0.6,
             delay: 0.08,
@@ -269,6 +268,7 @@ const Catalog = {
   mounted() {
     this.getData().then((data) => {
       this.images = data;
+      console.log(data.length);
       this.$nextTick(() => {
         this.setCatalogItemsVisible();
         this.initDraggable(this.$refs.catalogs1);

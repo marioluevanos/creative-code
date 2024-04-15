@@ -115,7 +115,9 @@ export default {
     },
   },
   methods: {
-    createAnimation() {
+    createAnimation(options) {
+      const timeline = gsap.timeline(options);
+
       gsap.set(
         [
           "#magazines .header h2",
@@ -133,12 +135,6 @@ export default {
       const canvasH = this.$refs.canvas.clientHeight;
 
       this.onResize();
-
-      const timeline = gsap.timeline({
-        paused: true,
-        onComplete: () =>
-          window.innerWidth > 768 ? this.draggable() : undefined,
-      });
 
       timeline.set(
         "#magazines .center",
@@ -218,7 +214,7 @@ export default {
           0
         );
 
-        const startAt = 1.6;
+        const startAt = 1.3;
         timeline.to(
           image,
           {
@@ -277,15 +273,10 @@ export default {
         );
       });
 
-      timeline.set("#magazines header", {
-        zIndex: 20,
-      });
-
       return timeline;
     },
-    draggable() {
-      const items = "#magazines .item";
-      Draggable.create(items, {
+    createDraggable() {
+      return Draggable.create("#magazines .item", {
         type: "x, y",
         bounds: this.$refs.canvas,
         inertia: true,
@@ -305,26 +296,22 @@ export default {
       const end = small ? "bottom 125%" : "bottom 67%";
 
       return ScrollTrigger.create({
-        trigger: "#magazines",
         start,
         end,
-        onEnter: () => {
-          this.animation.play();
-        },
-        onUpdate: (self) => {
-          this.scrollProgress = self.progress * 100;
-        },
+        trigger: "#magazines",
+        onEnter: () => this.animation.play(),
+        onUpdate: (self) => (this.scrollProgress = self.progress * 100),
+        animation: this.createAnimation({
+          paused: true,
+          onComplete: () => (!small ? this.createDraggable() : undefined),
+        }),
       });
     },
   },
   mounted() {
     gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
 
-    this.animation = this.createAnimation();
-
     this.createScrollTrigger();
-
-    window.scrollTo(0, 0);
 
     this.resizeFn = debounce(this.onResize, 500);
     window.addEventListener("resize", this.resizeFn);

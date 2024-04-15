@@ -23,23 +23,25 @@ const App = {
     <Header />
     <Loader/>
 
-    <Spacer>Magazine 1</Spacer>
+    <Spacer>Magazine Layout</Spacer>
     <Magazine />
 
-    <Spacer>Catalog 1</Spacer>
+    <Spacer>Catalog 1 <p>Horizontal Scroll</p></Spacer>
     <Catalog1 /> 
     
-    <Spacer>Catalog 2</Spacer>
+    <Spacer>Catalog 2 <p>Stacking Perspective<p></Spacer>
     <Catalog2 />   
 
-    <Spacer>Catalog 3</Spacer>
+    <Spacer>Catalog 3 <p>Circular Layout</p></Spacer>
     <Catalog3 />
     
-    <Spacer>Catalog 4</Spacer>
+    <Spacer>Catalog 4 <p>Flip</p></Spacer>
     <Catalog4 />
+
     <Spacer>Fin</Spacer>
   `,
 };
 
 createApp(App).mount("body");
+
 window.scrollTo(0, 0);

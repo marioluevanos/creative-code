@@ -23,6 +23,30 @@
     --to-y: 80vh; /* Determines the size of the radius */
     --item-w: 360px;
   }
+
+  &::before {
+    --x: 50%;
+    --y: 100%;
+    --f: 100%;
+    content: "";
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      var(--color-primary),
+      var(--color-deep-blue),
+      transparent var(--f)
+    );
+    position: absolute;
+    inset: 0;
+    filter: blur(128px);
+    border-radius: 100vw;
+    opacity: 0.66;
+  }
+
+  @media (min-width: 768px) {
+    --x: 66%;
+    --y: 100%;
+    --f: 66%;
+  }
 }
 
 #catalog3 .header {
