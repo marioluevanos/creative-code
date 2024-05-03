@@ -12,25 +12,10 @@ const template = `
       magazine! Sign up today to join the wait list.
     </p>
   </header>
-  <div class="box c1">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><title>sports-fan</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="24" cy="26" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle> <path d="M44,23,30,36H18L4,23" fill="none" stroke="currentColor" stroke-width="2"></path> <line x1="18" y1="46" x2="18" y2="36" fill="none" stroke="currentColor" stroke-width="2"></line> <line x1="30" y1="36" x2="30" y2="46" fill="none" stroke="currentColor" stroke-width="2"></line> <path class="s-cyan" d="M4,15.842a53.977,53.977,0,0,1,40,0V5.692a56.017,56.017,0,0,0-40,0Z" fill="none" stroke="currentColor" stroke-width="2"></path></g></svg>
-    <h3>Community</h3>
-    <p>Read stories that'll make your heart race faster.</p>
-  </div>
-  <div class="box c2">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><line  class="s-cyan" fill="none" stroke="currentColor" stroke-width="2" x1="9" y1="12" x2="17" y2="12"></line> <line class="s-cyan" fill="none" stroke="currentColor" stroke-width="2" x1="23" y1="24" x2="15" y2="24"></line> <line class="s-cyan" fill="none" stroke="currentColor" stroke-width="2" x1="9" y1="36" x2="17" y2="36"></line> <line fill="none" stroke="currentColor" stroke-width="2" x1="30" y1="6" x2="30" y2="18"></line> <line fill="none" stroke="currentColor" stroke-width="2" x1="36" y1="18" x2="36" y2="30"></line> <line fill="none" stroke="currentColor" stroke-width="2" x1="30" y1="30" x2="30" y2="42"></line> <rect x="2" y="6" fill="none" stroke="currentColor" stroke-width="2" width="38" height="12"></rect> <rect x="8" y="18" fill="none" stroke="currentColor" stroke-width="2" width="38" height="12"></rect> <rect x="2" y="30" fill="none" stroke="currentColor" stroke-width="2" width="38" height="12"></rect></g></svg>
-    <h3>Quarterly</h3>
-    <p>Shipped in the Spring, Summer, Fall, and Winter.</p>
-  </div>
-  <div class="box c3">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><title>restaurant-menu</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><polygon points="38 46 6 43 6 5 38 2 38 46" fill="none" stroke="currentColor" stroke-width="2"></polygon> <line  x1="44" y1="6" x2="44" y2="42" fill="none" stroke="currentColor" stroke-width="2"></line> <line class="s-cyan" x1="13" y1="29" x2="29" y2="29" fill="none" stroke="currentColor" stroke-width="2"></line> <line class="s-cyan" x1="13" y1="36" x2="29" y2="37" fill="none" stroke="currentColor" stroke-width="2"></line> <circle class="s-cyan" cx="21" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"></circle></g></svg>
+  <div class="box">
+    <h3>Quarterly Issues</h3>
     <h3>100+ Pages</h3>
-    <p>Unadulterated automotive awesomeness.</p>
-  </div>
-  <div class="box c4">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><title>brakes</title><g fill="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M40,27A19,19,0,1,1,21,8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt"></path> <circle class="f-cyan" cx="26.5" cy="8.5" r="1.5" fill="currentColor" data-stroke="none" stroke="none"></circle> <circle class="f-cyan" cx="39.5" cy="21.5" r="1.5" fill="currentColor" data-stroke="none" stroke="none"></circle> <circle class="f-cyan" cx="34.5" cy="13.5" r="1.5" fill="currentColor" data-stroke="none" stroke="none"></circle> <path class="s-cyan" d="M31.956,34A13,13,0,1,1,14,16.044" fill="none" stroke="currentColor" stroke-width="2"></path> <circle cx="21" cy="27" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle> <path d="M34,27H46A25.028,25.028,0,0,0,21,2V14A13.015,13.015,0,0,1,34,27Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt"></path></g></svg>
     <h3>Parts Catalog</h3>
-    <p>Great deals on automotive parts.</p>
   </div>
   <Button class="button cta">Subscribe today</Button>
   <div class="canvas" ref="canvas" id="canvas">
@@ -52,7 +37,6 @@ const template = `
             :aspectRatio="o.width / o.height"
             :original="images[0].src"
             :modified="o.src"
-            :scrollProgress="scrollProgress"
           />
         </div>
       </div>
@@ -228,7 +212,7 @@ export default {
         );
 
         timeline.fromTo(
-          ["#magazines .box.c1", "#magazines .box.c2"],
+          "#magazines .box",
           {
             opacity: 0,
             y: 24,
@@ -240,21 +224,6 @@ export default {
             duration: 1,
           },
           startAt + 0.4
-        );
-
-        timeline.fromTo(
-          ["#magazines .box.c3", "#magazines .box.c4"],
-          {
-            opacity: 0,
-            y: 24,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            ease: "circ.out",
-            duration: 1,
-          },
-          startAt + 0.5
         );
 
         timeline.fromTo(
@@ -275,36 +244,41 @@ export default {
 
       return timeline;
     },
-    createDraggable() {
-      return Draggable.create("#magazines .item", {
-        type: "x, y",
-        bounds: this.$refs.canvas,
-        inertia: true,
-        dragResistance: 0.9,
-        allowNativeTouchScrolling: true,
-      });
+    getCanvasWidth() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const ar = w / h;
+      const isPortrait = ar < 1;
+      const isLandscape = ar > 1;
+
+      if (w <= 320) return 240;
+      if (w < 460) return 300;
+      if (isLandscape) return w * 0.5;
+      if (isPortrait) return w * 0.7;
+
+      return w * 0.5; // square ratio
     },
     onResize() {
+      const canvasW = this.getCanvasWidth();
+      console.log({ canvasW });
       this.$refs.canvas.style.setProperty(
         "--canvas-w",
-        `${this.$refs.canvas.clientWidth}px`
+        `${Math.floor(canvasW)}px`
       );
     },
     createScrollTrigger() {
       const small = window.innerWidth <= 768;
       const start = small ? "top 75%" : "top 67%";
       const end = small ? "bottom 125%" : "bottom 67%";
+      const animation = this.createAnimation({ paused: true });
 
       return ScrollTrigger.create({
         start,
         end,
         trigger: "#magazines",
-        onEnter: () => this.animation.play(),
+        onEnter: () => animation.play(),
         onUpdate: (self) => (this.scrollProgress = self.progress * 100),
-        animation: this.createAnimation({
-          paused: true,
-          onComplete: () => (!small ? this.createDraggable() : undefined),
-        }),
+        animation,
       });
     },
   },

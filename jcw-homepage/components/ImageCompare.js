@@ -1,10 +1,12 @@
+import { debounce } from "../utils.js";
 import Button from "./Button.js";
 
 const template = `
 <figure ref="root"
+  @click="onClick"
   :class="{ compare: true, isVisible: isVisible }"
   :style="{
-    '--exposure': scrollProgress,
+    '--exposure': exposure,
     '--image-w': imageSize.w,
     '--image-h': imageSize.h,
     '--divider-x': dividerX,
@@ -25,11 +27,11 @@ const template = `
     class="input"
     @input="onInput"
     type="range"
-    :value="scrollProgress"
+    :value="exposure"
     min="0"
     max="100"
   />
-  <span class="divider" :class="scrollProgress === 100 && 'done'" />
+  <span class="divider" :class="exposure === 100 && 'done'" />
 </figure>
 `;
 
@@ -37,9 +39,6 @@ const ImageCompare = {
   template,
   components: { Button },
   props: {
-    scrollProgress: {
-      type: Number,
-    },
     original: {
       type: String,
       default: "",
@@ -54,58 +53,66 @@ const ImageCompare = {
     },
     handleSize: {
       type: Number,
-      default: 42,
+      default: 0,
     },
   },
   data() {
     return {
       isVisible: true,
-      exposure: 0,
+      exposure: 100,
+      resizeFn: () => undefined,
       imageSize: { w: 0, h: 0 },
     };
   },
   computed: {
     expPercent() {
-      if (typeof this.scrollProgress === "number")
-        return this.scrollProgress / 100;
+      if (typeof this.exposure === "number") return this.exposure / 100;
 
       return this.exposure / 100;
     },
     offset() {
-      return this.handleSize * this.expPercent;
+      return this.handleSize * this.expPercent - this.handleSize / 2;
     },
     dividerX() {
-      return (
-        (this.imageSize.w - this.handleSize) * this.expPercent +
-        this.offset -
-        this.handleSize / 2
-      );
+      return this.imageSize.w * this.expPercent;
     },
   },
   methods: {
     onInput(event) {
-      console.log(+event.target.value);
       this.exposure = +event.target.value;
     },
+    onClick(event) {
+      event.preventDefault();
+      this.setSize();
+      gsap.to(this, {
+        exposure: this.exposure > 0 ? 0 : 100,
+        ease: "expo.out",
+        duration: 0.6,
+      });
+    },
     setSize() {
-      this.imageSize.w = this.$refs.root.clientWidth;
-      this.imageSize.h = this.$refs.root.clientHeight;
+      const canvas = document.getElementById("canvas");
+      const cw = parseInt(
+        getComputedStyle(canvas).getPropertyValue("--canvas-w")
+      );
+      const arCss = getComputedStyle(canvas).getPropertyValue("--ar");
+      const [arW, arH] = arCss.split("/");
+      const ar = arW / arH;
+      const ch = Math.floor(cw / ar);
+
+      this.imageSize.w = `${cw}`;
+      this.imageSize.h = `${ch}`;
+    },
+    onResize() {
+      setTimeout(() => this.setSize(), 400);
+      console.log("onResize");
     },
   },
   mounted() {
-    imagesLoaded(".compare", () => {
-      this.setSize();
-    });
+    imagesLoaded(".compare", () => setTimeout(() => this.onResize(), 0));
 
-    ["(min-width: 768px)", "(min-width: 1024px)"].map((mq) => {
-      const media = window.matchMedia(mq);
-      if (media.matches) {
-        this.setSize();
-      }
-    });
-
-    const listener = () => this.setSize();
-    window.addEventListener("resize", listener);
+    this.resizeFn = debounce(this.onResize, 100);
+    window.addEventListener("resize", this.resizeFn);
   },
 };
 

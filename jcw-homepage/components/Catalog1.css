@@ -1,9 +1,6 @@
 #catalog1 {
-  --range-handle-width: 60px;
-  --range-handle-height: 20px;
-  --range-track-height: 4px;
   --item-gutter: 48px;
-  --item-w: 320px;
+  --item-w: 260px;
 
   padding: 5rem 0;
   position: relative;
@@ -11,8 +8,25 @@
   overflow: hidden;
   width: 100vw;
 
-  @media (min-width: 768px) {
-    --item-w: 380px;
+  @media (min-width: 321px) {
+    --item-w: 320px;
+  }
+
+  .marker {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100vh;
+    width: 100%;
+    max-width: var(--item-w);
+    /* background: red; */
+    z-index: 100101010;
+    opacity: 0.54;
+    pointer-events: none;
+    display: none;
   }
 }
 
@@ -210,6 +224,7 @@
   width: 100vw;
   max-width: 1400px;
   margin: auto;
+  overflow: hidden;
 
   &.static {
     justify-content: center;
@@ -221,6 +236,10 @@
   flex: 1;
   min-width: var(--item-w);
   position: relative;
+
+  * {
+    pointer-events: none;
+  }
 
   &.active {
     z-index: 10;
@@ -235,13 +254,16 @@
   overflow: hidden;
   border-radius: 0.25rem;
   position: relative;
+  transform: scale(0.96);
+  filter: saturate(0) brightness(0.33);
+  transition: filter 0.3s var(--ease-out-cube),
+    transform 0.3s var(--ease-out-cube);
 
   &::before {
     --dur: 0.3s;
     content: "";
     position: absolute;
     inset: 0;
-    background: #272e3f;
     background: var(--color-deep-blue);
     pointer-events: none;
     transition: opacity var(--dur) var(--ease-in-out-cube),
@@ -251,9 +273,14 @@
     pointer-events: none;
     opacity: 1;
   }
+
+  .active & {
+    transform: scale(1);
+    filter: none;
+  }
 }
 
-#catalogs1 .item img {
+#catalogs1 .item .item-image {
   width: 100%;
   height: auto;
   display: block;
@@ -262,29 +289,32 @@
   object-position: 50% 50%;
   transform-origin: 50% 50%;
   position: relative;
-  /* filter: brightness(0.6) saturate(0); */
-  transform: scale(1);
-  transition: filter 0.3s var(--ease-out-cube),
-    transform 0.3s var(--ease-out-cube);
+  aspect-ratio: 8.75/11;
+
+  z-index: 1;
+
+  &.bg {
+    opacity: 0;
+    z-index: 0;
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    filter: blur(6px) brightness(0.5);
+    transform: scale(1.1);
+    background: hsl(223 61% 16% / 1);
+    transition: opacity var(--dur) var(--ease-in-out-cube);
+  }
 }
 
-#catalogs1 .item.active img {
-  filter: none;
-  pointer-events: all;
-  transition: filter 0.3s var(--ease-out-cube),
-    transform 0.3s var(--ease-out-cube);
-  cursor: pointer;
-
-  & + figcaption {
-    opacity: 1;
-  }
+#catalogs1 .item.active .item-image.bg {
+  opacity: 1;
 }
 
 #catalogs1 figcaption {
   flex: 1;
-  opacity: 0.66;
   z-index: 10;
   padding: 1.5rem;
+  background: var(--color-deep-blue);
   text-wrap: balance;
   transition: opacity 0.3s var(--ease-out-cube),
     transform 0.3s var(--ease-out-cube);
@@ -308,44 +338,12 @@
   }
 }
 
-.catalog-view {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  overflow: hidden;
+#catalog1 .cta {
+  margin: 2rem auto 0;
+  display: block;
+  width: calc(100% - var(--item-gutter));
 
-  &[data-active] {
-    pointer-events: all;
+  @media (min-width: 768px) {
+    width: auto;
   }
-
-  .overlay {
-    background: rgba(0, 0, 0, 0.66);
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-    transition: opacity 0.16s var(--ease-in-expo);
-    opacity: 0;
-  }
-
-  &[data-active] .overlay {
-    transition: opacity 0.32s var(--ease-out-expo);
-    opacity: 1;
-  }
-}
-
-.catalog-view .modal {
-  padding: 1.5rem 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  transform: translate3d(0, 100%, 0);
-  transition: transform 0.3s var(--ease-in-expo);
-  overflow: hidden;
-}
-
-.catalog-view[data-active] .modal {
-  transform: translate3d(0, 0%, 0);
-  transition: transform 0.6s var(--ease-out-expo);
 }

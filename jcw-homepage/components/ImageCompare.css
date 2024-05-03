@@ -29,8 +29,8 @@
   height: 100%;
   min-height: inherit;
   user-select: none;
-  pointer-events: none;
   margin: 0;
+  pointer-events: none;
 
   img {
     opacity: 0;
@@ -75,8 +75,8 @@
   z-index: 3;
   bottom: 15%;
   cursor: grab;
-  visible: hidden;
   opacity: 0;
+  visibility: hidden; // Hide grabber
 
   &:active {
     cursor: col-resize;
@@ -97,8 +97,6 @@
   color: var(--handle-border-color);
   width: var(--handle-size);
   height: var(--handle-size);
-  visible: hidden;
-  opacity: 0;
 }
 
 .input::-webkit-slider-thumb {
@@ -113,8 +111,6 @@
   color: var(--handle-border-color);
   width: var(--handle-size);
   height: var(--handle-size);
-  visible: hidden;
-  opacity: 0;
 }
 
 .input:focus::-moz-range-thumb {
@@ -139,10 +135,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s var(--ease-out-sine);
+  transition: opacity 0.3s var(--ease-out-sine) 0.6s;
+  opacity: 0;
 
   &.done {
-    opacity: 0;
+    opacity: 1;
+    transition-delay: 0.3s;
   }
 
   &::before,
