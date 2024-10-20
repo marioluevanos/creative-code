@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "happy-birthday-ruthie",
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
