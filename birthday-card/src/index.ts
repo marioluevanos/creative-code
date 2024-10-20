@@ -1,7 +1,3 @@
-import "./InertiaPlugin.js";
-
-gsap.registerPlugin((globalThis as any).InertiaPlugin, Draggable);
-
 const openTrigger = <HTMLElement>document.getElementById("open-trigger");
 const envelope = <HTMLElement>document.querySelector(".envelope");
 const toggles = <NodeListOf<HTMLButtonElement>>(
@@ -75,7 +71,9 @@ function onPullOutComplete() {
       7
     );
 
-  setTimeout(() => addCake(), 1000);
+  setTimeout(() => {
+    addCake();
+  }, 1000);
 }
 
 function toggleFlip() {
