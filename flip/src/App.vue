@@ -21,21 +21,21 @@ export default defineComponent<{
   },
   async mounted() {
     this.animation = createFlip(".box", {
-      duration: 1000,
-      stagger: 100,
+      // duration: 1000,
+      // stagger: 100,
     });
-    this.layout = 2;
-    await this.animation.flip({ delay: 600 });
-    this.layout = 3;
-    await this.animation.flip();
-    this.layout = 4;
-    await this.animation.flip();
-    this.layout = 5;
-    await this.animation.flip();
-    this.layout = 6;
-    await this.animation.flip();
-    this.layout = 7;
-    await this.animation.flip();
+    // this.layout = 2;
+    // await this.animation.flip({ delay: 600 });
+    // this.layout = 3;
+    // await this.animation.flip();
+    // this.layout = 4;
+    // await this.animation.flip();
+    // this.layout = 5;
+    // await this.animation.flip();
+    // this.layout = 6;
+    // await this.animation.flip();
+    // this.layout = 7;
+    // await this.animation.flip();
   },
 });
 </script>

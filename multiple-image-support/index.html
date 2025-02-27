@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Multiple Image Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dist/fonts.css" />
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" />
+    <link rel="stylesheet" href="presentation.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <style>
+          .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            align-items: center;
+            grid-gap: 1em;
+            justify-content: space-between;
+
+            > div {
+              flex: 1;
+            }
+
+            img {
+              width: 100%;
+            }
+            h1,
+            h2,
+            h3 {
+              text-wrap: balance;
+            }
+            h1,
+            h2,
+            h3 {
+              line-height: 0.86;
+              line-height: 1;
+            }
+          }
+
+          .reveal h2 {
+            margin-bottom: 1.5rem;
+          }
+          * {
+            text-wrap: balance;
+          }
+          ul li {
+            padding: 0.5rem 0;
+          }
+          ul li ul {
+            font-size: 0.8em;
+            padding: 0.75rem 0;
+            opacity: 0.8;
+            li {
+              padding: 0.5rem;
+              list-style-type: lower-alpha;
+            }
+          }
+          pre code .hljs-name {
+            color: lime;
+          }
+          pre code .hljs-tag {
+            color: #4CAF50
+          }
+        </style>
+        <section data-background-color="var(--navy)">
+          <div class="two">
+            <h1>Multiple Image Support</h1>
+            <img
+              src="https://images.ctfassets.net/cd8k8w3hw1x5/5Tt9AAMGCawEmo95G0Mzau/5930889952afa9357ffca0597e6119e4/Zephian-520x414.png?w=1080&fm=webp&q=75"
+            />
+          </div>
+        </section>
+
+        <section style="text-align: left" data-background-color="white">
+          <section>
+            <h2>Purpose</h2>
+            <p>How to support multiple images originating from contentful.</p>
+
+            <aside class="notes">
+              Seperation of concerns: POV from:
+              <ul>
+                <li>Contentful</li>
+                <li>Component</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <section style="text-align: left">
+          <h2>Decision Drivers</h2>
+          <ul>
+            <li>Richer multimedia content to enhance user experience.</li>
+            <li>More engaging and dynamic content presentation</li>
+          </ul>
+          <aside class="notes">
+            <ul>
+              <li>Image galleries</li>
+              <li>Before-and-after sequences</li>
+              <li>And more detailed product showcases</li>
+            </ul>
+            This is and ADR originated from multiple images on the IK page,
+            using parallax. I'll show you an example on the Military page as a
+            demo.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <h2>Considered Options</h2>
+          <ul>
+            <li>🟩 Dedicated Content Model</li>
+            <li>🟧 Add Multiple Image Field to Content Types as Needed</li>
+          </ul>
+          <aside class="notes">
+            After reviewing our requirements and considering the project's
+            future direction, we identified two viable options for implementing
+            multiple image support:
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <div class="two">
+            <h3>Dedicated Content Model</h3>
+            <div>
+              <small>🟩 Format Module: Asset</small>
+              <img src="https://i.ibb.co/TTGV39T/1.jpg" />
+            </div>
+          </div>
+          <aside class="notes">
+            This approach involves creating a dedicated module for media
+            handling. It would not only support multiple images but also provide
+            additional fields for metadata like parallax speed, which could
+            enhance SEO, accessibility, and overall user experience.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <div class="two">
+            <h3>Add Multiple Image Field to Content Types as Needed</h3>
+            <div>
+              <small>🟧 Format Module: Asset</small>
+              <img src="https://i.ibb.co/hc8HJg2/2.jpg" />
+            </div>
+          </div>
+          <aside class="notes">
+            This strategy involves extending existing content types with a new
+            field that allows for multiple images. This field would be used
+            directly within content types that require image support,
+            facilitating a simpler, more direct association of images with
+            specific pieces of content.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Outcome</h2>
+          <p>🟩 Dedicated Content Model</p>
+          <em>vs.</em>
+          <p>🟧 Add Multiple Image Field to Content Types as Needed</p>
+
+          <aside class="notes">
+            Two primary options have been considered. Here we break down the
+            pros and cons of each option:
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <p style="line-height: 1">
+            <small>🟩 Option 1: Dedicated Content Model</small><br /><b
+              >👍 Pros:</b
+            >
+          </p>
+
+          <ul style="font-size: 0.8em">
+            <li>
+              <b>Flexibility</b>: Adaptable for future content needs beyond
+              images, supporting various media types like videos and vector
+              graphics.
+            </li>
+            <li>
+              <b>Metadata</b>: Allows metadata for each media item, useful for
+              SEO, accessibility and more.
+            </li>
+            <li>
+              <b>Separation of Concerns</b>: Modular approach keeps media asset
+              distinct from Contentful, aiding in maintainability and
+              scalability.
+            </li>
+            <li>
+              <b>Reusability Across Content Types</b>: Facilitates efficient
+              media asset by allowing media content type to be reused, reducing
+              redundancy.
+            </li>
+          </ul>
+
+          <aside class="notes"></aside>
+        </section>
+
+        <section style="text-align: left">
+          <p style="line-height: 1">
+            <small>🟩 Option 1: Dedicated Content Model</small><br /><b
+              >🚫 Cons:</b
+            >
+          </p>
+
+          <ul style="font-size: 0.8em">
+            <li>
+              <b>Implementation Time and Cost</b>: More resource-intensive
+              upfront due to greater complexity.
+            </li>
+            <li>
+              <b>Learning Curve</b>: Introduces a new component that content
+              creators and developers need to familiarize themselves with.
+            </li>
+            <li>
+              <b>Migration Efforts</b>: May require substantial effort to
+              migrate existing content to the new structure.
+            </li>
+            <li>
+              <b>Encounters GraphQL Errors</b>: A multiple image query is a
+              high-cost field, and exceeds the cost limit.
+              <a
+                data-is-external-link="true"
+                href="https://bytemedental.atlassian.net/browse/BYTE-11468"
+                rel="nofollow"
+                >BYTE-11468, a related ticket</a
+              >
+              is in the backlog to address this.
+            </li>
+          </ul>
+
+          <aside class="notes"></aside>
+        </section>
+
+        <!-- 2 -->
+
+        <section style="text-align: left">
+          <p style="line-height: 1">
+            <small
+              >🟧 Option 2: Add Multiple Image Field to Content Types as Needed </small
+            ><br /><b>👍 Pros:</b>
+          </p>
+
+          <ul style="font-size: 0.8em">
+            <li>
+              <b>Quick Implementation</b>: Simpler and faster to implement by
+              extending existing content types with a new field.
+            </li>
+            <li>
+              <b>Simplicity</b>: Straightforward solution for projects where
+              basic image support without advanced metadata is sufficient.
+            </li>
+            <li>
+              <b>Minimal Training Required</b>: Leverages existing
+              functionality, minimizing the learning curve for team members.
+            </li>
+          </ul>
+
+          <aside class="notes"></aside>
+        </section>
+
+        <section style="text-align: left">
+          <p style="line-height: 1">
+            <small
+              >🟧 Option 2: Add Multiple Image Field to Content Types as Needed </small
+            ><br /><b>🚫 Cons:</b>
+          </p>
+
+          <ul style="font-size: 0.8em">
+            <li>
+              <b>Limited Scalability and Flexibility</b>: Less accommodating for
+              future enhancements or support for different media types.
+            </li>
+            <li>
+              <b>Potential for Redundancy</b>: Lacks a centralized multiple
+              image solution, possibly leading to duplicate entities across
+              content types.
+            </li>
+            <li>
+              <b>Lack of Advanced Features</b>: Forgoes potential benefits that
+              a dedicated module might offer.
+            </li>
+            <li>
+              <b>Encounters GraphQL Errors</b>: A multiple image query is a
+              high-cost field, and exceeds the cost limit.
+              <a
+                data-is-external-link="true"
+                href="https://bytemedental.atlassian.net/browse/BYTE-11468"
+                rel="nofollow"
+                >BYTE-11468, a related ticket</a
+              >
+              is in the backlog to address this.
+            </li>
+          </ul>
+
+          <aside class="notes"></aside>
+        </section>
+
+        <section>
+          <h2>Conclusion</h2>
+          <p>🟩 Dedicated Content Model</p>
+
+          <aside class="notes">
+            While the addition of a multiple image field is the more
+            straightforward approach, it falls short on flexibility, future
+            scalability, and the ability to provide a comprehensive multiple
+            image solution. On the other hand, the development of a Dedicated
+            Content Model, despite its higher initial investment in terms of
+            time and resources, stands out as the strategic choice for its
+            flexibility for modern product requirements.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <p>🟩 Dedicated Content Model</p>
+          <pre style="width: 100%">
+            <code data-trim data-noescape class="language-ts">
+              type ContentfulEntry<T> = T & {
+                __typename: string;
+                internalName: string;
+                sys: Sys;
+              };
+            </code>
+          </pre>
+          <aside class="notes">
+            With option 1, we can start the seperation of concern between
+            Contentful's content models and UI components. In general,
+            Contentful components would extend from a ContentfulEntry type.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <p>🟩 Dedicated Content Model</p>
+          <pre style="width: 100%">
+            <code data-trim data-noescape class="language-ts">
+              interface FMAssetProps extends ContentfulEntry {
+                layout: 'stacked' | 'horizontal' | 'vertical';
+                options: Array<'parallax' | 'stagger'>;
+                fit?: 'cover' | 'contain' | 'fill';
+                assets: {
+                  items: ContentfulEntry<Asset>[];
+                };
+              }
+              
+              const FMAsset: FC<FMAssetProps> = (props) => {
+                return props.assets.items.map((asset, i) =>
+                  &lt;AssetImage key={asset.sys.id} {...asset} /&gt;
+                );
+              };              
+            </code>
+          </pre>
+          <aside class="notes">
+            The Dedicated Content Model would map to a Contentful Component.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <p>🟩 Dedicated Content Model</p>
+          <pre style="width: 100%">
+            <code data-trim data-noescape class="language-ts">
+              const AssetImage: FC<AssetImageProps> = (props) => {
+                return &lt;Image {...props} /&gt;;
+              };
+            </code>
+          </pre>
+          <aside class="notes">
+            The Contentful Component, FMAsset renders a base-component, AssetImage.
+            The AssetImage is a wrapper on the Next/Image component.
+          </aside>
+        </section>
+
+        <section style="text-align: left">
+          <p>🟩 Dedicated Content Model</p>
+          <a href="http://localhost:3000/api/preview?secret=hatparty&slug=/pages/military">Military Page Demo</a>
+          <aside class="notes"></aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="presentation.js"></script>
+  </body>
+</html>

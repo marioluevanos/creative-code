@@ -11,23 +11,6 @@
   @media (min-width: 321px) {
     --item-w: 320px;
   }
-
-  .marker {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    height: 100vh;
-    width: 100%;
-    max-width: var(--item-w);
-    /* background: red; */
-    z-index: 100101010;
-    opacity: 0.54;
-    pointer-events: none;
-    display: none;
-  }
 }
 
 #catalog1 .header {
@@ -59,159 +42,6 @@
     max-width: 768px;
     opacity: 0.66;
   }
-
-  .fill-1 {
-    fill: var(--color-red-brown);
-  }
-
-  .fill-2 {
-    fill: var(--color-gray-medium);
-  }
-
-  .icon .lock {
-    fill: var(--color-gray-medium);
-  }
-}
-
-#catalog1 .keywords {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  grid-gap: 0.5rem;
-  position: relative;
-  margin: 1rem auto;
-  padding: 0;
-  max-width: 768px;
-}
-
-@keyframes enter-button {
-  0% {
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0%, 0);
-  }
-}
-
-@keyframes exit-button {
-  0% {
-    transform: translate3d(0, 0%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(0, 0%, 0);
-  }
-}
-
-#catalog1 .filter.button {
-  box-shadow: none;
-  display: flex;
-  align-items: center;
-  margin: 0 auto 3rem;
-  color: white;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  transition: color 0.16s var(--ease-out-sine) 0s,
-    background 0.16s var(--ease-out-sine) 0s;
-  /* display: none; */
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: white;
-    z-index: -1;
-    transform: translate3d(0, -100%, 0);
-    transition: transform 0.16s var(--ease-in-expo) 0s;
-    animation: exit-button 0.16s var(--ease-in-expo) forwards;
-  }
-
-  svg.button-icon {
-    transform: scale(1, -1);
-    width: 1rem;
-    height: 1rem;
-  }
-
-  &.active {
-    color: black;
-    margin-bottom: 0;
-
-    &::before {
-      transform: translate3d(0, 0%, 0);
-      transition: transform 0.3s var(--ease-out-expo) 0s;
-      animation: enter-button 0.3s var(--ease-out-expo) forwards;
-    }
-
-    svg.button-icon {
-      transform: scale(1, 1);
-    }
-  }
-}
-
-@media (hover: hover) {
-  #catalog1 .filter.button:hover {
-    background: hsla(0deg 0% 100% / 16%);
-  }
-}
-
-.keyword.button.small {
-  margin: 0;
-  cursor: pointer;
-  display: inline-block;
-  border: 1px solid hsla(0deg 0% 100% / 16%);
-  box-shadow: none;
-  position: relative;
-  z-index: 1;
-
-  @media (hover: hover) {
-    &:hover {
-      background: none;
-      color: currentColor;
-      box-shadow: none;
-      border: 1px solid hsla(0deg 0% 100% / 33%);
-    }
-  }
-
-  &:not(.active) {
-    transition: none;
-  }
-
-  &.active {
-    border: 1px solid transparent;
-    &::before {
-      opacity: 1;
-      background: var(--color-category-blue);
-      transition: opacity 1s var(--ease-out-cube),
-        background 1s var(--ease-out-cube);
-    }
-  }
-
-  &[disabled] {
-    pointer-events: none;
-    background: transparent;
-  }
-
-  &::before {
-    content: "";
-    background: var(--color-cyan);
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: none;
-    z-index: -1;
-    transition: background 0.16s var(--ease-in-cube),
-      opacity 0.16s var(--ease-in-cube);
-  }
-
-  &::after {
-    content: " " attr(data-count);
-    opacity: 0.66;
-    padding-left: 0.25rem;
-    font-family: "AvenirNextLTW01-DemiCn";
-  }
 }
 
 /**
@@ -222,7 +52,7 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100vw;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: auto;
   overflow: hidden;
 
@@ -290,7 +120,6 @@
   transform-origin: 50% 50%;
   position: relative;
   aspect-ratio: 8.75/11;
-
   z-index: 1;
 
   &.bg {
@@ -299,7 +128,7 @@
     position: absolute;
     inset: 0;
     object-fit: cover;
-    filter: blur(6px) brightness(0.5);
+    filter: blur(6px) brightness(0);
     transform: scale(1.1);
     background: hsl(223 61% 16% / 1);
     transition: opacity var(--dur) var(--ease-in-out-cube);
@@ -313,6 +142,7 @@
 #catalogs1 figcaption {
   flex: 1;
   z-index: 10;
+  text-align: center;
   padding: 1.5rem;
   background: var(--color-deep-blue);
   text-wrap: balance;

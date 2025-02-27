@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="all.css" rel="stylesheet" />
+    <style>
+      body {
+        height: 100vh;
+        display: grid;
+        place-content: center;
+        background-color: var(--mint);
+        color: var(--navy);
+      }
+      #frame {
+        --line: 2px;
+        --c: 3;
+        --s: 150;
+        --g: 16;
+        --w: calc(
+          calc(var(--c) * var(--s)) + calc(var(--g) * calc(var(--c) - 1))
+        );
+        --arrow: 10px;
+        width: calc(var(--w) * 1px);
+        position: relative;
+        display: grid;
+        grid-gap: calc(var(--g) * 1px);
+        grid-template-columns: repeat(var(--c), 1fr);
+        margin: auto;
+        cursor: pointer;
+        mix-blend-mode: multiply;
+      }
+
+      .box {
+        --x: 0;
+        --y: 0;
+        position: relative;
+        background: var(--red);
+        width: calc(var(--s) * 1px);
+        height: calc(var(--s) * 1px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(calc(var(--x) * 1px))
+          translateY(calc(var(--y) * 1px));
+        transition: transform 0.3s ease-out 0s;
+      }
+
+      .box::before,
+      .box::after {
+        content: "";
+        position: absolute;
+        transition: opacity 0.6s ease-out calc(var(--i) * 0.01s);
+        opacity: 0;
+      }
+      #frame .box::before {
+        width: 150%;
+        border-bottom: var(--line) dashed currentColor;
+      }
+      #frame .box::after {
+        height: 150%;
+        left: calc(calc(var(--s) * 0.5) + var(--line));
+        border-left: var(--line) dashed currentColor;
+      }
+
+      .y {
+        position: absolute;
+        left: -50%;
+        top: calc(50% + var(--line));
+        width: calc(var(--s) * 1px);
+        height: calc(calc(var(--s) * 1px) + var(--arrow));
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        font-style: italic;
+        line-height: 0;
+        border-left: var(--line) solid currentColor;
+        transition: opacity 0.6s ease-out calc(var(--i) * 0.01s);
+        opacity: 0;
+      }
+      .y em {
+        position: relative;
+        left: -2rem;
+      }
+      .y::before,
+      .y::after {
+        content: "";
+        position: absolute;
+        width: var(--arrow);
+        height: var(--arrow);
+        border-left: var(--line) solid currentColor;
+        border-top: var(--line) solid currentColor;
+        transform-origin: center;
+        left: -7px;
+      }
+      .y::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+      .y::after {
+        transform: rotate(45deg) scale(-1, -1);
+        bottom: 0;
+      }
+      .x {
+        position: absolute;
+        left: calc(50% + var(--line));
+        top: 50%;
+        width: calc(calc(var(--s) * 1px) + var(--arrow));
+        height: calc(var(--s) * 1px);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        font-size: 2rem;
+        font-style: italic;
+        line-height: 0;
+        border-bottom: var(--line) solid currentColor;
+        transition: opacity 0.6s ease-out calc(var(--i) * 0.01s);
+        opacity: 0;
+      }
+      .x em {
+        position: relative;
+        bottom: -2rem;
+      }
+      .x::before,
+      .x::after {
+        content: "";
+        position: absolute;
+        width: var(--arrow);
+        height: var(--arrow);
+        border-left: var(--line) solid currentColor;
+        border-top: var(--line) solid currentColor;
+        transform-origin: center;
+        bottom: -7px;
+      }
+      .x::before {
+        transform: rotate(-45deg);
+        left: 0;
+      }
+      .x::after {
+        transform: rotate(-45deg) scale(-1, -1);
+        right: 0;
+      }
+
+      #frame[data-state="ALIGNED"] .x {
+        opacity: 1;
+      }
+      #frame[data-state="ALIGNED"] .y {
+        opacity: 1;
+      }
+      #toggle:hover + #frame .box::before,
+      #toggle:hover + #frame .box::after,
+      #frame:hover .box::before,
+      #frame:hover .box::after,
+      #frame[data-state="ALIGNED"] .box::before,
+      #frame[data-state="ALIGNED"] .box::after {
+        opacity: 1;
+      }
+      blockquote {
+        color: var(--red);
+        margin: 0;
+        padding: 0 5rem;
+        font-size: 5vw;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <blockquote>consistent & intentional.</blockquote> -->
+    <button class="button fixed" id="toggle">Align</button>
+    <div id="frame" data-state></div>
+  </body>
+  <script>
+    const frame = document.getElementById("frame");
+    const toggle = document.getElementById("toggle");
+    const total = 12;
+
+    toggle.addEventListener("click", onFrameClick);
+
+    Array.from({ length: total }, createBox);
+
+    function createBox(_, i) {
+      const columns = +getComputedStyle(frame).getPropertyValue("--c");
+      const rows = total / columns;
+      const box = document.createElement("div");
+      box.classList.add("box");
+      box.style.setProperty("--i", i);
+      setBox(box, range(6));
+      frame.appendChild(box);
+
+      const isLastCol = i === total - columns;
+      if (i % columns === 0 && !isLastCol) {
+        const y = document.createElement("span");
+        y.innerHTML = "<em>y</em>";
+        y.classList.add("y");
+        box.appendChild(y);
+      }
+
+      const isLastRow = i > total - 1 - columns;
+      const isLastBox = i === total - 1;
+      if (isLastRow && !isLastBox) {
+        const x = document.createElement("span");
+        x.innerHTML = "<em>x</em>";
+        x.classList.add("x");
+        box.appendChild(x);
+      }
+    }
+
+    function onFrameClick() {
+      toggle.classList.toggle("toggled");
+      Array.from(frame.children).forEach(boxMove);
+      frame.dataset.state =
+        frame.dataset.state === "ALIGNED" ? "STAGGER" : "ALIGNED";
+    }
+
+    function boxMove(box) {
+      const amp = frame.dataset.state === "ALIGNED" ? range(6) : 0;
+      setBox(box, amp);
+    }
+
+    function setBox(box, amp = 0) {
+      box.style.setProperty("--x", amp);
+      box.style.setProperty("--y", amp);
+    }
+
+    function range(amplitude = 16) {
+      const r = Math.random() > 0.5 ? 1 : -1;
+      return Math.random() * amplitude * r;
+    }
+  </script>
+</html>

@@ -4,7 +4,7 @@ import Button from "./Button.js";
 const template = `
 <figure ref="root"
   @click="onClick"
-  :class="{ compare: true, isVisible: isVisible }"
+  :class="{ image-compare: true, isVisible: isVisible }"
   :style="{
     '--exposure': exposure,
     '--image-w': imageSize.w,
@@ -109,7 +109,7 @@ const ImageCompare = {
     },
   },
   mounted() {
-    imagesLoaded(".compare", () => setTimeout(() => this.onResize(), 0));
+    imagesLoaded(".image-compare", () => setTimeout(() => this.onResize(), 0));
 
     this.resizeFn = debounce(this.onResize, 100);
     window.addEventListener("resize", this.resizeFn);

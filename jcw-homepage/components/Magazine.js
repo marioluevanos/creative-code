@@ -253,6 +253,7 @@ export default {
 
       if (w <= 320) return 240;
       if (w < 460) return 300;
+      if (w >= 1280) return 500;
       if (isLandscape) return w * 0.5;
       if (isPortrait) return w * 0.7;
 
@@ -260,7 +261,6 @@ export default {
     },
     onResize() {
       const canvasW = this.getCanvasWidth();
-      console.log({ canvasW });
       this.$refs.canvas.style.setProperty(
         "--canvas-w",
         `${Math.floor(canvasW)}px`

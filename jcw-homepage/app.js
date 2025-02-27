@@ -28,16 +28,20 @@ const App = {
 
     <Spacer>Catalog 1 <p>Horizontal Scroll</p></Spacer>
     <Catalog1 /> 
-<!--
+
+    <!-- 
     <Spacer>Catalog 2 <p>Stacking Perspective<p></Spacer>
     <Catalog2 />   
+    -->
 
     <Spacer>Catalog 3 <p>Circular Layout</p></Spacer>
     <Catalog3 />
     
+    <!-- 
     <Spacer>Catalog 4 <p>Flip</p></Spacer>
     <Catalog4 />
--->
+    --> 
+
     <Spacer>Fin</Spacer>
   `,
 };

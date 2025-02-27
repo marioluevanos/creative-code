@@ -7,7 +7,7 @@ const ballons = document.querySelectorAll(".ballon");
 const password = <HTMLInputElement>document.getElementById("password");
 const card = <HTMLDivElement>document.querySelector(".card");
 
-var flipped = false;
+export var flipped = false;
 
 openTrigger.addEventListener("click", pullOut);
 toggles.forEach((b) => b.addEventListener("click", toggleFlip));

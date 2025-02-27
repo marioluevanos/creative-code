@@ -6,7 +6,7 @@
   --item-w: 180px;
   --to-y: 50vh; /* Determines the size of the radius */
 
-  padding: 5rem 1.5rem 2.5rem;
+  padding: 5rem 1.5rem 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -14,7 +14,6 @@
   overflow: hidden;
   background: var(--color-black);
   color: white;
-  max-width: 1392px;
   margin: 0 auto;
   width: 100%;
   flex-direction: column;
@@ -94,6 +93,7 @@
   position: relative;
   min-height: calc(var(--to-y) / 2);
   width: 100%;
+  margin: 2.5rem 0;
 }
 
 #catalog3 .center {

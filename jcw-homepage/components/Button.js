@@ -1,5 +1,3 @@
-import { cssToRgb, rgbToHsl } from "../utils.js";
-
 const template = `
 <button @click="onClick" class="button">
   <slot/>

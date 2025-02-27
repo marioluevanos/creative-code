@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="all.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;  
+      }
+      body::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('../assets/cover.png') 0 0/100% auto no-repeat;
+      }
+      body::before {
+        content: '';
+        position: absolute;
+        inset: -50vw;
+        background: repeating-conic-gradient(
+          var(--navy) 0 15deg,
+          var(--navy-bg) 15deg 30deg
+          );
+        animation: rotate 60s linear infinite;
+      }
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    
+  </body>
+</html>
