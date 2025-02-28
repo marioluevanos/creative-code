@@ -4,15 +4,15 @@ import {
   useEffect,
   useRef,
   useState,
-} from 'react';
-import { CardProps, useBingoBoard } from './useBingBoard';
-import { OptionOne } from './OptionOne';
+} from "react";
+import { CardProps, useBingoBoard } from "./useBingBoard";
+import { OptionOne } from "./OptionOne";
 
 function App() {
   const { getNewBoard, existingBoards, allBoards } = useBingoBoard();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [board = [[]], setBoard] = useState<CardProps[][]>();
-  const [option, setOption] = useState<'1' | '2'>('2');
+  const [option, setOption] = useState<"1" | "2">("2");
   const [page, setPage] = useState<number>(0);
   const [includePrint, setIncludePrint] = useState(false);
   const totalBoards = Object.keys(allBoards).length;
@@ -26,7 +26,7 @@ function App() {
 
   const onOptionChange = useCallback((event: BaseSyntheticEvent) => {
     setOption(event.target.value);
-    localStorage.setItem('option', event.target.value);
+    localStorage.setItem("option", event.target.value);
   }, []);
 
   const onBoardChange = useCallback(
@@ -35,12 +35,12 @@ function App() {
       setBoard(allBoards[+index]);
       setPage(+index);
     },
-    [allBoards],
+    [allBoards]
   );
 
   useEffect(() => {
     if (existingBoards.size === 0 && buttonRef.current) {
-      const opt = localStorage.getItem('option') as typeof option | null;
+      const opt = localStorage.getItem("option") as typeof option | null;
       if (opt) {
         setOption(opt);
       }
@@ -64,7 +64,7 @@ function App() {
             type="checkbox"
             name="print"
             id="print"
-            onChange={() => setIncludePrint(prev => !prev)}
+            onChange={() => setIncludePrint((prev) => !prev)}
             checked={includePrint}
           />
           Also print page
@@ -78,27 +78,12 @@ function App() {
               key={i + 1}
               data-index={i + 1}
               onClick={onBoardChange}
-              className={page === i + 1 ? 'active' : undefined}
+              className={page === i + 1 ? "active" : undefined}
             >
               {i + 1}
             </button>
           ))}
         </div>
-        {/* <input
-          list="pages"
-          step="1"
-          min="1"
-          max={totalBoards}
-          type="range"
-          data-orient="vertical"
-          onChange={onBoardChange}
-          value={page}
-        />
-        <datalist id="pages">
-          {Array.from({ length: totalBoards }, (_, i) => (
-            <option key={i + 1} value={i + 1}></option>
-          ))}
-        </datalist> */}
         {Array.from({ length: 2 }, (_, i) => (
           <label key={i} className="label">
             <input
@@ -108,13 +93,13 @@ function App() {
               name="option"
               value={i + 1}
               checked={option === String(i + 1)}
-            />{' '}
+            />{" "}
             Option {i + 1}
           </label>
         ))}
       </aside>
       <div className="page" data-option={option}>
-        {option === '2' ? (
+        {option === "2" ? (
           <>
             <img src="/bg.png" className="page-bg" />
             <header className="header">
@@ -139,7 +124,7 @@ function App() {
             </header>
           </>
         ) : (
-          <OptionOne className="page-bg" style={{}} />
+          <OptionOne className="page-bg" />
         )}
         <div className="cards">
           {board.map((row, rowIndex) =>
@@ -153,10 +138,10 @@ function App() {
                 <img src={cell.image} alt={cell.name} />
                 <p className="name">{cell.name}</p>
               </div>
-            )),
+            ))
           )}
         </div>
-        {option === '2' && <p className="footer">ISABELLA’S BABY SHOWER</p>}
+        {option === "2" && <p className="footer">ISABELLA’S BABY SHOWER</p>}
       </div>
       <span className="board-num">{page}</span>
     </section>

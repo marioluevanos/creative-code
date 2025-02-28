@@ -1,9 +1,9 @@
-import { CSSProperties, FC } from 'react';
+import { CSSProperties, FC } from "react";
 
 export const OptionOne: FC<{
-  className: string;
-  style: CSSProperties;
-}> = props => {
+  className?: string;
+  style?: CSSProperties;
+}> = (props) => {
   return (
     <svg
       style={props.style}

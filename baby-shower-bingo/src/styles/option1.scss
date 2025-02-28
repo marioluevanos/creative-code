@@ -1,4 +1,4 @@
-[data-option='1'] {
+[data-option="1"] {
   .cards {
     margin-top: 180pt;
   }
@@ -10,13 +10,17 @@
 }
 
 @media print {
-  [data-option='1'] .page-bg {
+  [data-option="1"] .page-bg {
     transform: scale(1.01);
   }
-  [data-option='1'] .cards {
+  [data-option="1"] .cards {
     margin-top: 240pt;
   }
-  [data-option='1'] .cards {
+  [data-option="1"] .cards {
     width: calc(var(--page-w) - 160pt);
+  }
+  [data-option="1"] .name {
+    font-size: 10pt;
+    padding: 0 1pt 6pt;
   }
 }
