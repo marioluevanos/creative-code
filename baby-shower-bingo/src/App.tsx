@@ -9,15 +9,34 @@ import { CardProps, useBingoBoard } from './useBingBoard';
 import { OptionOne } from './OptionOne';
 
 function App() {
-  const { getNewBoard, existingBoards } = useBingoBoard();
+  const { getNewBoard, existingBoards, allBoards } = useBingoBoard();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [board = [[]], setBoard] = useState<CardProps[][]>();
   const [option, setOption] = useState<'1' | '2'>('2');
+  const [page, setPage] = useState<number>(0);
+  const [includePrint, setIncludePrint] = useState(false);
+  const totalBoards = Object.keys(allBoards).length;
+
+  const onAddBoard = useCallback(() => {
+    setBoard(getNewBoard());
+    setPage(totalBoards + 1);
+
+    if (totalBoards > 0 && includePrint) setTimeout(() => window.print(), 0);
+  }, [getNewBoard, totalBoards, includePrint]);
 
   const onOptionChange = useCallback((event: BaseSyntheticEvent) => {
     setOption(event.target.value);
     localStorage.setItem('option', event.target.value);
   }, []);
+
+  const onBoardChange = useCallback(
+    (event: BaseSyntheticEvent) => {
+      const { index } = event.target.dataset;
+      setBoard(allBoards[+index]);
+      setPage(+index);
+    },
+    [allBoards],
+  );
 
   useEffect(() => {
     if (existingBoards.size === 0 && buttonRef.current) {
@@ -31,18 +50,57 @@ function App() {
   }, [existingBoards]);
 
   return (
-    <section>
+    <section className="app">
       <aside className="cta ui">
         <button
           ref={buttonRef}
-          onClick={() => setBoard(getNewBoard())}
+          onClick={onAddBoard}
           className="generate-board-cta"
         >
-          Generate New Board
+          + New Board
         </button>
+        <label htmlFor="print" className="checkbox">
+          <input
+            type="checkbox"
+            name="print"
+            id="print"
+            onChange={() => setIncludePrint(prev => !prev)}
+            checked={includePrint}
+          />
+          Also print page
+        </label>
+        <label htmlFor="temp">
+          Board {page} of {totalBoards}
+        </label>
+        <div className="buttons">
+          {Array.from({ length: totalBoards }, (_, i) => (
+            <button
+              key={i + 1}
+              data-index={i + 1}
+              onClick={onBoardChange}
+              className={page === i + 1 ? 'active' : undefined}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        {/* <input
+          list="pages"
+          step="1"
+          min="1"
+          max={totalBoards}
+          type="range"
+          data-orient="vertical"
+          onChange={onBoardChange}
+          value={page}
+        />
+        <datalist id="pages">
+          {Array.from({ length: totalBoards }, (_, i) => (
+            <option key={i + 1} value={i + 1}></option>
+          ))}
+        </datalist> */}
         {Array.from({ length: 2 }, (_, i) => (
-          <label key={i}>
-            Option {i + 1}
+          <label key={i} className="label">
             <input
               onChange={onOptionChange}
               key={i + 1}
@@ -50,7 +108,8 @@ function App() {
               name="option"
               value={i + 1}
               checked={option === String(i + 1)}
-            />
+            />{' '}
+            Option {i + 1}
           </label>
         ))}
       </aside>
@@ -99,6 +158,7 @@ function App() {
         </div>
         {option === '2' && <p className="footer">ISABELLA’S BABY SHOWER</p>}
       </div>
+      <span className="board-num">{page}</span>
     </section>
   );
 }

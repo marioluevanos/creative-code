@@ -30,6 +30,10 @@ body {
   justify-content: center;
 }
 
+.app {
+  position: relative;
+}
+
 .page {
   box-sizing: border-box;
   display: flex;
@@ -62,6 +66,74 @@ body {
   position: fixed;
   top: 1rem;
   right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  width: 220px;
+  overflow-y: auto;
+
+  button {
+    border: none;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid black;
+    color: black;
+    font: 600 1rem/1 'Montserrat';
+    border-radius: 100rem;
+    cursor: pointer;
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+
+  button.active {
+    background: black;
+    color: white;
+  }
+
+  label {
+    cursor: pointer;
+    display: flex;
+    gap: 0 4px;
+    align-items: center;
+    justify-content: flex-start;
+
+    & input {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  input[type='range'][data-orient='vertical'] {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    appearance: slider-vertical;
+    width: 16px;
+    vertical-align: bottom;
+    height: 100%;
+    transform: rotate(180deg);
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0 4px;
+}
+
+.buttons {
+  width: 100%;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(5, 1fr);
+
+  button {
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+  }
 }
 
 .cards {
@@ -118,6 +190,24 @@ body {
   margin: 0;
   padding: 0.5rem 0.25rem 0.5rem;
   -webkit-font-smoothing: antialiased;
+}
+
+.board-num {
+  position: absolute;
+  bottom: 16pt;
+  right: 12pt;
+  background: white;
+  color: black;
+  border: 0pt solid black;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24pt;
+  height: 24pt;
+  font-size: 10pt;
+  border-radius: 24pt;
 }
 
 @media print {

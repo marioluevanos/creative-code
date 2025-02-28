@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "happy-birthday-ruthie",
+    "site": "baby-shower-bingo",
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }

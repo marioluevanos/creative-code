@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 export type CardProps = {
   name: string;
   image: string;
+  className?: 'red';
 };
 
 export const data: CardProps[] = [
@@ -139,6 +140,7 @@ function generateUniqueBoard(existingBoards: Set<string>): CardProps[][] {
 
 export function useBingoBoard() {
   const [existingBoards, setExistingBoards] = useState<Set<string>>(new Set());
+  const [allBoards, setAllBoards] = useState<Record<string, CardProps[][]>>({});
 
   const getNewBoard = useCallback((): CardProps[][] => {
     const newBoard = generateUniqueBoard(existingBoards);
@@ -147,8 +149,14 @@ export function useBingoBoard() {
         newBoard.map(row => row.map(cell => cell.name).join(',')).join(';'),
       ),
     );
+
+    setAllBoards(prev => {
+      prev[existingBoards.size] = newBoard;
+      return Object.assign({}, prev);
+    });
+
     return newBoard;
   }, [existingBoards]);
 
-  return { getNewBoard, existingBoards };
+  return { getNewBoard, allBoards, existingBoards };
 }
