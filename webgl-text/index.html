@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Flour Letters Simulation: COCAINE</title>
+    <title>Flour Letters Simulation: COCAINE (Push with Credit Card)</title>
     <style>
       body {
         margin: 0;
@@ -22,7 +22,7 @@
       let scene, camera, renderer;
       let tableWidth = window.innerWidth;
       let tableHeight = window.innerHeight;
-      // Use an orthographic camera for a flat, top-down view.
+      // Orthographic camera for a flat, top-down view.
       camera = new THREE.OrthographicCamera(
         -tableWidth / 2,
         tableWidth / 2,
@@ -44,18 +44,20 @@
       scene.add(tableMesh);
 
       // --- Flour Particles Arranged as "COCAINE" ---
-      // We use a hidden canvas to draw the text and sample its pixel data.
+      // Use a hidden canvas to draw the text and sample its pixel data.
       let positionsArray = [];
       let velocitiesArray = [];
 
       const textCanvas = document.createElement("canvas");
-      const scale = 2.3;
-      textCanvas.width = 512 * scale;
-      textCanvas.height = 128 * scale;
+      const textScale = 2.3;
+      const textWidth = 512 * textScale;
+      const textHeight = 128 * textScale;
+      textCanvas.width = textWidth;
+      textCanvas.height = textHeight;
       const ctx = textCanvas.getContext("2d");
       ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
       ctx.fillStyle = "white";
-      ctx.font = `bold ${100 * scale}px National-Black`;
+      ctx.font = `bold ${100 * textScale}px National-Black`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       // Draw the text centered in the canvas.
@@ -68,19 +70,20 @@
         textCanvas.height
       ).data;
       // Sample every 2 pixels to build the flour formation.
+      const getRnd = () => Math.random() - 0.5;
+      const rnd = (i) => (i % 3 === 0 ? getRnd() * 10 : getRnd() * 1);
       const step = 2;
       for (let y = 0; y < textCanvas.height; y += step) {
         for (let x = 0; x < textCanvas.width; x += step) {
           const index = (y * textCanvas.width + x) * 4;
           if (imageData[index + 3] > 128) {
             // if pixel is opaque enough
-            // Map canvas coordinates to world coordinates:
-            // Canvas origin is top-left; we want the formation centered at (0,0).
+            // Map canvas coordinates (origin top-left) to world coordinates (centered at 0,0)
             let worldX = x - textCanvas.width / 2;
             let worldY = textCanvas.height / 2 - y;
-            // Add a slight random offset for an organic flour look.
-            worldX += (Math.random() - 0.5) * 1;
-            worldY += (Math.random() - 0.5) * 1;
+            // Add slight random offset for an organic flour look.
+            worldX += rnd(index);
+            worldY += rnd(index);
             positionsArray.push(worldX, worldY, 1); // z = 1, just above the table
             velocitiesArray.push(0, 0, 0);
           }
@@ -122,8 +125,9 @@
       scene.add(flourParticles);
 
       // --- Credit Card (Scraper) ---
-      const cardWidth = 4; // adjust size as needed
-      const cardHeight = 100;
+      // This narrow rectangle represents a credit card that pushes the flour particles.
+      const cardWidth = 1; // narrow width
+      const cardHeight = 50; // length of the card
       const cardGeometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
       const cardMaterial = new THREE.MeshBasicMaterial({
         color: 0xeeeeee,
@@ -131,33 +135,68 @@
         transparent: true,
       });
       const creditCard = new THREE.Mesh(cardGeometry, cardMaterial);
-      creditCard.position.set(0, 0, 0); // placed above the flour
+      creditCard.position.set(0, 0, 0); // start position (on the table)
       scene.add(creditCard);
 
       // --- Input & Simulation Variables ---
+      // Global pointer state.
       const mouse = new THREE.Vector2();
       let mouseDown = false;
+      // For computing credit card movement delta.
       const cardDelta = new THREE.Vector2();
       const creditCardPrevPos = new THREE.Vector2();
       creditCardPrevPos.set(creditCard.position.x, creditCard.position.y);
 
-      // --- Event Listeners ---
+      // --- Event Listeners for Mouse ---
       window.addEventListener("mousemove", onMouseMove, false);
-      window.addEventListener("mousedown", () => {
+      window.addEventListener("mousedown", (event) => {
         mouseDown = true;
+        onMouseMove(event);
       });
       window.addEventListener("mouseup", () => {
         mouseDown = false;
       });
-      window.addEventListener("resize", onWindowResize, false);
+
+      // --- Event Listeners for Touch ---
+      window.addEventListener(
+        "touchstart",
+        (event) => {
+          event.preventDefault();
+          mouseDown = true;
+          onTouch(event);
+        },
+        { passive: false }
+      );
+      window.addEventListener(
+        "touchmove",
+        (event) => {
+          event.preventDefault();
+          onTouch(event);
+        },
+        { passive: false }
+      );
+      window.addEventListener(
+        "touchend",
+        (event) => {
+          event.preventDefault();
+          mouseDown = false;
+        },
+        { passive: false }
+      );
 
       function onMouseMove(event) {
-        // For an orthographic camera, convert screen coords to world coords.
         const x = event.clientX - window.innerWidth / 2;
         const y = -(event.clientY - window.innerHeight / 2);
         mouse.set(x, y);
       }
+      function onTouch(event) {
+        const touch = event.touches[0];
+        const x = touch.clientX - window.innerWidth / 2;
+        const y = -(touch.clientY - window.innerHeight / 2);
+        mouse.set(x, y);
+      }
 
+      window.addEventListener("resize", onWindowResize, false);
       function onWindowResize() {
         tableWidth = window.innerWidth;
         tableHeight = window.innerHeight;
@@ -173,17 +212,16 @@
       function animate() {
         requestAnimationFrame(animate);
 
-        // When the mouse is pressed, have the credit card follow the mouse.
+        // When the pointer is down, have the credit card follow the pointer.
         if (mouseDown) {
-          creditCard.position.x = mouse.x;
-          creditCard.position.y = mouse.y;
+          creditCard.position.set(mouse.x, mouse.y, 0);
         }
         // Compute the credit card's movement delta.
         cardDelta.set(
           creditCard.position.x - creditCardPrevPos.x,
           creditCard.position.y - creditCardPrevPos.y
         );
-        // Rotate the card to align with its movement direction.
+        // Rotate the card to align with its movement if there is sufficient movement.
         if (cardDelta.length() > 1) {
           creditCard.rotation.z = Math.atan2(cardDelta.y, cardDelta.x);
         }
@@ -196,10 +234,10 @@
           const px = positions[idx];
           const py = positions[idx + 1];
 
-          // Check if the particle lies under the credit card.
+          // Check if the particle lies within the credit card's area.
           const dx = px - creditCard.position.x;
           const dy = py - creditCard.position.y;
-          // Transform the particle into the card's local space.
+          // Transform particle into the credit card's local space.
           const cosTheta = Math.cos(-creditCard.rotation.z);
           const sinTheta = Math.sin(-creditCard.rotation.z);
           const localX = dx * cosTheta - dy * sinTheta;
@@ -209,25 +247,27 @@
             Math.abs(localX) < cardWidth / 2 &&
             Math.abs(localY) < cardHeight / 2
           ) {
-            // Apply an impulse based on the credit card's movement.
-            const impulseFactor = 0.01; // adjust to taste
+            // Apply a small impulse to push the particle based on the card's movement.
+            const impulseFactor = 0.09; // tweak this for stronger/weaker push
             particlesVelocities[idx] += cardDelta.x * impulseFactor;
             particlesVelocities[idx + 1] += cardDelta.y * impulseFactor;
           }
 
-          // Update particle positions.
+          // Update particle positions based on their velocities.
           positions[idx] += particlesVelocities[idx];
           positions[idx + 1] += particlesVelocities[idx + 1];
 
-          // Apply damping (simulate friction).
+          // Apply damping to simulate friction.
           const friction = 0.66;
           particlesVelocities[idx] *= friction;
           particlesVelocities[idx + 1] *= friction;
         }
+
         particlesGeometry.attributes.position.needsUpdate = true;
 
         renderer.render(scene, camera);
       }
+
       animate();
     </script>
   </body>
